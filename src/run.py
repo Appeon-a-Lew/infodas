@@ -9,12 +9,14 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from . import parse_gs, parse_gspp, report
+from .discriminator import make_discriminator
 from .judge import combine_matches, make_judge
 from .models import Match
 from .shortlist import Shortlister
+from . import visualize_graph
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_MANUAL_CSV = ROOT / "out" / "gspp_compliance_v2.csv"
+DEFAULT_MANUAL_CSV = ROOT / "out" / "gspp_compliance_v3approach.csv"
 _COVERAGE_SCORE = {"keine": 0, "teilweise": 1, "voll": 2}
 
 
@@ -155,6 +157,10 @@ def main(argv: list[str] | None = None) -> int:
             "when passed without a path, defaults to out/gspp_compliance_v2.csv"
         ),
     )
+    p.add_argument("--discriminator", action="store_true",
+                   help="enable LLM-based discriminator to filter/validate mappings")
+    p.add_argument("--discriminator-model", default="claude-sonnet-4-5",
+                   help="model to use for discriminator (default: claude-sonnet-4-5)")
     p.add_argument("--out-dir", default=str(ROOT / "out"))
     args = p.parse_args(argv)
 
@@ -209,6 +215,28 @@ def main(argv: list[str] | None = None) -> int:
         print(f"    → coverage={m.coverage} conf={m.confidence:.2f} gs={m.gs_candidates}", file=sys.stderr)
     model_label = "+".join(model_sources)
 
+    # Optional: run discriminator to filter/validate matches
+    discriminated_matches: list[tuple[Match, dict[str, tuple[str, str]]]] | None = None
+    if args.discriminator:
+        print(f"[i] running discriminator ({args.discriminator_model}) ...", file=sys.stderr)
+        discriminator = make_discriminator(args.discriminator_model)
+        discriminated_matches = []
+        for i, m in enumerate(matches, 1):
+            gspp_req = gspp_idx.get(m.gspp_id)
+            if not gspp_req:
+                continue
+            print(f"[{i}/{len(matches)}] discriminating {m.gspp_id} ...", file=sys.stderr)
+            try:
+                per_candidate = discriminator.decide(m, gspp_req, gs_idx)
+                discriminated_matches.append((m, per_candidate))
+                accepted_ids = [gid for gid, (dec, _) in per_candidate.items() if dec == "keep"]
+                denied_ids = [gid for gid, (dec, _) in per_candidate.items() if dec == "remove"]
+                print(f"    → accepted={accepted_ids} denied={denied_ids}", file=sys.stderr)
+            except Exception as e:
+                print(f"    → error: {e}", file=sys.stderr)
+                # Fall back: mark all candidates as error
+                discriminated_matches.append((m, {gid: ("error", str(e)) for gid in m.gs_candidates}))
+
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
     safe_model = _safe_model_label(model_sources)
     out_dir = Path(args.out_dir)
@@ -217,6 +245,46 @@ def main(argv: list[str] | None = None) -> int:
     report.write_csv(csv_path, matches, gspp_idx, gs_idx, model_label)
     report.write_markdown(md_path, matches, gspp_idx, gs_idx, model_label)
     print(f"[i] wrote {csv_path}\n[i] wrote {md_path}", file=sys.stderr)
+
+    # Write discriminated results if available
+    if discriminated_matches:
+        disc_csv_path = out_dir / f"discriminated_{safe_model}_{args.discriminator_model}_{ts}.csv"
+        report.write_discriminated_csv(
+            disc_csv_path,
+            discriminated_matches,
+            gspp_idx,
+            gs_idx,
+            args.discriminator_model,
+            model_label,
+        )
+        print(f"[i] wrote {disc_csv_path}", file=sys.stderr)
+        
+        # Print summary
+        accepted = sum(
+            1 for _, per_candidate in discriminated_matches
+            for dec, _ in per_candidate.values() if dec == "keep"
+        )
+        denied = sum(
+            1 for _, per_candidate in discriminated_matches
+            for dec, _ in per_candidate.values() if dec == "remove"
+        )
+        errors = sum(
+            1 for _, per_candidate in discriminated_matches
+            for dec, _ in per_candidate.values() if dec == "error"
+        )
+        print(f"[i] discriminator results: {accepted} accepted, {denied} denied, {errors} errors (per candidate)", file=sys.stderr)
+        
+        # Generate visualization for discriminated results
+        disc_viz_path = out_dir / f"discriminated_{safe_model}_{args.discriminator_model}_{ts}_graph.html"
+        visualize_graph.visualize_discriminated(
+            disc_viz_path,
+            discriminated_matches,
+            gspp_idx,
+            gs_idx,
+            title=f"GS++ → GS Mapping (Discriminated by {args.discriminator_model})",
+        )
+        print(f"[i] wrote {disc_viz_path}", file=sys.stderr)
+    
     return 0
 
 
