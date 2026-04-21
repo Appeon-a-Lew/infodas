@@ -120,7 +120,7 @@ def _build_node_payloads(
     gspp_texts: dict[str, str],
     gs_titles: dict[str, str],
     gs_texts: dict[str, str],
-  ) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, str]], dict[str, list[dict[str, str]]]]:
+    ) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, str]], dict[str, list[dict[str, str]]]]:
     left_payload: dict[str, dict[str, str]] = {}
     right_payload: dict[str, dict[str, str]] = {}
     edges_by_left: dict[str, list[dict[str, str]]] = {}
@@ -144,22 +144,22 @@ def _build_node_payloads(
             if rid in mapped_from and gspp_id and gspp_id not in mapped_from[rid]:
                 mapped_from[rid].append(gspp_id)
             if not gspp_id:
-              continue
+                continue
             edge_key = f"{gspp_id}|||{rid}"
             if edge_key in seen_edges:
-              continue
+                continue
             seen_edges.add(edge_key)
             edges_by_left.setdefault(gspp_id, []).append(
-              {
-                "edge_key": edge_key,
-                "gspp_id": gspp_id,
-                "gspp_title": (row.get("gspp_title") or "").strip(),
-                "gs_id": rid,
-                "gs_title": gs_titles.get(rid) or parsed_titles.get(rid) or right_titles_from_csv.get(rid, ""),
-                "coverage": (row.get("coverage") or "").strip(),
-                "confidence": (row.get("confidence") or "").strip(),
-                "source_text": gs_texts.get(rid, ""),
-              }
+                {
+                    "edge_key": edge_key,
+                    "gspp_id": gspp_id,
+                    "gspp_title": (row.get("gspp_title") or "").strip(),
+                    "gs_id": rid,
+                    "gs_title": gs_titles.get(rid) or parsed_titles.get(rid) or right_titles_from_csv.get(rid, ""),
+                    "coverage": (row.get("coverage") or "").strip(),
+                    "confidence": (row.get("confidence") or "").strip(),
+                    "source_text": gs_texts.get(rid, ""),
+                }
             )
 
     for node in left_nodes:
@@ -183,7 +183,7 @@ def _build_node_payloads(
             "source_text": gs_texts.get(node, ""),
         }
 
-        return left_payload, right_payload, edges_by_left
+    return left_payload, right_payload, edges_by_left
 
 
 def _json_for_script(data: dict[str, dict[str, str]]) -> str:

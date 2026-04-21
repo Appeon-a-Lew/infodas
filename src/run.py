@@ -14,6 +14,25 @@ from .models import Match
 from .shortlist import Shortlister
 
 ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_MANUAL_CSV = ROOT / "out" / "gspp_compliance_v2.csv"
+_COVERAGE_SCORE = {"keine": 0, "teilweise": 1, "voll": 2}
+
+
+def _normalize_coverage(raw: str | None) -> str:
+    value = (raw or "").strip().lower()
+    mapping = {
+        "voll": "voll",
+        "vollstandig": "voll",
+        "vollstaendig": "voll",
+        "vollständig": "voll",
+        "teilweise": "teilweise",
+        "partiell": "teilweise",
+        "keine": "keine",
+        "n/a": "keine",
+        "na": "keine",
+        "": "keine",
+    }
+    return mapping.get(value, "keine")
 
 
 def _parse_models(raw_models: list[str] | str) -> list[str]:
@@ -46,21 +65,68 @@ def _parse_manual_match(row: dict[str, str]) -> Match:
         gspp_id=(row.get("gspp_id") or "").strip(),
         gs_candidates=gs_ids,
         confidence=float(row.get("confidence") or 0.0),
-        coverage=((row.get("coverage") or "keine").strip() or "keine"),
+        coverage=_normalize_coverage(row.get("coverage")),
         rationale=rationale,
         gap_notes=gap_notes,
     )
 
 
+def _merge_manual_match(existing: Match, incoming: Match) -> Match:
+    merged_ids = list(existing.gs_candidates)
+    seen_ids = set(merged_ids)
+    for gs_id in incoming.gs_candidates:
+        if gs_id not in seen_ids:
+            merged_ids.append(gs_id)
+            seen_ids.add(gs_id)
+
+    merged_coverage = (
+        incoming.coverage
+        if _COVERAGE_SCORE.get(incoming.coverage, 0) > _COVERAGE_SCORE.get(existing.coverage, 0)
+        else existing.coverage
+    )
+    merged_confidence = max(existing.confidence, incoming.confidence)
+
+    merged_rationale = existing.rationale
+    if incoming.rationale and incoming.rationale not in merged_rationale:
+        merged_rationale = (
+            f"{existing.rationale}\n{incoming.rationale}".strip()
+            if existing.rationale
+            else incoming.rationale
+        )
+
+    merged_gap_notes = existing.gap_notes
+    if incoming.gap_notes and incoming.gap_notes != existing.gap_notes:
+        merged_gap_notes = (
+            f"{existing.gap_notes}\n{incoming.gap_notes}".strip()
+            if existing.gap_notes
+            else incoming.gap_notes
+        )
+
+    return Match(
+        gspp_id=existing.gspp_id,
+        gs_candidates=merged_ids,
+        confidence=merged_confidence,
+        coverage=merged_coverage,
+        rationale=merged_rationale,
+        gap_notes=merged_gap_notes,
+    )
+
+
 def _load_manual_matches(csv_path: Path, allowed_ids: set[str]) -> dict[str, Match]:
     matches: dict[str, Match] = {}
-    with csv_path.open("r", encoding="utf-8", newline="") as handle:
+    # utf-8-sig tolerates BOM-prefixed CSV exports (e.g. from Excel)
+    # so the first header is parsed as "gspp_id" instead of "\ufeffgspp_id".
+    with csv_path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         for row in reader:
             gspp_id = (row.get("gspp_id") or "").strip()
             if not gspp_id or gspp_id not in allowed_ids:
                 continue
-            matches[gspp_id] = _parse_manual_match(row)
+            current = _parse_manual_match(row)
+            if gspp_id in matches:
+                matches[gspp_id] = _merge_manual_match(matches[gspp_id], current)
+            else:
+                matches[gspp_id] = current
     return matches
 
 
@@ -79,8 +145,16 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--gs-levels", default="Basis,Standard",
                    help="comma-separated levels from GS to consider")
     p.add_argument("--limit", type=int, default=0, help="limit number of GS++ controls (0=all)")
-    p.add_argument("--manual-csv", default=str(ROOT / "out" / "gspp_compliance_v2.csv"),
-                   help="optional CSV with additional manual mappings to add after the model run")
+    p.add_argument(
+        "--manual-csv",
+        nargs="?",
+        const=str(DEFAULT_MANUAL_CSV),
+        default=str(DEFAULT_MANUAL_CSV),
+        help=(
+            "optional CSV with additional manual mappings to add after the model run; "
+            "when passed without a path, defaults to out/gspp_compliance_v2.csv"
+        ),
+    )
     p.add_argument("--out-dir", default=str(ROOT / "out"))
     args = p.parse_args(argv)
 
