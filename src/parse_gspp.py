@@ -3,6 +3,9 @@ from __future__ import annotations
 import json
 import math
 import random
+
+from collections import defaultdict
+
 from pathlib import Path
 
 from .models import Requirement
@@ -41,6 +44,26 @@ def _tiered_sample_size(category_size: int) -> int:
         return max(1, math.ceil(category_size * 0.10))
     return max(1, math.ceil(category_size * 0.20))
 
+def _pool_size(n: int) -> int:
+    """Return the sample size for a control family of size n."""
+    if n < 10:
+        return min(3, n)
+    elif n < 50:
+        return max(1, math.ceil(n * 0.20))
+    else:
+        return max(1, math.ceil(n * 0.10))
+
+
+def _control_family(cid: str) -> str:
+    """
+    Derive the control family from a control ID.
+    E.g. 'GC.AC-1.2' → 'GC.AC', 'GC.SC-28' → 'GC.SC'
+    Falls back to the full ID if no '-' separator is found.
+    """
+    parts = cid.split("-", 1)
+    return parts[0]
+
+
 
 def parse(
     json_path: Path | str,
@@ -52,7 +75,8 @@ def parse(
     collected: list[tuple[dict, list[str]]] = []
     _walk(catalog, [], collected)
 
-    out: list[Requirement] = []
+    # Build full list of in-scope requirements first
+    all_reqs: list[Requirement] = []
     for ctrl, parents in collected:
         cid = ctrl.get("id", "")
         if not cid.startswith(scope_prefix):
@@ -61,7 +85,7 @@ def parse(
         if not prose:
             continue
         context = " / ".join(p for p in parents if p)
-        out.append(
+        all_reqs.append(
             Requirement(
                 id=cid,
                 title=ctrl.get("title", ""),
