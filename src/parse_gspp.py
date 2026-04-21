@@ -39,10 +39,13 @@ def _sec_level(ctrl: dict) -> str | None:
 
 def _tiered_sample_size(category_size: int) -> int:
     if category_size < 10:
-        return min(3, category_size)
+        #return min(3, category_size)
+        return min(1, category_size)
     if category_size > 50:
-        return max(1, math.ceil(category_size * 0.10))
-    return max(1, math.ceil(category_size * 0.20))
+        #return max(1, math.ceil(category_size * 0.10))
+        return min(1, category_size)
+    #return max(1, math.ceil(category_size * 0.20))
+    return min(1, category_size)
 
 def _pool_size(n: int) -> int:
     """Return the sample size for a control family of size n."""
@@ -99,7 +102,7 @@ def parse(
     if 0 < sample_ratio_per_category < 1:
         rng = random.Random(random_seed)
         by_category: dict[str, list[Requirement]] = {}
-        for req in out:
+        for req in all_reqs:
             category = req.id.split(".", 1)[0]
             by_category.setdefault(category, []).append(req)
 
@@ -108,9 +111,9 @@ def parse(
             bucket = by_category[category]
             k = _tiered_sample_size(len(bucket))
             sampled.extend(rng.sample(bucket, k=k))
-        out = sampled
+        all_reqs = sampled
 
-    return out
+    return all_reqs
 
 
 if __name__ == "__main__":

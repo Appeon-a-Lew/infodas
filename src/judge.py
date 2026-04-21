@@ -4,6 +4,7 @@ import json
 import os
 import time
 from abc import ABC, abstractmethod
+from collections import defaultdict
 
 from .models import Match, Requirement
 
@@ -147,6 +148,80 @@ class OpenAIJudge(Judge):
         raise RuntimeError("unreachable")
 
 
+class CombinedJudge(Judge):
+    def __init__(self, judges: list[Judge]) -> None:
+        if not judges:
+            raise ValueError("CombinedJudge requires at least one model")
+        self.judges = judges
+        self.model = "+".join(judge.model for judge in judges)
+
+    def classify(self, gspp: Requirement, candidates: list[Requirement]) -> Match:
+        parts = [judge.classify(gspp, candidates) for judge in self.judges]
+        return combine_matches(parts, [judge.model for judge in self.judges])
+
+
+def combine_matches(matches: list[Match], model_names: list[str]) -> Match:
+    if not matches:
+        raise ValueError("combine_matches requires at least one match")
+    if len(matches) != len(model_names):
+        raise ValueError("combine_matches requires equally many matches and model names")
+
+    gspp_id = matches[0].gspp_id
+    source_count = len(matches)
+    candidate_scores: dict[str, float] = defaultdict(float)
+    rationales: list[str] = []
+    source_summaries: list[str] = []
+    gap_notes: list[str] = []
+    coverage_score = 0
+
+    for match, model_name in zip(matches, model_names, strict=True):
+        if match.gspp_id != gspp_id:
+            raise ValueError("cannot combine matches from different GS++ requirements")
+        coverage_score += {"keine": 0, "teilweise": 1, "voll": 2}.get(match.coverage, 0)
+        selected_ids = ";".join(match.gs_candidates)
+        source_summaries.append(
+            f"[{model_name}] coverage={match.coverage} confidence={match.confidence:.4f} gs_ids={selected_ids}"
+        )
+        for gs_id in match.gs_candidates:
+            candidate_scores[gs_id] += match.confidence
+        if match.rationale:
+            rationales.append(f"[{model_name}] {match.rationale}")
+        if match.gap_notes:
+            gap_notes.append(f"[{model_name}] {match.gap_notes}")
+
+    gs_candidates = [
+        gs_id for gs_id, _ in sorted(candidate_scores.items(), key=lambda item: (-item[1], item[0]))
+    ]
+    if gs_candidates:
+        coverage = "voll" if coverage_score == 2 * len(matches) else "teilweise"
+        confidence = max(candidate_scores.values()) / source_count
+        score_summary = ", ".join(
+            f"{gs_id}={candidate_scores[gs_id] / source_count:.2f}" for gs_id in gs_candidates
+        )
+        rationale_header = f"Gemittelte Kandidatenscores: {score_summary}"
+    else:
+        coverage = "keine"
+        confidence = sum(match.confidence for match in matches) / source_count
+        rationale_header = "Kein GS-Kandidat wurde von den kombinierten Modellen ausgewählt."
+
+    rationale = "\n".join([
+        rationale_header,
+        "Model-Entscheidungen:",
+        *source_summaries,
+        "Model-Begründungen:",
+        *rationales,
+    ]).strip()
+    combined_gap_notes = "\n".join(gap_notes).strip() or None
+    return Match(
+        gspp_id=gspp_id,
+        gs_candidates=gs_candidates,
+        confidence=confidence,
+        coverage=coverage,
+        rationale=rationale,
+        gap_notes=combined_gap_notes,
+    )
+
+
 def make_judge(model: str) -> Judge:
     m = model.lower()
     if m.startswith("claude") or m.startswith("anthropic"):
@@ -154,3 +229,10 @@ def make_judge(model: str) -> Judge:
     if m.startswith("gpt") or m.startswith("o1") or m.startswith("o3") or m.startswith("o4") or m.startswith("openai"):
         return OpenAIJudge(model=model)
     raise ValueError(f"Unknown model family for: {model}")
+
+
+def make_combined_judge(models: list[str]) -> Judge:
+    judges = [make_judge(model) for model in models]
+    if len(judges) == 1:
+        return judges[0]
+    return CombinedJudge(judges)
