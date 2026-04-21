@@ -39,13 +39,10 @@ def _sec_level(ctrl: dict) -> str | None:
 
 def _tiered_sample_size(category_size: int) -> int:
     if category_size < 10:
-        #return min(3, category_size)
-        return min(1, category_size)
+        return min(3, category_size)
     if category_size > 50:
-        #return max(1, math.ceil(category_size * 0.10))
-        return min(1, category_size)
-    #return max(1, math.ceil(category_size * 0.20))
-    return min(1, category_size)
+        return max(1, math.ceil(category_size * 0.10))
+    return max(1, math.ceil(category_size * 0.20))
 
 def _pool_size(n: int) -> int:
     """Return the sample size for a control family of size n."""
