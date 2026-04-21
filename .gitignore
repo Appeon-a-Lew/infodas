@@ -5,6 +5,5 @@ __pycache__/
 data/*.json
 data/*.xml
 data/*.zip
-out/
 .pytest_cache/
 *.egg-info/
