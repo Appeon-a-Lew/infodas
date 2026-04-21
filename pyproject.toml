@@ -1,0 +1,20 @@
+[project]
+name = "isms-gspp-mapping"
+version = "0.1.0"
+description = "Map BSI Grundschutz++ controls onto classic IT-Grundschutz for gap analysis"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31",
+    "scikit-learn>=1.4",
+    "anthropic>=0.40",
+    "openai>=1.50",
+    "python-dotenv>=1.0",
+    "lxml>=5.0",
+]
+
+[project.scripts]
+isms-map = "src.run:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
