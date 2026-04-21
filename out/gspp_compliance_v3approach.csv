@@ -1,0 +1,982 @@
+﻿gspp_id,gspp_title,gspp_level,coverage,confidence,gs_ids,gs_titles,rationale,gap_notes,model,timestamp
+GC.8.1.1,Festlegung von Rollen und Zuständigkeiten,normal-SdT,teilweise,0.6798,ISMS.1.A4; ISMS.1.A6; ISMS.1.A9; ISMS.1.A1; IND.1.A1,ISMS.1.A4 Benennung eines Informationssicherheitsbeauftragten; ISMS.1.A6 Aufbau einer geeigneten Organisationsstruktur für Informationssicherheit; ISMS.1.A9 Integration der Informationssicherheit in organisationsweite Abläufe und Prozesse; ISMS.1.A1 übernahme der Gesamtverantwortung für Informationssicherheit durch die Leitungsebene; IND.1.A1 Einbindung in die Sicherheitsorganisation,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.8.1.4,Festlegung einer Sicherheitsorganisation,normal-SdT,teilweise,0.6926,ISMS.1.A6; IND.1.A1; ISMS.1.A9; ISMS.1.A2,ISMS.1.A6 Aufbau einer geeigneten Organisationsstruktur für Informationssicherheit; IND.1.A1 Einbindung in die Sicherheitsorganisation; ISMS.1.A9 Integration der Informationssicherheit in organisationsweite Abläufe und Prozesse; ISMS.1.A2 Festlegung der Sicherheitsziele und -strategie,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BER.3.9,Anmeldeversuchsgrenze am System,normal-SdT,teilweise,0.6786,APP.3.1.A1; OPS.1.1.2.A6; SYS.2.1.A37,APP.3.1.A1 Authentisierung bei Webanwendungen; OPS.1.1.2.A6 Schutz administrativer Kennungen; SYS.2.1.A37 Schutz vor unbefugten Anmeldungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1,Protokollierung sicherheitsrelevanter Ereignisse,normal-SdT,teilweise,0.6942,APP.3.1.A5; DER.1.A11; DER.1.A6; DER.2.1.A17; APP.4.3.A8,APP.3.1.A5 Protokollierung sicherheitsrelevanter Ereignisse von Webanwendungen; DER.1.A11 Nutzung einer zentralen Protokollierungsinfrastruktur für die Auswertung sicherheitsrelevanter Ereignisse; DER.1.A6 Kontinuierliche überwachung und Auswertung von Protokolldaten; DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen; APP.4.3.A8 Datenbank-Protokollierung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.3,Host-basierte Angriffserkennung,erhöht,teilweise,0.6566,SYS.1.1.A27,SYS.1.1.A27 Hostbasierte Angriffserkennung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.11,Physische Segmentierung,erhöht,teilweise,0.6711,NET.1.1.A31; NET.1.1.A23; NET.1.1.A33; NET.1.1.A22,NET.1.1.A31 Physische Trennung von Sicherheitssegmenten; NET.1.1.A23 Trennung von Sicherheitssegmenten; NET.1.1.A33 Mikrosegmentierung des Netzes; NET.1.1.A22 Spezifikation des Segmentierungskonzepts,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.8.3,Redundante Server,erhöht,teilweise,0.6748,APP.3.2.A15; SYS.1.2.2.A12; SYS.1.1.A28,APP.3.2.A15 Redundanz; SYS.1.2.2.A12 Redundanz und Hochverfügbarkeit; SYS.1.1.A28 Redundanz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.1.3,Redundante Stromversorgung,erhöht,teilweise,0.7445,INF.2.A25; INF.2.A3,INF.2.A25 Redundante Auslegung von unterbrechungsfreien Stromversorgungen; INF.2.A3 Einsatz einer unterbrechungsfreien Stromversorgung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.1.1.1,Dokumentation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.1.2,Regelmäßige Überprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.2,Gastnetz,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.8,Segmentierung von Test und Betrieb,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.9,Segmentierung von IPv4 und IPv6,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.10,Drucker-Netz,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.12,Sprungserver,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.4,Inventar der Netze,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.6,Topologieüberwachung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.3.1,Netzabdeckung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.3.2,Einschränkung in Sicherheitsbereichen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.3.3,SSIDs,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.4.1.1,Dynamische Netzzugangskontrolle,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.4.1.2,Quarantäne,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.1,Blockieren anfälliger Netzprotokolle,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.2,Netzbasierte Angriffe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.3,TCP-basierte Angriffe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.4,UDP-basierte Angriffe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.7,Edge-Routing,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.9,Filterung von DNS,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.10,Webfilterung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.11,P-A-P-Struktur,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.12,Software-definierte Verbindungen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.13,Produktdiversität,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.2,Blockieren direkter öffentlicher Verbindungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.6.1,Kontrollierte Verbindungsführung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.7.1,Dedizierte Hostsysteme für Server,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.7.2,Dedizierte Hardware,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.7.3,Entwicklungs- und Testumgebungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.8.1,Redundanz im Kernnetz,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.9.1,Dimensionierung der Netzanbindung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.9.2,Lastverteilung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.9.3,Automatische Skalierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.9.4,Content Delivery Network,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.9.5,Schutz gegen volumetrische DoS-Angriffe,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ASST.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.2.1,Inventar der Informationen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.2.1.1,Informationsverantwortung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.2.2,Inventar der Systeme,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.2.2.1,Aufdecken unautorisierter IT-Systeme,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.2.3,Inventar der Anwendungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.2.3.2,Software Bill of Materials (SBOM),normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.2.4,Klassifizierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.1,Nutzungsvereinbarungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.1.1,Weitergabe nur bei Erforderlichkeit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.2,Entfernung nicht erforderlicher Rest- oder Zusatzdaten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.3,Kennzeichnung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.4,Kennzeichnung ohne vertrauliche Daten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.5,Tainting,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.6,Verifikation,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.7,Pseudonymisierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.8,Anonymisierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.9,Aktualisierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.10,Autorisierung von Datenlokationen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.11.1,Autorisierung von Peripheriegeräten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.13,Lagerung physischer Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.14,Reserve physischer Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.15,Ausleihe physischer Assets,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.4.1,Autorisierung von Schnittstellen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.4.2,Vertraulichkeit und Integrität beim Transport,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.4.3,Autorisierung von Veröffentlichungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.4.4,Nachweis des Zugangs,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.4.5,Vereinbarungen zum Austausch,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.5.1,Wartungsbedarf dokumentieren,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.5.2,Geregelte Wartungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.5.5,Wartungsfenster,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.6.1,Abhandenkommen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.6.2,Rückkehr abhandengekommener Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.6.3,Konformitätsprüfung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.6.4,Zurücksetzen auf Ausgangszustand,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.1,Nicht mehr benötigte Anwendungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.4,Wiederherstelltest,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.6,Autorisierung von Veräußerungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.7,Beschriftungen entfernen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BER.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.1.3,Inventar Authentifizierungs- und Autorisierungssysteme,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.2.1,Person-Identität,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.2.2,Einschränkung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.2.3,Stammdatenprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.2.4,Protokollierung von Stammdatenänderungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.2.5,Deaktivierung bei Weggang,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.2.6,Löschen nach Fristablauf,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.2,Einschränkung des Managements,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.4,Identität-Zugangskonto,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.10,Anmeldeversuchsgrenze an der Anwendung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.12,Sperre der Anwendung bei Inaktivität,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.13,Zugang löschen nach Fristablauf,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.14,Zugang nur durch zwei Personen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.15,Keine Gruppenkonten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.17,Gruppenkonten - Wechsel dokumentieren,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.18,Gruppenkonten - Passwortwechsel bei Weggang,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.20,Dienstekonten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.21,Notfallzugang,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.1.2,JIT‑/JEA‑Berechtigungen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.4,Kompromittierte Berechtigungsmittel,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.5,Systemfunktionen ohne Authentifizierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.7,IT-System-Zugangskonto,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.2,Vorkonfigurierte Authentisierungsmittel,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.3,Deaktivierung einfacher Biometrie,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.6,Blockieren von Passwort Recycling,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.7,Trivialpasswörter,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.8,Kriterien für die Qualität von Passwörtern,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.9,Anlassbezogene Passwortwechsel,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.10,Monitoring von Zugangsdaten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.2,Schlüssellänge,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.3,Verzeichnis öffentlicher Schlüssel,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.5,Kriterien für die Qualität von Zufallszahlen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.6,Etablierte Algorithmen beim Transport,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.7,Kein Transport privater Schlüssel,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.8,Etablierte Algorithmen bei der Schlüsselnutzung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.9,Zweckbindung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.12,Authentizität,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.16,Vorgaben für die Schlüsselbeglaubigung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.16.1,Zertifizierungsstelle,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.16.2,Beglaubigung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.16.3,Erneuerung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.16.4,Revocation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.16.5,Beglaubigungsstatus,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.16.6,Revocationstatus,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.2,Regelmäßige Überprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.3,Lieferanten- und Dienstleisterverzeichnis,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.3.1,Gesamte Lieferkette,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.5,Autorisierung des Bereitstellungsmodells,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.6,Dokumentation des Bereitstellungsmodells,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.7,Vereinbarung der geteilten Verantwortung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.1,Erfassung des Bedarfes,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.1.1,Verwendungszweck,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.1.2,Geschäftsprozessprofile,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.1.3,Systemvoraussetzungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.1.4,Kompatibilität,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.1.5,Lizenzierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.1.6,Support- und Wartungsverträge,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.2,Dokumentation des Rechtsraums und der Datenlokation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.3,Vereinbarung des Rechtsraums und der Datenlokation,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.4,Anhörung Nutzender,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.5,Anhörung Adminstrierender,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.3.1,Klassifizierung von Lieferantenbeziehungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.3.2,Auswahlkriterien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.3.2.1,Zertifizierte Lieferanten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.3.2.2,Quellendiversifikation,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.3.3,Unzuverlässige Lieferanten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.1,Klassifizierung von Beschaffungsvorhaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.2,Dokumentation der Beschaffungskriterien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.3,Beschaffung anhand der Kriterien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.5,Security by Design,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.5.1,Entwicklung nach einem Sicherheitslebenszyklus,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.5.2,Mandantentrennung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.6,Security by Default,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.6.1,Authentifizierung des Kunden,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.6.3,Manipulationsschutz,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.7,ISMS beim Dienstleister,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.8,Konformitätsnachweise,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.8.1,Zertifizierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.8.4,Offenlegung der Risikoanalyse,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.9,Sicherheitsüberprüfung (extern),erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.1,Kompetenzen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.2,Service Level Agreement,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.3,Compliance-Verpflichtungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.4,Informationssicherheitskontrollmechanismen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.5,Nutzungsregelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.5.1,Datenlokationen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.6,Vergabe von Unteraufträgen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.6.1,Weitergabe der Beschaffungskriterien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.6.2,Autorisierung von Unterauftragnehmern,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.6.3,Nachverfolgbarkeit der Lieferkette,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.7,Schulung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.8,Rechte für geistges Eigentum,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.9.1,Autorisierung von Änderungen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.10,Behandlung von Vorfällen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.10.1,Erreichbarkeit über Meldewege,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.10.2,Melden von Vorfällen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.10.3,Schwachstellenbehebung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.10.4,Konfliktlösungsprozesse,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.10.5,Konsequenzen bei Verstößen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.11,Recht auf Audit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.12,Informationspflichten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.13,Bereitstellung von Datensicherungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.14,Löschregeln,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.6.1,Entziehung der Zugangsberechtigungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.6.2,Löschung von Daten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.6.2.1,Löschverfahren,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.6.3,Übertragbarkeit von Daten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.6.4,Übertragung von Supportdienstleistungen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.6.5,Behandlung aufzubewahrender Aufzeichnungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.6.6,Rückgewähr von Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.1.2,Netzcheck,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.3,Anhörung Prozessbeteiligter,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4,Vollständigkeit der Unterlagen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.1,Beschreibung der Sicherheitsarchitektur,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.2,Beschreibung von Sicherheitsmechanismen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.3,Empfohlene Konfiguration,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.4,Dokumentation der Komponenten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.5,Netzverbindungen ab Werk,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.6,Shared Responsibility,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.7,Organisatorische Schnittstellen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.8,Technische Schnittstellen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.9,Auslagerungsregister,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.11,Dokumentierte Mandantentrennung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.12,Software Bill of Materials (SBOM) - Cloud,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.8.1,Bereithaltung alternativer Lieferanten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.8.2,Verfahren zur Übertragung von Geschäftsprozessen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.8.3,Ressourcensouveränität,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.8.4,Individuelle Implementierung kritischer Komponenten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.8.5,Treuhand,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.2.1,Meldeverfahren,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.2.1.1,Sofortmaßnahmen Nutzender,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.2.1.2,Meldeformulare,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.2.1.3,Rückmeldungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.2.2,Security Operations Center,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.2.3,Ständiger Bereitschaftsdienst,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.2,Ausgeführte Kommandozeilenbefehle,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.3,Anbindung von Peripheriegeräten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.4,Systemfehler,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.5,Störungen der Netzerreichbarkeit,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.6,Systemspezifische Ereignisse,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.7,"Was, Wann, Wo",normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.8,Privilegierte Ereignisse,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.10,Nutzungsstatistik,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.13,Integration von Cloud-Diensten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.2,Filterung nicht benötigter Inhalte,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.5,Unbestreitbarkeit,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.4,Änderungen an Sicherheitsrichtlinien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.5,Unerwünschte Datenabflüsse,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.6,Anomale Nutzung der Anwendung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.6.1,Verhaltensanalyse von Zugangskonten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.7,Auslaufen von Domains,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.8,Ausstellung neuer HTTPS-Zertifikate,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.9,Manipulations-Checkup,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.10,Host-basierte Köder,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.11,Anomalien in Netzen und am Perimeter,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.11.1,Authentifizierungsversuche an externen Schnittstellen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.11.2,Netzwerk-Honeypots,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.11.3,Netzverkehrsfluss,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.12,Monitoring der Netzverfügbarkeit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.12.1,Auslastung des Netzes,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.13,Verfügbarkeit des Hostsystems,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.14,Verfügbarkeit der Anwendung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.15,Ressourcenauslastung von Hostsystemen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.16,Ressourcenauslastung der Server-Dienste,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.17,Anwendungsbasiertes Kapazitätsmanagement,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.18,Öffentliche Blocklisten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.19,Unautorisierte Sendeanlagen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.1,Zeitnahes Schwachstellenmanagement,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.1.1,Risikobasierte Priorisierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.2,Schwachstellenregister,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.3,Schwachstellenscans,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.3.1,Autorisierung kritischer Scans,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.3.2,Korrelation komplexer Angriffswege,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.3.3,Historische Analyse,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.4,Regelmäßige Penetrationstests,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.5,Red Teaming,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.6,Threat Hunting,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.7,Analyse verdeckter Kanäle,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.8,Bedrohungsanalyse,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.8.1,Auswertung öffentlicher Quellen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.9,Externe Schwachstellenmeldungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.9.1,Bonusprogramm,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.10.1,Autorisierte Bezugsquellen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.6.1.3,Dokumentation von Ergebnissen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.6.2,Beurteilung  von Eingängen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.6.2.1,Dynamische Sandbox-Analyse,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.6.2.2,Datenträgerschleuse,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.1.1.1,Dokumentation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.2.1,Security by Design Architektur,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.2.2,Dokumentation der (Software-)Architektur,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.2.3,Ausführbarkeit mit minimalen Rechten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.2.4,Einschränkung Zugriffs auf Quellcode,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.2.5,Einschränkung des Zugriffs auf Zugangsdaten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.2.6,Widerstandsfähigkeit gegen gängige Angriffsmuster,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.2.6.1,Eingabevalidierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.2.6.2,Ausgabekodierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.3.1,Replay-Angriffe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.3.2,Routinen zur Fehlerbehandlung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.3.4,Passwort-Hashing,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.1,Nutzerinformation bei kritischen Ereignissen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.2,Bibliotheksquellen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.3,Softwarebestandteile (SBOM),normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.4,Integrität externer Softwarebibliotheken,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.5,Updates externer Softwarebibliotheken,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.6,Compileroptionen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.7,Deterministischer Binärcode,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.8,Default-Zugangsdaten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.9,"Voreinstellungen nach dem Prinzip ""Security by Default""",normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.10,Protokollierung von Codeänderungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.4.11,Test bei Änderungen am Quellcode,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.5.3,Integritätsprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.7.1,Sichere Bereitstellung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.7.2,Zertifikatsmonitoring,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.1.2,Regelmäßige Überprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.2.1,Mehr-Faktor-Authentifizierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.2.3,Vollverschlüsselung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.3.1,Einhaltung der Sicherheitsvorgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.3.3,Strategie-Check,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.3.4,Anhörung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.3.5,Blockierung unzuverlässiger Dienstleister,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.3.6,Portabilität,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.4.1,Dekomissionierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.4.1.1,Unabhängigkeit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.4.1.2,Berechtigungen deaktivieren,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GC.2.1,Festlegung des externen Kontextes der Institution,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.2.2,Festlegung des internen Kontextes der Institution,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.3.1,Analyse der externen interessierten Parteien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.3.2,Analyse der internen interessierten Parteien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.4.1,Festlegung des Geltungsbereichs,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.5.1,Vorgehen bei der Infomationssicherheitseinstufung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.5.1.1,Festlegung der Geschäftsprozesse,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.5.1.2,Festlegung des Schutzbedarfs,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.5.1.3,Geschäftsprozesse mit hohem Schutzbedarf,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.6.1.4,Freigabe der Sicherheitsleitlinie,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.7.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.7.1.1,Gesetzliche Verpflichtungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.7.1.2,Anhörung zuständiger Stellen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.7.1.3,Vertragliche Verpflichtungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.7.1.4,Prävention von Verstößen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.8.1,Verfahren zur Ressourcenplanung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.8.1.2,Stellvertreterregelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.8.1.5,Sicherstellung der Qualifikation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.9.1,Festlegung eines Verfahrens zum Kommunikationsmanagement,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.9.1.1,Externer Austausch zur Informationssicherheit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.9.1.2,Kommunikation im Projektmanagement,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.10.2,Freigabe von Vorgehensweisen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.11.1,Methodik für das Risikomanagement,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GEB.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.1.1.1,Dokumentation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.1.2,Regelmäßige Überprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.1.3,Autorisierung von Standorten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.1.3.1,Abnahme von Standorten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.1.4,Exponierte Bereiche,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.1.5,Strukturpläne,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.2.1,Installation von Perimetern,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.2.2,Dokumentation öffentlicher Bereiche,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.2.3,Erkundung aus dem öffentlichen Raum,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.2.4,Elektromagnetische Abschirmung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.1,Überwachung von Zutrittspunkten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.1.2,Überprüfung mitgeführter Gegenstände,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.3,Authentifizierung vor Zutritt,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.3.2,Dokumentation von Zutritten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.3.3,Besucheranmeldung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.4,Berechtigungsmarkierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.5,Einbruchhemmung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.4.3,Schleusen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.4.4,Vereinzelungsanlage,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.5.2,Screen Lock,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.5.3,Lieferzugang,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.5.4,Schutz gegen Manipulation,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.5.5,Physische Mikrosegmentierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.6.1,Zugang zu Ausgabesystemen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.6.2.1,Hostsysteme,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.6.3,Netzkomponenten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.7.2,Verwahrung von Schlüsseln,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.7.3,Schlüsselaudit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.8.1.1,Archiv,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.8.2,Staub und Schmutz,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.1,Normgerechte Stromversorgung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.1.1,Vorausschauende Lastanalyse,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.1.2,Dedizierte Elektrounterverteilung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.2,Lasttest,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.3,Notaus,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.5.1,Physisch geschützte Verlegung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.6,Zugang zu Räumen für technische Infrastruktur,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.7,Zweckentfremdung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.1.3,Redundante Klimatisierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2,Brandschutz,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2.1,Baulicher Brandschutz,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2.3,Rauchdichtheit,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2.4,Brandwiderstandsklassen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2.5,Vermeidung von Brandlasten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2.7,Brandunterdrückung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2.8,Brandschutzprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.3,Wasserschutz,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.3.1,Doppelter baulicher Wasserschutz,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.3.2,Leckagesensor,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.4.1,Niederohmigkeit,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.5,Ableitfähiger Fußbodenbelag,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.1.5,Verschlüsselung von Konfigurationsgeheimnissen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.1.1,Versionierung der Systemkonfiguration,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.2,Kryptographische Verfahren in IT-Systemen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.4.1,Nicht benötigte Zertifikate,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.4.2,Externe Cloud-Anbindungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.5,Überprüfung der Konfiguration,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.5.1,Automatische Konfigurationsverwaltung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.6,Souveräne Werkzeuge,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.7,Alternative Administrationszugänge,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.1,Kryptographischer Hardwarespeicher,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.4,Physischer Diebstahlschutz,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.5,Standortbestimmung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.6,Fernlöschung oder -sperre,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.6.1,Automatische Fernlöschung oder -sperre,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.7,Einschränkung angeschlossener Peripherie,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.8,Einschränkung von Wechselmedien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.4.1.1,Weiterleitung von Anmeldeinformationen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.4.2,DNS-Anbindung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.4.2.1,DNS-Verschlüsselung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.5.1.1,Authentifizierung an der Firmware,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.5.1.2,Pre-Boot-Authentifizierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.5.2,Keine Mehrfachanmeldung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.1.1,Datenkapselung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.1.3,Isolierte Arbeitsumgebungen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.2,Gemeinsam genutzte Verzeichnisse,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.3,Kiosk-Modus,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.4,Privilegierte Systemfunktionen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.5,Dynamische Zugriffskontrolle im System,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.6,Getrennte Datenhaltung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.6.1,Mandantenfähigkeit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.10,Auflistung von Verzeichnisinhalten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.12,Konferenzmoderation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.13,Dynamische Zugriffskontrolle in der Anwendung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.15,Virtualisierte Browser-Umgebung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.1,Echtzeitscanner,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.2,Regelmäßige Scans,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.4,Angriffserkennung anhand von Netzverkehr,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.7,Regelmäßiger Funktionstest,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.9,Einschränkung der Installation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.10,Einschränkung der Ausführung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.11,Einschränkung von Softwarebibliotheken,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.12,Einschränkung von Skripten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.13,Einschränkung von Systemaufrufen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.14,Code-Signierung im Betriebssystemkern,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.16,Anti-Exploit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.16.1,Anti-Exploit für den Arbeitsspeicher,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.9.1,Speicherplatzbegrenzung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.9.2,Begrenzung der Rechenleistung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.9.3,Alternative Komponenten für kritische Funktionen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.10.1,Grundkonfiguration für Anwendungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.10.1.1,Versionierung der Anwendungskonfiguration,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.10.2,Kryptographische Verfahren in Anwendungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.10.5,Überprüfung der Konfiguration,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.10.5.1,Automatisierte Überprüfung der Konfiguration,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.1.1,Authentifizierung von geplanten Konversationen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.2,Warteraum,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.4,Veröffentlichung von Domain-Infomationen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.5,Erraten von Zugriffslinks,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.6,Einschränkung unauthentifizierter Anschlüsse,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.7,Übersicht angemeldeter Verbindungen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.8.2,Einschränkung von TK-Verbindungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.9,Verschlüsselung schützenswerter Daten (at-rest),erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.2,Content Security Policy (CSP),normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.3,Same-Origin-Policy,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.4,Subresource Integrity-Prüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.5,HTTP Strict Transport Security (HSTS),normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.6,JavaScript,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.8,Duplikate im Verzeichnisbaum,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.9,Journaling,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.10,HTTP-Response-Header,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.11,Aktive Dateiinhalte,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.2,Verschlüsselungsstatus der aktuellen Verbindung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.3,Cookies,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.5,Auto-Vervollständigung von Daten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.6,Browser-Historie,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.8,Teilnahme per Default ohne Bild und Ton,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.9,Information über Aufzeichnung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.10,Cookie-Attribute,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.11,Anonyme oder Pseudonyme Kommunikation,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.13,Sendebericht,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.14,DNS-Falschinformationen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.1,Filtern schädlicher Nachrichten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.2,Authentizität von Nachrichten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.2.1,Verifikation der Sendeberechtigung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.2.2,Verifikation der Serversignatur,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.3,Kryptographische Signatur des Mailservers,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.4,Kryptographische Signatur durch Nutzende,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.5,Publikation der Sendeberechtigung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.5.1,Strenge Senderpolicy,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.6,Publikation der Serversignatur,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.7,TLS-Reports,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.8,DMARC-Reports,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.9,Publikation der DMARC-Richtlinie,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.10,Authentifizierung der Server-Zertifikate über DNS,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.11,MTA-STS,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.14.2,Source Port Randomisierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.14.3,Iterative Beantwortung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.14.4,Caching,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.14.5,Zeitüberschreitung von Netzverbindungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.15.1,Begrenzung des Speicherplatzes,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.15.2,Begrenzung der Rechenleistung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.1.1.4,Business Continuity Management System,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.2.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.2.1.1,Rollen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.2.1.2,Alarmierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.2.1.3,Stabsraum,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.2.1.4,Stabsübung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.3.1,Wiederanlaufplan,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.3.2,Geschäftsfortführungsplan,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.3.3,Sensibilisierung zum Vorgehen im Notfall,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.3.4,Funktionstest,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.3.5,Ausweich-Telekommunikation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.3.6,Sicherheitsmechanismen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.3,Sicherung der Anwendung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.4,Automatische Datensicherung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.5.1,Zum Archiv gehörende Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.7,Versionierte Datensicherung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.9,Speichermedien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.10,Getrennte Aufbewahrung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.12,Georedundanz,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.14,Offline-Kopie,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+PERF.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.1.1.1,Auswertung der Gefährdungslage,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.1.1.2,Auswertung des Umsetzungsplans,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.1.1.3,Auswertung von Auditergebnissen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.2.1,Überwachung der Einhaltung von Verpflichtungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.3.1,Aufbau und Pflege eines Auditprogramms,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.3.1.4,Umfang von Audits,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.4.1.2,Kommunikation an Stakeholder,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.1,Ergebnisse von Folgemaßnahmen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.2,Geänderte Rahmenbedingungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.7,Status des Realisierungsplans,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.9,Maßnahmenvorschläge,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.6.1,Sicherheitsvorfälle,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.6.1.2,Schwachstellen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.6.1.3,Bedrohungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.7.1,Aktualität der Anforderungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.1.1,Verfahren und Regelungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.1.1.1,Dokumentation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.1.2,Regelmäßige Überprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.2.1,Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.2.2,Rollen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.2.3.1,Rollentrennung - Verzeichnisdienst,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.2.3.2,Rollentrennung - Virtualisierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.2.3.3,Rollentrennung - Audits,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.2.3.4,Rollentrennung - Änderungen und Tests,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.2.4,Zuständigkeiten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.3.1,Dienst- oder Arbeitsvertrag,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.3.2,Verfahrensanweisungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.3.3,Betriebs- und Geschäftsgeheimnisse,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.3.4,Stellenbeschreibungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.3.5,Prüfung der Bewerbungsunterlagen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.3.6.1,Sicherheitsüberprüfung (intern),erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.4.1,Qualifikationsbedarf,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.4.2,Rollenspezifische Schulungen und Sensibilisierungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.4.2.1,Produktspezifische Schulungen und Sensibilisierungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.5.1,Maßregelung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.5.2,Innentäter,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.5.3,Vertrauens-Check sicherheitskritischer Rollen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.6.1.1,Entzug von Berechtigungen gemäß BER,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.6.1.2,Neubesetzung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+REA.1.1.1,Dokumentation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.2,Automatische Erstreaktion,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.5.3,Forensik-Dienstleister,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.6.2,Kommunikation bei Vorfällen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.6.4,Service Level,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+RISK.1.1,Methodik für das Risikomanagement,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+RISK.1.3,Risikoeigentümer,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+RISK.1.5,Freigabe des Risikomanagements,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+RISK.1.10,Freigabe der Umsetzungsplanung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+SENS.1.1.1,Dokumentation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.1.1.3,Bekanntgabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.1.2,Erfolgsmessung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.1,Schutzziele,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.2,Meldewege,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.4,Nutzung unautorisierter Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.5,Zuständigkeitsbereiche,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.6,Umgehung von Sicherheitsfunktionen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.7,Änderung von Konfigurationen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.8,Melden von Ereignissen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.8.1,Melden von Fehler- und Warnmeldungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.3.1,Schadprogramme,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.3.2,Öffnen in der Sandbox,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.3.3,Umwandeln verdächtiger Dateien,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.1.1,Verdeckte Eingabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.1.2,Untersagung von Passwort Recycling,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.1.5,Biometrische Authentifikation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.1.6,Keine Weitergabe personengebundener Authentisierungsmittel,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.2,Mehrfachnutzung von Zugängen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.5.1,Datenablage,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.5.2,Weitergabe von Informationen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.5.3,Weitergabe von Erreichbarkeiten,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.5.4,Rest- und Zusatzdaten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.6.1,Scan angenommener Wechseldatenträger,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.6.2,Verschlüsselung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.1,Spezifische Sensibilisierung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.3,Automatische Antworten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.4,SPAM - Löschen oder Melden,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.5,SPAM - Nichtbeantwortung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.6,SPAM - Links,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.8,Gefälschte E-Mails,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.9,Aktive Inhalte,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.10,Trennen nicht benötigter Anschlüsse,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.11,Heimliche Aufzeichnung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.12,Öffentliche WLANs,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.13,Unverschlüsselte WLANs,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.15,Social Engineering Anrufe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.16,Mailbox-PIN und Co.,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.17,Unverschlüsseltes Telefonieren,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.19,Unverschlüsselte SMS oder MMS,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.20,Authentifzierung von Gesprächspartnern,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.21,Rechtsunsicherheit von Faxen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.23,Geolokation,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.25,Zugang zum Fahrzeug,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.4,Begleitung Externer,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.4.1,Beaufsichtigung Externer,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.5,Verwahrung Intern,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.6,Rückgabe nicht mehr benötigter Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.8,Verwendung von Wasserschutzmitteln,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.9.1,Verarbeitung in der Öffentlichkeit,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.9.3,Verwahrung außer Haus,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.9.4,Mobile Arbeit mit Dokumenten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.10.1,Grundprinzipien der Systemadministration,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.10.5,Systemadministration - Internetnutzung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.11.2,Führen als Vorbild,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.11.3,Whaling,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.12.1,Hohe Risiken,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+STM.1.1,Definition und Abgrenzung des Informationsverbunds,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.1.2,Dokumentation der externen Schnittstellen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.2.1,Erstellung eines Anforderungspakets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.3.1,ISMS-Anforderungen des Informationsverbundes,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.4.1,Erfassung relevanter Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.4.2,Dokumentation relevanter Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.4.3,Mapping des Assets auf die Zielobjektkategorien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.5.1,Modellierung der Anforderungen mit Zielobjekt,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.5.2,Vererbung von Zielobjektkategorien,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.5.3,Konsolidierung und Redundanzprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.5.4,Modellierung der Anforderungen ohne Zielobjektkategorie,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.6.1,Auf Grund anforderungsloser Assets,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.6.2,Auf Grund externer Verpflichtungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.7.1,Überprüfung des gesetzten Sicherheitsniveaus,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.8.1,Risikobetrachtung bei fehlenden Anforderungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.9.1,Verteilung der führenden Zuständigkeiten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+STM.9.2,Weitere Parameter,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+TEST.1.1.2,Zuweisung der Aufgaben,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.1.3,Einschränkung von Änderungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.2.1,Versionshistorie,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.2.2,Folgenabschätzung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.2.2.1,Kategorisierung von Änderungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.2.2.3,Dokumentation der Abhängigkeiten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1,Sicherheitstest,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.2,Integritätstest,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.6,Chaos Engineering,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.7,Analyse der Zusammensetzung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.8,Fuzzing,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.9,Lasttest,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.10,Penetrationstest bei Änderungen,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.2,Testabdeckung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.4.1,Autorisierung von Änderungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.4.1.1,Unabhängigkeit der Autorisierung,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.4.1.2,Dokumentation der Freigabe,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.4.2,Signatur,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.4.3,Rückfallösung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.4.4,Geregelte Notfalländerungen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.5.1,Information betroffener Kreise,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.5.2,Verschlüsselte Bereitstellung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.5.3,Schrittweiser Rollout,erhöht,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.5.4,Persistenz,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+UMS.1.1,Ermittlung des Umsetzungsstatus,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.2.1,Bewertung des Restrisikos,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.3.1,Umsetzungsplanung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.3.2,Priorisierung von Maßnahmen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.4.1,Benennung von Umsetzungszuständigen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.4.2,Festlegung von Umsetzungsfristen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.5.1,Autorisierung von Ausnahmen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.5.2,Dokumentation von Ausnahmen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.6.1,Nachverfolgung des Umsetzungsfortschritts,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.6.2,Fortschreibung des Umsetzungsplans,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+UMS.7.1,Wahrung von Compliance in der Umsetzung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.1.1,Verfahren zur kontinuierlichen Verbesserung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.2.1,Umgang mit Nicht-Konformitäten,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.2.2,Anpassung des ISMS,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.3.1,Identifikation von Verbesserungspotenzialen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.4.1,Korrekturmaßnahmen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.4.2,Verbesserungsmaßnahmen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.5.1,Priorisierung von Maßnahmen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.6.1,Wirksamkeitsprüfung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.7.1,Bewertung der erreichten Verbesserung,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+VRB.8.1,Behandlung von Compliance-Verstößen,normal-SdT,keine,0.0,,,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ARCH.4.1,Netzzugangskontrolle,normal-SdT,N/A,0.7068,NET.3.1.A24,NET.3.1.A24 Einsatz von Netzzugangskontrollen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.3,Verschlüsselung und Signatur,normal-SdT,N/A,0.6998,APP.1.1.A15,APP.1.1.A15 Einsatz von Verschlüsselung und Digitalen Signaturen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.22,Unverschlüsselte Faxleitungen,normal-SdT,N/A,0.6511,NET.4.3.A15,NET.4.3.A15 Ankündigung und Rückversicherung im Umgang mit Faxsendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.1.1,Verfahren und Regelungen,normal-SdT,vollständig,0.686,NET.1.1.A17; NET.1.1.A16; NET.1.1.A27; NET.1.1.A3,NET.1.1.A17 Spezifikation des Netzdesigns; NET.1.1.A16 Spezifikation der Netzarchitektur; NET.1.1.A27 Einbindung der Netzarchitektur in die Notfallplanung; NET.1.1.A3 Anforderungsspezifikation für das Netz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.1,Netzsegmente,normal-SdT,vollständig,0.7039,NET.1.1.A22; NET.1.1.A6; NET.1.1.A23; NET.1.1.A4; NET.1.1.A33,NET.1.1.A22 Spezifikation des Segmentierungskonzepts; NET.1.1.A6 Endgeräte-Segmentierung im internen Netz; NET.1.1.A23 Trennung von Sicherheitssegmenten; NET.1.1.A4 Netztrennung in Sicherheitszonen; NET.1.1.A33 Mikrosegmentierung des Netzes,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2,Einschränkung von Verbindungen zwischen Segmenten,normal-SdT,vollständig,0.6635,NET.1.1.A23; NET.1.1.A4; NET.1.1.A22,NET.1.1.A23 Trennung von Sicherheitssegmenten; NET.1.1.A4 Netztrennung in Sicherheitszonen; NET.1.1.A22 Spezifikation des Segmentierungskonzepts,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.1,Externe Netzanschlüsse,normal-SdT,vollständig,0.7116,NET.3.3.A11; NET.1.1.A11,NET.3.3.A11 Sichere Anbindung eines externen Netzes; NET.1.1.A11 Absicherung eingehender Kommunikation vom Internet in das interne Netz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.3,Segmentierung von Servern und Clients,normal-SdT,vollständig,0.6664,NET.1.1.A5; NET.1.1.A23; NET.1.1.A22,NET.1.1.A5 Client-Server-Segmentierung; NET.1.1.A23 Trennung von Sicherheitssegmenten; NET.1.1.A22 Spezifikation des Segmentierungskonzepts,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.4,VoIP-Netz,erhöht,vollständig,0.6862,NET.4.2.A4,NET.4.2.A4 Einschränkung der Erreichbarkeit über VoIP,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.5,OT-Systeme,normal-SdT,vollständig,0.695,IND.1.A8,IND.1.A8 Sichere Administration,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.6,Demilitarisierte Zone,normal-SdT,vollständig,0.7331,NET.1.1.A4; NET.1.1.A10,NET.1.1.A4 Netztrennung in Sicherheitszonen; NET.1.1.A10 DMZ-Segmentierung für Zugriffe aus dem Internet,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.2.7,Management-Netz,normal-SdT,vollständig,0.7169,NET.1.1.A21; NET.3.2.A18; NET.3.1.A13,NET.1.1.A21 Separierung des Management-Bereichs; NET.3.2.A18 Administration über ein gesondertes Managementnetz; NET.3.1.A13 Administration über ein gesondertes Managementnetz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.3,Mikrosegmentierung,erhöht,vollständig,0.6796,NET.1.1.A23; NET.1.1.A33; NET.1.1.A22; NET.1.1.A5,NET.1.1.A23 Trennung von Sicherheitssegmenten; NET.1.1.A33 Mikrosegmentierung des Netzes; NET.1.1.A22 Spezifikation des Segmentierungskonzepts; NET.1.1.A5 Client-Server-Segmentierung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.2.5,Netzplan,normal-SdT,vollständig,0.6742,NET.1.1.A27; NET.1.1.A13,NET.1.1.A27 Einbindung der Netzarchitektur in die Notfallplanung; NET.1.1.A13 Netzplanung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.3.4,Verschlüsselte Netzanbindung,normal-SdT,vollständig,0.6685,NET.2.1.A3; NET.2.1.A17,NET.2.1.A3 Auswahl geeigneter Kryptoverfahren für WLAN; NET.2.1.A17 Absicherung der Kommunikation zwischen Access Points,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.4.2,Autorisiertes Routing,normal-SdT,vollständig,0.6876,NET.3.1.A20,NET.3.1.A20 Sicherheitsaspekte von Routing-Protokollen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.4.3,Authentifizierung von Routingprotokollen,normal-SdT,vollständig,0.6974,NET.3.1.A20,NET.3.1.A20 Sicherheitsaspekte von Routing-Protokollen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1,Einschränkung und Inspektion von Verbindungen,normal-SdT,vollständig,0.6624,NET.1.1.A8,NET.1.1.A8 Grundlegende Absicherung des Internetzugangs,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.5,Deaktivierung von Split Tunneling,normal-SdT,vollständig,0.6652,NET.3.3.A11; NET.1.1.A11,NET.3.3.A11 Sichere Anbindung eines externen Netzes; NET.1.1.A11 Absicherung eingehender Kommunikation vom Internet in das interne Netz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.6,Blockieren direkter Management-Verbindungen,normal-SdT,vollständig,0.6687,NET.1.1.A21; NET.3.2.A18,NET.1.1.A21 Separierung des Management-Bereichs; NET.3.2.A18 Administration über ein gesondertes Managementnetz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.5.1.8,Inspektion verschlüsselter Verbindungen,normal-SdT,vollständig,0.6855,NET.3.2.A20; NET.1.1.A12,NET.3.2.A20 Absicherung von grundlegenden Internetprotokollen; NET.1.1.A12 Absicherung ausgehender interner Kommunikation zum Internet,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.6.2,Verschlüsselung von Weiterverkehrsverbindungen,normal-SdT,vollständig,0.6765,NET.3.3.A11; NET.1.1.A7; NET.1.1.A11; NET.2.1.A17,NET.3.3.A11 Sichere Anbindung eines externen Netzes; NET.1.1.A7 Absicherung von schützenswerten Informationen; NET.1.1.A11 Absicherung eingehender Kommunikation vom Internet in das interne Netz; NET.2.1.A17 Absicherung der Kommunikation zwischen Access Points,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ARCH.8.2,Redundante TK-Anbindung,erhöht,vollständig,0.6915,NET.4.1.A19,NET.4.1.A19 Redundanter Anschluss,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+ASST.1.1.1,Dokumentation,normal-SdT,vollständig,0.6711,OPS.1.1.2.A11; OPS.1.1.3.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.1.2,Regelmäßige Überprüfung,normal-SdT,vollständig,0.6675,APP.4.3.A20; OPS.1.2.2.A13; APP.3.3.A10,APP.4.3.A20 Regelmäßige Audits; OPS.1.2.2.A13 Regelmäßige Revision der Archivierungsprozesse; APP.3.3.A10 Regelmäßige Tests des Datensicherungs- bzw. Wiederherstellungskonzepts,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.2.3.1,Autorisierung von Anwendungen,normal-SdT,vollständig,0.6701,CON.5.A5; APP.3.1.A2; APP.1.4.A2,CON.5.A5 Sicherer Betrieb einer Fachanwendung; APP.3.1.A2 Zugriffskontrolle bei Webanwendungen; APP.1.4.A2 Regelungen für die Verwendung von mobilen Endgeräten und Apps,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.11,Autorisierung von Systemen,normal-SdT,vollständig,0.6642,APP.3.3.A5,APP.3.3.A5 Restriktive Rechtevergabe,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.3.12,Autorisierung von Personen oder Institutionen,normal-SdT,vollständig,0.6625,SYS.3.2.2.A11; APP.3.3.A5,SYS.3.2.2.A11 Berechtigungsmanagement im MDM; APP.3.3.A5 Restriktive Rechtevergabe,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.5.3,Autorisierung von Wartungen,erhöht,vollständig,0.6542,OPS.1.1.2.A12,OPS.1.1.2.A12 Regelungen für Wartungs- und Reparaturarbeiten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.5.4,Behandlung als Änderungen und Tests,normal-SdT,vollständig,0.6544,IND.1.A6; OPS.1.1.2.A11,IND.1.A6 änderungsmanagement im OT-Betrieb; OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.5.6,Wartung durch Externe,erhöht,vollständig,0.6659,OPS.2.4.A15; OPS.1.1.2.A13; IND.2.4.A1; OPS.1.1.2.A12,OPS.2.4.A15 Absicherung der Fernwartung; OPS.1.1.2.A13 Absicherung von Fernwartung; IND.2.4.A1 Fernwartung durch Maschinen- und Anlagenbauer; OPS.1.1.2.A12 Regelungen für Wartungs- und Reparaturarbeiten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.5.7,Dokumentation von Wartungen,normal-SdT,vollständig,0.7003,OPS.1.1.2.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.2,Aufbewahrungs- und Löschfristen,normal-SdT,vollständig,0.6546,CON.6.A8,CON.6.A8 Richtlinie für die Löschung und Vernichtung von Informationen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.2.1,Langfristige Archivierung,erhöht,vollständig,0.6534,APP.4.3.A23,APP.4.3.A23 Archivierung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.3,Geregeltes Löschen oder Vernichten,normal-SdT,vollständig,0.6836,CON.6.A4; CON.6.A3; CON.6.A8; CON.6.A2; CON.6.A1,CON.6.A4 Auswahl geeigneter Verfahren zur Löschung oder Vernichtung von Datenträgern; CON.6.A3 Löschen der Datenträger vor und nach dem Austausch; CON.6.A8 Richtlinie für die Löschung und Vernichtung von Informationen; CON.6.A2 Ordnungsgemäße Entsorgung von schützenswerten Betriebsmitteln und Informationen; CON.6.A1 Regelung der Vorgehensweise für die Löschung und Vernichtung von Informationen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.3.1,Standardisierte Vernichtung,normal-SdT,vollständig,0.6805,CON.6.A4; CON.6.A2; CON.7.A12; CON.6.A3; CON.6.A8,CON.6.A4 Auswahl geeigneter Verfahren zur Löschung oder Vernichtung von Datenträgern; CON.6.A2 Ordnungsgemäße Entsorgung von schützenswerten Betriebsmitteln und Informationen; CON.7.A12 Sicheres Vernichten von schutzbedürftigen Materialien und Dokumenten; CON.6.A3 Löschen der Datenträger vor und nach dem Austausch; CON.6.A8 Richtlinie für die Löschung und Vernichtung von Informationen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.3.2,Löschverfahren,normal-SdT,vollständig,0.6585,CON.6.A1,CON.6.A1 Regelung der Vorgehensweise für die Löschung und Vernichtung von Informationen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.3.3,Zugelassene Löschanwendungen,erhöht,vollständig,0.6546,CON.1.A5; CON.6.A4,CON.1.A5 Sicheres Löschen und Vernichten von kryptografischen Schlüsseln; CON.6.A4 Auswahl geeigneter Verfahren zur Löschung oder Vernichtung von Datenträgern,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+ASST.7.5,Vernichtungseinrichtungen,erhöht,vollständig,0.6515,CON.6.A1; CON.7.A12,CON.6.A1 Regelung der Vorgehensweise für die Löschung und Vernichtung von Informationen; CON.7.A12 Sicheres Vernichten von schutzbedürftigen Materialien und Dokumenten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BER.1.1,Verfahren und Regelungen,normal-SdT,vollständig,0.6812,ORP.4.A15; IND.1.A7; SYS.3.2.2.A11,ORP.4.A15 Vorgehensweise und Konzeption der Prozesse beim Identitäts- und Berechtigungsmanagement; IND.1.A7 Etablieren einer Berechtigungsverwaltung; SYS.3.2.2.A11 Berechtigungsmanagement im MDM,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.1.1.1,Dokumentation,normal-SdT,vollständig,0.6855,OPS.1.1.2.A11; OPS.1.1.3.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.1.2,Regelmäßige Überprüfung,normal-SdT,vollständig,0.66,APP.4.3.A20; OPS.1.2.2.A13,APP.4.3.A20 Regelmäßige Audits; OPS.1.2.2.A13 Regelmäßige Revision der Archivierungsprozesse,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.1.4,Inventar der Berechtigungen,normal-SdT,vollständig,0.6839,IND.1.A7; APP.3.3.A5; SYS.1.3.A2; ORP.4.A16; APP.2.1.A3,IND.1.A7 Etablieren einer Berechtigungsverwaltung; APP.3.3.A5 Restriktive Rechtevergabe; SYS.1.3.A2 Sorgfältige Vergabe von IDs; ORP.4.A16 Richtlinien für die Zugriffs- und Zugangskontrolle; APP.2.1.A3 Einrichtung von Zugriffsberechtigungen auf Verzeichnisdienste,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.1,Zentrales Management,normal-SdT,vollständig,0.6584,APP.3.1.A2; SYS.3.2.1.A4,APP.3.1.A2 Zugriffskontrolle bei Webanwendungen; SYS.3.2.1.A4 Verwendung eines Zugriffschutzes,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.3,Protokollierung von Änderungen,normal-SdT,vollständig,0.6656,APP.4.3.A8; APP.3.1.A5,APP.4.3.A8 Datenbank-Protokollierung; APP.3.1.A5 Protokollierung sicherheitsrelevanter Ereignisse von Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.5,Privilegierte Zugangskonten,normal-SdT,vollständig,0.684,OPS.1.1.2.A5; APP.2.2.A7; SYS.2.2.3.A20,OPS.1.1.2.A5 Administrationskennungen; APP.2.2.A7 Umsetzung sicherer Verwaltungsmethoden für Active Directory; SYS.2.2.3.A20 Einsatz der Benutzerkontensteuerung für privilegierte Konten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.6,Single-Sign-On,normal-SdT,vollständig,0.6613,APP.3.1.A1; SYS.1.2.2.A6,APP.3.1.A1 Authentisierung bei Webanwendungen; SYS.1.2.2.A6 Sichere Authentisierung und Autorisierung in Windows Server 2012,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.7,Hinweise bei Anmeldefehlern,normal-SdT,vollständig,0.6746,APP.3.1.A1,APP.3.1.A1 Authentisierung bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.8,Ereignisgesteuerte Deaktivierung,normal-SdT,vollständig,0.6693,IND.2.1.A5,IND.2.1.A5 Deaktivierung nicht benutzter Benutzerkonten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.11,Systemsperre bei Inaktivität,normal-SdT,vollständig,0.7428,CON.7.A5,CON.7.A5 Verwendung der Bildschirm-/Code-Sperre,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.16,Gruppenkonten - MFA,normal-SdT,vollständig,0.6525,OPS.2.4.A17,OPS.2.4.A17 Authentisierungsmechanismen bei der Fernwartung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.19,Zwischenspeicherung von Zugangsdaten,normal-SdT,vollständig,0.6683,SYS.1.2.2.A6,SYS.1.2.2.A6 Sichere Authentisierung und Autorisierung in Windows Server 2012,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.3.22,Notfallzugang Verzeichnisdienst,normal-SdT,vollständig,0.6528,APP.2.1.A3,APP.2.1.A3 Einrichtung von Zugriffsberechtigungen auf Verzeichnisdienste,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.4.1,Identitätsüberprüfung,normal-SdT,vollständig,0.6733,ORP.4.A11,ORP.4.A11 Zurücksetzen von Passwörtern,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.1,Prinzip der geringsten Berechtigungen,normal-SdT,vollständig,0.687,APP.3.3.A5; APP.3.1.A2; ORP.4.A16; SYS.1.1.A3; APP.4.3.A5,APP.3.3.A5 Restriktive Rechtevergabe; APP.3.1.A2 Zugriffskontrolle bei Webanwendungen; ORP.4.A16 Richtlinien für die Zugriffs- und Zugangskontrolle; SYS.1.1.A3 Restriktive Rechtevergabe; APP.4.3.A5 Benutzer- und Berechtigungskonzept,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.1.1,Rollenbasierte Berechtigung,normal-SdT,vollständig,0.6675,APP.3.3.A5; ORP.1.A5; IND.1.A7,APP.3.3.A5 Restriktive Rechtevergabe; ORP.1.A5 Vergabe von Berechtigungen; IND.1.A7 Etablieren einer Berechtigungsverwaltung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.2,Begründung von Berechtigungen,normal-SdT,vollständig,0.6629,IND.1.A7; SYS.3.2.2.A11; APP.5.1.A11; APP.3.3.A5,IND.1.A7 Etablieren einer Berechtigungsverwaltung; SYS.3.2.2.A11 Berechtigungsmanagement im MDM; APP.5.1.A11 Berechtigungsverwaltung für Groupware-Systeme; APP.3.3.A5 Restriktive Rechtevergabe,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.3,Überprüfung von Berechtigungen,normal-SdT,vollständig,0.7121,APP.3.3.A5; APP.4.3.A5; IND.1.A7; APP.3.1.A2; SYS.3.2.2.A11,APP.3.3.A5 Restriktive Rechtevergabe; APP.4.3.A5 Benutzer- und Berechtigungskonzept; IND.1.A7 Etablieren einer Berechtigungsverwaltung; APP.3.1.A2 Zugriffskontrolle bei Webanwendungen; SYS.3.2.2.A11 Berechtigungsmanagement im MDM,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.3.1,Überprüfung tatsächlicher Berechtigungen,normal-SdT,vollständig,0.6725,IND.1.A15; IND.1.A7; APP.3.1.A2; APP.3.3.A5; SYS.3.2.2.A11,IND.1.A15 Prüfung und überwachung von Berechtigungen; IND.1.A7 Etablieren einer Berechtigungsverwaltung; APP.3.1.A2 Zugriffskontrolle bei Webanwendungen; APP.3.3.A5 Restriktive Rechtevergabe; SYS.3.2.2.A11 Berechtigungsmanagement im MDM,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.6,Anwendungsfunktionen ohne Authentifizierung,normal-SdT,vollständig,0.6696,APP.3.1.A1,APP.3.1.A1 Authentisierung bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.5.8,Entzug von Berechtigungen,normal-SdT,vollständig,0.6565,ORP.4.A2,"ORP.4.A2 Regelung für Einrichtung, änderung und Entzug von Berechtigungen",N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.1,Passwortmanager,normal-SdT,vollständig,0.6711,APP.1.2.A6,APP.1.2.A6 Kennwortmanagement im Web-Browser,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.4,Mehr-Faktor-Authentisierung am Perimeter,normal-SdT,vollständig,0.668,OPS.2.4.A17; APP.3.1.A1,OPS.2.4.A17 Authentisierungsmechanismen bei der Fernwartung; APP.3.1.A1 Authentisierung bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.6.5,Mehr-Faktor-Authentisierung für weitreichende Berechtigungen,normal-SdT,vollständig,0.6831,OPS.2.4.A17; APP.3.1.A1,OPS.2.4.A17 Authentisierungsmechanismen bei der Fernwartung; APP.3.1.A1 Authentisierung bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.1,Etablierte Algorithmen bei der Schlüsselerzeugung,normal-SdT,vollständig,0.6563,CON.1.A1,CON.1.A1 Auswahl geeigneter kryptografischer Verfahren,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.4,Erzeugung auf sicheren IT-Systemen,normal-SdT,vollständig,0.7475,CON.1.A4,CON.1.A4 Geeignetes Schlüsselmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.10,Abgelaufene Schlüssel,normal-SdT,vollständig,0.6597,CON.1.A4,CON.1.A4 Geeignetes Schlüsselmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.11,Integrität,normal-SdT,vollständig,0.6649,CON.7.A16; CON.1.A4,CON.7.A16 Integritätsschutz durch Check-Summen oder digitale Signaturen; CON.1.A4 Geeignetes Schlüsselmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.13,Gültigkeit,normal-SdT,vollständig,0.6722,CON.1.A4,CON.1.A4 Geeignetes Schlüsselmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.14,Schlüssel vor Ablauf prüfen,normal-SdT,vollständig,0.6843,CON.1.A4,CON.1.A4 Geeignetes Schlüsselmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BER.7.15,Vorgehensweise nach Nutzung,normal-SdT,vollständig,0.6541,CON.1.A5; CON.1.A4,CON.1.A5 Sicheres Löschen und Vernichten von kryptografischen Schlüsseln; CON.1.A4 Geeignetes Schlüsselmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.1.1.1,Dokumentation,normal-SdT,vollständig,0.6753,OPS.1.1.2.A11; OPS.1.1.3.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.4,Outsourcing-Strategie,erhöht,vollständig,0.6506,OPS.2.1.A5,OPS.2.1.A5 Festlegung einer Outsourcing-Strategie,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.1.4.1,Freigabe der Strategie,normal-SdT,vollständig,0.7133,OPS.2.1.A5,OPS.2.1.A5 Festlegung einer Outsourcing-Strategie,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+BES.2.6,Outsourcing auf Grundlage der Geschäftsprozessprofile,erhöht,vollständig,0.6507,OPS.2.1.A3,OPS.2.1.A3 Auswahl eines geeigneten Outsourcing-Dienstleisters,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.4,Vertragsvorlage für Outsourcing,normal-SdT,vollständig,0.6636,OPS.2.1.A1; OPS.2.1.A10,OPS.2.1.A1 Festlegung der Sicherheitsanforderungen für Outsourcing-Vorhaben; OPS.2.1.A10 Vereinbarung über Datenaustausch zwischen den Outsourcing-Partnern,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.6.2,Verschlüsselung durch den Anbieter,normal-SdT,vollständig,0.6957,OPS.2.2.A17,OPS.2.2.A17 Einsatz von Verschlüsselung bei Cloud-Nutzung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.8.2,Cloud-Konformität,normal-SdT,vollständig,0.6581,OPS.2.2.A8,OPS.2.2.A8 Sorgfältige Auswahl eines Cloud-Diensteanbieters,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.4.8.3,IT-Grundschutz-Analyse der Infrastruktur,erhöht,vollständig,0.736,OPS.2.1.A1,OPS.2.1.A1 Festlegung der Sicherheitsanforderungen für Outsourcing-Vorhaben,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.5.2,Autorisierung der Zugriffsberechtigung,normal-SdT,vollständig,0.6509,APP.3.3.A5,APP.3.3.A5 Restriktive Rechtevergabe,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.9,Umgang mit Änderungen,normal-SdT,vollständig,0.6823,OPS.1.1.3.A4; OPS.1.1.3.A7; OPS.1.1.3.A6,OPS.1.1.3.A4 Planung des änderungsmanagementprozesses; OPS.1.1.3.A7 Integration des änderungsmanagements in die Geschäftsprozesse; OPS.1.1.3.A6 Abstimmung von änderungsanforderungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.5.13.1,Datenbereitstellung,erhöht,vollständig,0.651,OPS.2.1.A10,OPS.2.1.A10 Vereinbarung über Datenaustausch zwischen den Outsourcing-Partnern,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.1,Eingangskontrolle,normal-SdT,vollständig,0.6622,OPS.1.1.6.A9,OPS.1.1.6.A9 Beschaffung von Test-Software,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.1.1,Test der Kompatibilität,normal-SdT,vollständig,0.6593,OPS.2.2.A6,OPS.2.2.A6 Planung der sicheren Einbindung von Cloud-Diensten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.2,Prozesse vor Netzanbindung,normal-SdT,vollständig,0.694,OPS.2.1.A1; OPS.2.1.A11,OPS.2.1.A1 Festlegung der Sicherheitsanforderungen für Outsourcing-Vorhaben; OPS.2.1.A11 Planung und Aufrechterhaltung der Informationssicherheit im laufenden Outsourcing-Betrieb,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+BES.7.4.10,Serviceprofil,normal-SdT,vollständig,0.6875,OPS.2.2.A8; OPS.2.2.A3,OPS.2.2.A8 Sorgfältige Auswahl eines Cloud-Diensteanbieters; OPS.2.2.A3 Service-Definition für Cloud-Dienste durch den Anwender,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.1.1,Verfahren und Regelungen,normal-SdT,vollständig,0.6674,DER.2.1.A17; DER.2.1.A7; DER.1.A5,DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen; DER.2.1.A7 Etablierung einer Vorgehensweise zur Behandlung von Sicherheitsvorfällen; DER.1.A5 Einsatz von mitgelieferten Systemfunktionen zur Detektion,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.1.1.1,Dokumentation,normal-SdT,vollständig,0.6874,OPS.1.1.2.A11; OPS.1.1.3.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.1.2,Regelmäßige Überprüfung,normal-SdT,vollständig,0.679,DER.2.1.A18; DER.1.A13; APP.4.3.A20,DER.2.1.A18 Weiterentwicklung der Prozesse durch Erkenntnisse aus Sicherheitsvorfällen und Branchenentwicklungen; DER.1.A13 Regelmäßige Audits der Detektionssysteme; APP.4.3.A20 Regelmäßige Audits,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.1,Authentifizierungen,normal-SdT,vollständig,0.6705,OPS.1.1.2.A6,OPS.1.1.2.A6 Schutz administrativer Kennungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.9,Fehler der Anwendung,normal-SdT,vollständig,0.6648,DER.1.A5; APP.3.2.A12,DER.1.A5 Einsatz von mitgelieferten Systemfunktionen zur Detektion; APP.3.2.A12 Geeigneter Umgang mit Fehlern und Fehlermeldungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.11,Anwendungsspezifische Ereignisse,erhöht,vollständig,0.675,APP.3.1.A5; APP.4.3.A8; APP.3.2.A4; DER.1.A5; DER.1.A6,APP.3.1.A5 Protokollierung sicherheitsrelevanter Ereignisse von Webanwendungen; APP.4.3.A8 Datenbank-Protokollierung; APP.3.2.A4 Protokollierung von Ereignissen; DER.1.A5 Einsatz von mitgelieferten Systemfunktionen zur Detektion; DER.1.A6 Kontinuierliche überwachung und Auswertung von Protokolldaten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.1.12,Datenverarbeitungen,erhöht,vollständig,0.6962,APP.4.3.A8; DER.1.A6; APP.3.1.A5,APP.4.3.A8 Datenbank-Protokollierung; DER.1.A6 Kontinuierliche überwachung und Auswertung von Protokolldaten; APP.3.1.A5 Protokollierung sicherheitsrelevanter Ereignisse von Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.3,Speicherkapazität,normal-SdT,vollständig,0.6853,APP.3.3.A9; DER.1.A6,APP.3.3.A9 Sicheres Speichermanagement; DER.1.A6 Kontinuierliche überwachung und Auswertung von Protokolldaten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.3.4,Revisionssicherheit,normal-SdT,vollständig,0.6703,OPS.1.1.5.A7; DER.1.A6; APP.4.3.A8; OPS.1.1.5.A10,OPS.1.1.5.A7 Sichere Administration von Protokollierungsservern; DER.1.A6 Kontinuierliche überwachung und Auswertung von Protokolldaten; APP.4.3.A8 Datenbank-Protokollierung; OPS.1.1.5.A10 Zugriffsschutz für Protokollierungsdaten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.1,Überwachung der Protokollierung,normal-SdT,vollständig,0.6684,DER.1.A6; APP.4.3.A8; DER.1.A5,DER.1.A6 Kontinuierliche überwachung und Auswertung von Protokolldaten; APP.4.3.A8 Datenbank-Protokollierung; DER.1.A5 Einsatz von mitgelieferten Systemfunktionen zur Detektion,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.2,Automatische Angriffserkennung,normal-SdT,vollständig,0.6816,DER.1.A5,DER.1.A5 Einsatz von mitgelieferten Systemfunktionen zur Detektion,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.4.3,Überwachung der Angriffserkennung,normal-SdT,vollständig,0.6591,DER.1.A5,DER.1.A5 Einsatz von mitgelieferten Systemfunktionen zur Detektion,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.10,Zeitnahes Patchmanagement,normal-SdT,vollständig,0.7181,APP.3.2.A6; APP.3.1.A6; OPS.1.1.3.A8; APP.4.3.A7; APP.1.4.A6,APP.3.2.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; APP.3.1.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; OPS.1.1.3.A8 Sicherer Einsatz von Werkzeugen für das Patch- und änderungsmanagement; APP.4.3.A7 Zeitnahes Einspielen von Sicherheitsupdates; APP.1.4.A6 Patchmanagement für Apps,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.10.2,Automatisierte Überwachung von Systemupdates,normal-SdT,vollständig,0.6751,APP.3.2.A6; APP.3.1.A6; OPS.1.1.3.A8,APP.3.2.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; APP.3.1.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; OPS.1.1.3.A8 Sicherer Einsatz von Werkzeugen für das Patch- und änderungsmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.10.3,Automatisierte Überwachung von Anwendungsupdates,erhöht,vollständig,0.7046,APP.3.2.A6; APP.1.4.A6; OPS.1.1.3.A8; APP.3.1.A6; OPS.2.4.A12,APP.3.2.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; APP.1.4.A6 Patchmanagement für Apps; OPS.1.1.3.A8 Sicherer Einsatz von Werkzeugen für das Patch- und änderungsmanagement; APP.3.1.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; OPS.2.4.A12 Patch- und änderungsmanagement bei der Fernwartung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.10.4,Integritätsprüfung von Patches,normal-SdT,vollständig,0.6523,OPS.1.1.3.A10,OPS.1.1.3.A10 Sicherstellung der Integrität und Authentizität von Softwarepaketen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.5.10.5,Test gemäß Änderungsmanagement,erhöht,vollständig,0.6568,OPS.1.1.3.A1,OPS.1.1.3.A1 Konzept für das Patch- und änderungsmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.6.1,Beurteilung von Ereignissen,normal-SdT,vollständig,0.6712,DER.2.1.A10; DER.2.1.A17,DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen; DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.6.1.1,Automatisierte Feststellung,normal-SdT,vollständig,0.6681,DER.1.A5; DER.2.1.A17; DER.1.A6; DER.1.A17,DER.1.A5 Einsatz von mitgelieferten Systemfunktionen zur Detektion; DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen; DER.1.A6 Kontinuierliche überwachung und Auswertung von Protokolldaten; DER.1.A17 Automatische Reaktion auf sicherheitsrelevante Ereignisse,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DET.6.1.2,Automatische Alarmierung,normal-SdT,vollständig,0.6593,DER.1.A17; DER.1.A5,DER.1.A17 Automatische Reaktion auf sicherheitsrelevante Ereignisse; DER.1.A5 Einsatz von mitgelieferten Systemfunktionen zur Detektion,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.1.2,Regelmäßige Überprüfung,normal-SdT,vollständig,0.6597,APP.4.3.A20,APP.4.3.A20 Regelmäßige Audits,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.3.3,Deaktivierung der Ausgabe schützenswerter Daten durch Fehlermeldungen,normal-SdT,vollständig,0.6534,APP.3.1.A13,APP.3.1.A13 Restriktive Herausgabe sicherheitsrelevanter Informationen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.5.1,Verankerung des Zeitraums für Updates,normal-SdT,vollständig,0.698,APP.3.2.A6; APP.3.1.A6; APP.4.3.A7,APP.3.2.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; APP.3.1.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; APP.4.3.A7 Zeitnahes Einspielen von Sicherheitsupdates,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.5.2,Information über Zeitraum für Updates,normal-SdT,vollständig,0.7269,APP.4.3.A7; APP.3.2.A6,APP.4.3.A7 Zeitnahes Einspielen von Sicherheitsupdates; APP.3.2.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DEV.6.1,Freigabe nach Änderungen und Tests,normal-SdT,vollständig,0.6701,APP.3.1.A10,APP.3.1.A10 Test und Freigabe von Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.1.1.1,Dokumentation,normal-SdT,vollständig,0.6725,OPS.1.1.2.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.2.2,Transportverschlüsselung,normal-SdT,vollständig,0.6594,OPS.2.2.A17,OPS.2.2.A17 Einsatz von Verschlüsselung bei Cloud-Nutzung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.3.1.1,Audit oder Zertifikat,normal-SdT,vollständig,0.6658,OPS.2.1.A1,OPS.2.1.A1 Festlegung der Sicherheitsanforderungen für Outsourcing-Vorhaben,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+DLS.3.2,Checkup,erhöht,vollständig,0.7032,OPS.2.1.A11; OPS.2.1.A1,OPS.2.1.A11 Planung und Aufrechterhaltung der Informationssicherheit im laufenden Outsourcing-Betrieb; OPS.2.1.A1 Festlegung der Sicherheitsanforderungen für Outsourcing-Vorhaben,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GC.1.1,Errichtung und Aufrechterhaltung eines ISMS,normal-SdT,vollständig,0.6504,ISMS.1.A9,ISMS.1.A9 Integration der Informationssicherheit in organisationsweite Abläufe und Prozesse,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.6.1,Festlegung von Zielen für die Informationssicherheit,normal-SdT,vollständig,0.6537,ISMS.1.A2,ISMS.1.A2 Festlegung der Sicherheitsziele und -strategie,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.6.1.1,Festlegung einer Sicherheitsstrategie,normal-SdT,vollständig,0.7183,ISMS.1.A2; ISMS.1.A3,ISMS.1.A2 Festlegung der Sicherheitsziele und -strategie; ISMS.1.A3 Erstellung einer Leitlinie zur Informationssicherheit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.6.1.2,Verpflichtung der Institutionsleitung,normal-SdT,vollständig,0.6981,ISMS.1.A1; ISMS.1.A9; ISMS.1.A2; ISMS.1.A3,ISMS.1.A1 übernahme der Gesamtverantwortung für Informationssicherheit durch die Leitungsebene; ISMS.1.A9 Integration der Informationssicherheit in organisationsweite Abläufe und Prozesse; ISMS.1.A2 Festlegung der Sicherheitsziele und -strategie; ISMS.1.A3 Erstellung einer Leitlinie zur Informationssicherheit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.6.1.3,Erstellung einer Sicherheitsleitlinie,normal-SdT,vollständig,0.7396,ISMS.1.A3; ISMS.1.A2; ISMS.1.A1,ISMS.1.A3 Erstellung einer Leitlinie zur Informationssicherheit; ISMS.1.A2 Festlegung der Sicherheitsziele und -strategie; ISMS.1.A1 übernahme der Gesamtverantwortung für Informationssicherheit durch die Leitungsebene,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.8.1.3,Vermeidung von Interessenkonflikten,normal-SdT,vollständig,0.6629,ISMS.1.A9,ISMS.1.A9 Integration der Informationssicherheit in organisationsweite Abläufe und Prozesse,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.8.1.6,Ressourcen für den Informationssicherheitsbeauftragten,normal-SdT,vollständig,0.732,ISMS.1.A4; ISMS.1.A15,ISMS.1.A4 Benennung eines Informationssicherheitsbeauftragten; ISMS.1.A15 Wirtschaftlicher Einsatz von Ressourcen für Informationssicherheit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.9.1.3,Dokumentenlenkung,normal-SdT,vollständig,0.681,ISMS.1.A13,ISMS.1.A13 Dokumentation des Sicherheitsprozesses,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GC.10.1,Festlegung von Vorgehensweisen,normal-SdT,vollständig,0.7176,ISMS.1.A13,ISMS.1.A13 Dokumentation des Sicherheitsprozesses,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+GEB.3.1.1,Videoüberwachung,erhöht,vollständig,0.7085,INF.2.A24,INF.2.A24 Einsatz von Videoüberwachungsanlagen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.2,Anmelde- und Empfangsbereiche,normal-SdT,vollständig,0.6658,INF.6.A2; INF.1.A7,INF.6.A2 Zutrittsregelung und -kontrolle; INF.1.A7 Zutrittsregelung und -kontrolle,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.3.1,Zugangskontrollanlage,erhöht,vollständig,0.658,INF.6.A2,INF.6.A2 Zutrittsregelung und -kontrolle,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.6,Einbruchmeldeanlagen,erhöht,vollständig,0.7082,INF.1.A27,INF.1.A27 Einbruchsschutz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.3.7,Kontrolle der Zutrittskontrolle,normal-SdT,vollständig,0.6834,INF.6.A2; INF.1.A7; INF.7.A4,INF.6.A2 Zutrittsregelung und -kontrolle; INF.1.A7 Zutrittsregelung und -kontrolle; INF.7.A4 Zutrittsregelungen und -kontrolle,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.4.1,Einrichtung,erhöht,vollständig,0.652,INF.6.A2,INF.6.A2 Zutrittsregelung und -kontrolle,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.4.2,Gesonderte Autorisierung,erhöht,vollständig,0.6554,INF.6.A2,INF.6.A2 Zutrittsregelung und -kontrolle,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.5.1,Clean Desk,normal-SdT,vollständig,0.7179,INF.7.A6; INF.7.A5,INF.7.A6 Aufgeräumter Arbeitsplatz; INF.7.A5 Ergonomischer Arbeitsplatz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.6.2,Geschützte Aufstellung,normal-SdT,vollständig,0.653,INF.6.A2,INF.6.A2 Zutrittsregelung und -kontrolle,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.6.4,Normgerechte Rechenzentren,erhöht,vollständig,0.6597,INF.2.A12,INF.2.A12 Entwurf und Umsetzung eines Perimeterschutzes für das Rechenzentrum,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.7.1,Schlüsselbeauftragte,normal-SdT,vollständig,0.7143,INF.1.A12,INF.1.A12 Schlüsselverwaltung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.8.1,Gesonderte Aufbewahrung,normal-SdT,vollständig,0.658,INF.7.A7; INF.6.A5; INF.8.A1,INF.7.A7 Geeignete Aufbewahrung dienstlicher Unterlagen und Datenträger; INF.6.A5 Verwendung von Schutzschränken; INF.8.A1 Sichern von dienstlichen Unterlagen am häuslichen Arbeitsplatz,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.8.3,Schutz der Datenträger vor Brandschäden,erhöht,vollständig,0.6799,INF.6.A5,INF.6.A5 Verwendung von Schutzschränken,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.8.4,Überwachung schonender Klimatisierung,erhöht,vollständig,0.6885,INF.2.A5; INF.2.A16,INF.2.A5 Einhaltung der Lufttemperatur und -feuchtigkeit; INF.2.A16 Klimatisierung im Rechenzentrum,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.1.4,Langanhaltende Sekundärversorgung,erhöht,vollständig,0.6726,INF.2.A3,INF.2.A3 Einsatz einer unterbrechungsfreien Stromversorgung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.4,Überspannungsschutz,erhöht,vollständig,0.6586,INF.2.A15,INF.2.A15 überspannungsschutzeinrichtung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.9.5,Strukturierte Datenverkabelung,normal-SdT,vollständig,0.6587,INF.4.A3; INF.2.A23; INF.4.A2,INF.4.A3 Fachgerechte Installation; INF.2.A23 Sicher strukturierte Verkabelung im Rechenzentrum; INF.4.A2 Planung der Kabelführung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.1,Klimatisierung,normal-SdT,vollständig,0.6985,INF.2.A16,INF.2.A16 Klimatisierung im Rechenzentrum,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.1.1,Luftstrom-Analyse,erhöht,vollständig,0.6529,INF.2.A16,INF.2.A16 Klimatisierung im Rechenzentrum,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.1.2,Klimamessung,normal-SdT,vollständig,0.714,INF.2.A5; INF.2.A16; INF.2.A11,INF.2.A5 Einhaltung der Lufttemperatur und -feuchtigkeit; INF.2.A16 Klimatisierung im Rechenzentrum; INF.2.A11 Automatisierte überwachung der Infrastruktur,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2.2,Brandabschnitte,normal-SdT,vollständig,0.7105,INF.2.A2,INF.2.A2 Bildung von Brandabschnitten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.2.6,Brandmeldeanlagen,normal-SdT,vollständig,0.6572,INF.1.A4; INF.2.A8,INF.1.A4 Branderkennung in Gebäuden; INF.2.A8 Einsatz einer Brandmeldeanlage,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+GEB.10.4,Blitzschutzeinrichtungen,normal-SdT,vollständig,0.7255,INF.1.A14,INF.1.A14 Blitzschutzeinrichtungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.1.1.1,Dokumentation,normal-SdT,vollständig,0.6716,OPS.1.1.2.A11; OPS.1.1.3.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.1.2,Regelmäßige Überprüfung,normal-SdT,vollständig,0.6561,IND.1.A17; APP.4.3.A20,IND.1.A17 Regelmäßige Sicherheitsüberprüfung; APP.4.3.A20 Regelmäßige Audits,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.1.3,Management von Werkzeugen,normal-SdT,vollständig,0.6597,OPS.2.4.A10,OPS.2.4.A10 Verwaltung der Fernwartungswerkzeuge,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.1.4,Einschränkung des Zugriffs auf Dokumentation,normal-SdT,vollständig,0.654,IND.2.1.A1,IND.2.1.A1 Einschränkung des Zugriffs für Konfigurations- und Wartungsschnittstellen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.1,Grundkonfiguration für Systeme,normal-SdT,vollständig,0.6677,SYS.1.1.A16; SYS.1.8.A2; NET.3.1.A1,SYS.1.1.A16 Sichere Installation und Grundkonfiguration von Servern; SYS.1.8.A2 Sichere Grundkonfiguration von Speicherlösungen; NET.3.1.A1 Sichere Grundkonfiguration eines Routers oder Switches,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.3,Änderung von Default-Zugangsdaten,normal-SdT,vollständig,0.6812,NET.3.1.A1; IND.2.1.A1,NET.3.1.A1 Sichere Grundkonfiguration eines Routers oder Switches; IND.2.1.A1 Einschränkung des Zugriffs für Konfigurations- und Wartungsschnittstellen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.4,Deaktivierung nicht benötigter Systemfunktionen,normal-SdT,vollständig,0.672,IND.2.1.A4; APP.3.1.A12; SYS.3.2.1.A16,"IND.2.1.A4 Deaktivierung nicht genutzter Dienste, Funktionen und Schnittstellen; APP.3.1.A12 Sichere Konfiguration von Webanwendungen; SYS.3.2.1.A16 Deaktivierung nicht benutzter Kommunikationsschnittstellen",N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.2.8,Abgesicherter und authentisierter Bootprozess,erhöht,vollständig,0.6789,SYS.1.3.A15; SYS.1.3.A9; SYS.2.1.A8,SYS.1.3.A15 Zusätzliche Absicherung des Bootvorgangs; SYS.1.3.A9 Absicherung des Bootvorgangs; SYS.2.1.A8 Absicherung des Boot-Vorgangs,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.2,Speicherverschlüsselung,normal-SdT,vollständig,0.6624,SYS.1.8.A23; SYS.1.2.2.A10,SYS.1.8.A23 Einsatz von Verschlüsselung für Speicherlösungen; SYS.1.2.2.A10 Festplattenverschlüsselung bei Windows Server 2012,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.3.3,SIM-PIN,normal-SdT,vollständig,0.6983,SYS.3.2.1.A17,SYS.3.2.1.A17 Verwendung der SIM-Karten-PIN,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.4.1,Anbindung an Verzeichnisdienst,normal-SdT,vollständig,0.6626,APP.2.1.A6; APP.2.1.A3; APP.2.1.A11; SYS.1.2.2.A6,APP.2.1.A6 Sicherer Betrieb von Verzeichnisdiensten; APP.2.1.A3 Einrichtung von Zugriffsberechtigungen auf Verzeichnisdienste; APP.2.1.A11 Einrichtung des Zugriffs auf Verzeichnisdienste; SYS.1.2.2.A6 Sichere Authentisierung und Autorisierung in Windows Server 2012,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.4.3,Authentifizierung von Fernwartungsfunktionen,normal-SdT,vollständig,0.6946,OPS.2.4.A17; OPS.2.4.A15,OPS.2.4.A17 Authentisierungsmechanismen bei der Fernwartung; OPS.2.4.A15 Absicherung der Fernwartung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.4.4,Einschränkung von Fernwartungsfunktionen,normal-SdT,vollständig,0.6715,IND.1.A8; OPS.2.4.A17; OPS.1.1.2.A13; IND.2.1.A1; OPS.2.4.A4,IND.1.A8 Sichere Administration; OPS.2.4.A17 Authentisierungsmechanismen bei der Fernwartung; OPS.1.1.2.A13 Absicherung von Fernwartung; IND.2.1.A1 Einschränkung des Zugriffs für Konfigurations- und Wartungsschnittstellen; OPS.2.4.A4 Regelungen zu Kommunikationsverbindungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.4.5,Zeitquellen,normal-SdT,vollständig,0.6685,NET.3.2.A22; OPS.1.1.5.A4; IND.2.2.A3; SYS.1.5.A7,NET.3.2.A22 Sichere Zeitsynchronisation; OPS.1.1.5.A4 Zeitsynchronisation der IT-Systeme; IND.2.2.A3 Zeitsynchronisation; SYS.1.5.A7 Zeitsynchronisation in virtuellen IT-Systemen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.5.1,Authentifizierung am System,normal-SdT,vollständig,0.6706,APP.3.1.A1; OPS.2.4.A17; OPS.1.1.2.A6; SYS.2.1.A1,APP.3.1.A1 Authentisierung bei Webanwendungen; OPS.2.4.A17 Authentisierungsmechanismen bei der Fernwartung; OPS.1.1.2.A6 Schutz administrativer Kennungen; SYS.2.1.A1 Benutzerauthentisierung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.1,Minimal erforderliche Berechtigungen für Anwendungen,normal-SdT,vollständig,0.6984,APP.3.3.A5; APP.1.4.A5; SYS.1.1.A3; NET.3.1.A3; APP.3.1.A2,APP.3.3.A5 Restriktive Rechtevergabe; APP.1.4.A5 Minimierung und Kontrolle von App-Berechtigungen; SYS.1.1.A3 Restriktive Rechtevergabe; NET.3.1.A3 Restriktive Rechtevergabe; APP.3.1.A2 Zugriffskontrolle bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.1.2,Isolierung von Anwendungen,erhöht,vollständig,0.6535,SYS.2.1.A34,SYS.2.1.A34 Einsatz von Anwendungsisolation,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.4.1,Rollenbasierte Privilegierung,erhöht,vollständig,0.6504,APP.2.2.A2,APP.2.2.A2 Planung der Active Directory-Administration,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.7,Privilegierte Funktionen der Anwendung,normal-SdT,vollständig,0.6522,APP.3.1.A12,APP.3.1.A12 Sichere Konfiguration von Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.8,Berechtigungen des Webserver-Prozesses,normal-SdT,vollständig,0.6603,APP.3.2.A2,APP.3.2.A2 Schutz der Webserver-Dateien,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.9,Zugriff auf Code,normal-SdT,vollständig,0.6852,APP.3.2.A2; APP.3.1.A12; APP.3.2.A1,APP.3.2.A2 Schutz der Webserver-Dateien; APP.3.1.A12 Sichere Konfiguration von Webanwendungen; APP.3.2.A1 Sichere Konfiguration eines Webservers,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.11,Einschränkung von Uploads,normal-SdT,vollständig,0.6923,APP.3.2.A3; APP.3.1.A4,APP.3.2.A3 Absicherung von Datei-Uploads und -Downloads; APP.3.1.A4 Kontrolliertes Einbinden von Daten und Inhalten bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.14,Browser Sandboxing,normal-SdT,vollständig,0.7253,APP.1.2.A1,APP.1.2.A1 Verwendung von Sandboxing,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.6.16,Datenaustausch in der Virtualisierung,erhöht,vollständig,0.67,SYS.1.5.A2,SYS.1.5.A2 Sicherer Einsatz virtueller IT-Systeme,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.5,Alarmierung,normal-SdT,vollständig,0.6502,OPS.1.1.4.A9,OPS.1.1.4.A9 Meldung von Infektionen mit Schadprogrammen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.6,Automatische Updates,normal-SdT,vollständig,0.7032,OPS.1.1.3.A3; OPS.1.1.4.A6,OPS.1.1.3.A3 Konfiguration von Autoupdate-Mechanismen; OPS.1.1.4.A6 Aktualisierung der eingesetzten Viren-Schutzprogramme und Signaturen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.8,Dual-Engine-Strategie,erhöht,vollständig,0.6753,OPS.1.1.4.A11,OPS.1.1.4.A11 Einsatz mehrerer Scan-Engines,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.7.15,Lokale Firewall,normal-SdT,vollständig,0.6519,OPS.2.4.A4,OPS.2.4.A4 Regelungen zu Kommunikationsverbindungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.8.1,Automatische Überprüfung,normal-SdT,vollständig,0.6998,OPS.1.1.3.A3; APP.3.2.A6; APP.4.3.A7,OPS.1.1.3.A3 Konfiguration von Autoupdate-Mechanismen; APP.3.2.A6 Zeitnahes Einspielen sicherheitsrelevanter Patches und Updates; APP.4.3.A7 Zeitnahes Einspielen von Sicherheitsupdates,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.8.1.1,Automatische Sicherheitsupdates,normal-SdT,vollständig,0.6874,OPS.1.1.3.A3; APP.4.3.A7; SYS.2.1.A3; SYS.1.5.A1,OPS.1.1.3.A3 Konfiguration von Autoupdate-Mechanismen; APP.4.3.A7 Zeitnahes Einspielen von Sicherheitsupdates; SYS.2.1.A3 Aktivieren von Autoupdate-Mechanismen; SYS.1.5.A1 Einspielen von Aktualisierungen und Sicherheitsupdates,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.8.2,Automatische Updates der Anwendung,normal-SdT,vollständig,0.6868,APP.4.3.A7; OPS.1.1.3.A3; SYS.2.1.A3,APP.4.3.A7 Zeitnahes Einspielen von Sicherheitsupdates; OPS.1.1.3.A3 Konfiguration von Autoupdate-Mechanismen; SYS.2.1.A3 Aktivieren von Autoupdate-Mechanismen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.10.3,Änderung von Default-Zugangsdaten,normal-SdT,vollständig,0.6559,APP.3.1.A1,APP.3.1.A1 Authentisierung bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.10.4,Deaktivierung nicht benötigter Anwendungsfunktionen,normal-SdT,vollständig,0.6937,APP.3.1.A12; IND.2.1.A4,"APP.3.1.A12 Sichere Konfiguration von Webanwendungen; IND.2.1.A4 Deaktivierung nicht genutzter Dienste, Funktionen und Schnittstellen",N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.1,Authentifizierung vor dem Zugriff,normal-SdT,vollständig,0.6757,APP.3.1.A1; APP.3.2.A5,APP.3.1.A1 Authentisierung bei Webanwendungen; APP.3.2.A5 Authentisierung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.1.2,Authentifizierung von Netzverbindungen - clientseitig,normal-SdT,vollständig,0.6706,APP.3.2.A5; APP.3.1.A1,APP.3.2.A5 Authentisierung; APP.3.1.A1 Authentisierung bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.3,Alternative Authentifizierung,erhöht,vollständig,0.6915,APP.3.1.A1,APP.3.1.A1 Authentisierung bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.8,Einschränkung von Schnittstellen,normal-SdT,vollständig,0.675,APP.3.1.A12,APP.3.1.A12 Sichere Konfiguration von Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.11.8.1,Einschränkung von Zonentransfers,normal-SdT,vollständig,0.6583,APP.2.2.A10,APP.2.2.A10 Sicherer Einsatz von DNS für Active Directory,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1,Eingabevalidierung,normal-SdT,vollständig,0.6724,APP.3.1.A16,APP.3.1.A16 Umfassende Eingabevalidierung und Ausgabekodierung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.1,Zertifikatsprüfung,normal-SdT,vollständig,0.7295,APP.1.2.A3,APP.1.2.A3 Verwendung von Zertifikaten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.1.7,Filtern schädlicher Webinhalte,normal-SdT,vollständig,0.6528,APP.3.1.A16,APP.3.1.A16 Umfassende Eingabevalidierung und Ausgabekodierung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.4,Speicherung von Zugangsdaten,normal-SdT,vollständig,0.7334,APP.1.2.A6,APP.1.2.A6 Kennwortmanagement im Web-Browser,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.7,Erweiterte Attribute,normal-SdT,vollständig,0.6862,APP.3.4.A5,APP.3.4.A5 Sichere Konfiguration der Zugriffssteuerung bei einem Samba-Server,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.12.12,Verbindungsprotokoll,normal-SdT,vollständig,0.6986,NET.4.1.A5; NET.4.2.A6,NET.4.1.A5 Protokollierung bei TK-Anlagen; NET.4.2.A6 Protokollierung bei VoIP,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.1.1,SPAM-Filter,normal-SdT,vollständig,0.6695,APP.5.1.A18,APP.5.1.A18 Spam- und Virenschutz durch Einsatz eines E-Mail-Scanners auf dem Mailserver,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.13.1.2,Interpretation aktiver Inhalte,normal-SdT,vollständig,0.7331,APP.1.1.A2,APP.1.1.A2 Einschränken von Aktiven Inhalten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.14.1,Verschlüsselung beim Transport,normal-SdT,vollständig,0.6689,APP.3.1.A14; OPS.2.2.A17; APP.1.2.A2; APP.4.3.A16,APP.3.1.A14 Schutz vertraulicher Daten; OPS.2.2.A17 Einsatz von Verschlüsselung bei Cloud-Nutzung; APP.1.2.A2 Verschlüsselung der Kommunikation; APP.4.3.A16 Verschlüsselung der Datenbankanbindung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.14.1.1,Obligatorische Verschlüsselung,normal-SdT,vollständig,0.674,APP.1.2.A2,APP.1.2.A2 Verschlüsselung der Kommunikation,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.14.1.2,Ende-zu-Ende-Verschlüsselung,erhöht,vollständig,0.663,APP.5.1.A21; APP.1.2.A2,APP.5.1.A21 Ende-zu-Ende Verschlüsselung; APP.1.2.A2 Verschlüsselung der Kommunikation,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.15.3,Denial of Service,erhöht,vollständig,0.6618,APP.3.2.A18,APP.3.2.A18 Schutz vor Denial-of-Service-Angriffen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+KONF.15.4,Überbuchung von virtualisierten Ressourcen,erhöht,vollständig,0.6779,SYS.1.5.A21,SYS.1.5.A21 Sichere Konfiguration virtueller IT-Systeme bei erhöhtem Schutzbedarf,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.1.1.1,Dokumentation,normal-SdT,vollständig,0.6688,OPS.1.1.2.A11; OPS.1.1.3.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.1.2,Regelmäßige Überprüfung,normal-SdT,vollständig,0.6568,DER.2.1.A18,DER.2.1.A18 Weiterentwicklung der Prozesse durch Erkenntnisse aus Sicherheitsvorfällen und Branchenentwicklungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.1,Dokumentation der Quellen,normal-SdT,vollständig,0.6506,OPS.2.1.A11,OPS.2.1.A11 Planung und Aufrechterhaltung der Informationssicherheit im laufenden Outsourcing-Betrieb,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.2,Sicherung des Systems,normal-SdT,vollständig,0.6612,DER.2.1.A6,DER.2.1.A6 Wiederherstellung der Betriebsumgebung nach Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.5,Archivierung langfristig benötigter Daten,normal-SdT,vollständig,0.6541,OPS.1.1.5.A8,OPS.1.1.5.A8 Archivierung von Protokollierungsdaten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.5.2,Zum Archiv gehörende Dokumentation,normal-SdT,vollständig,0.6719,OPS.1.2.2.A9; OPS.1.1.5.A8; OPS.1.2.2.A2,OPS.1.2.2.A9 Auswahl geeigneter Datenformate für die Archivierung von Dokumenten; OPS.1.1.5.A8 Archivierung von Protokollierungsdaten; OPS.1.2.2.A2 Entwicklung eines Archivierungskonzepts,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.6,Geschützte Aufbewahrung,normal-SdT,vollständig,0.6612,DER.2.2.A12; CON.1.A2,DER.2.2.A12 Sichere Verwahrung von Originaldatenträgern und Beweismitteln; CON.1.A2 Datensicherung bei Einsatz kryptografischer Verfahren,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.8,Verschlüsselte Datensicherung,normal-SdT,vollständig,0.68,CON.1.A2,CON.1.A2 Datensicherung bei Einsatz kryptografischer Verfahren,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.11,Datenträgerarchiv,normal-SdT,vollständig,0.6685,OPS.1.2.2.A3,OPS.1.2.2.A3 Geeignete Aufstellung von Archivsystemen und Lagerung von Archivmedien,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.13,Datensouveränität,normal-SdT,vollständig,0.6699,OPS.2.2.A11; OPS.2.1.A14; OPS.2.1.A11; OPS.2.1.A10; OPS.2.1.A13,OPS.2.2.A11 Erstellung eines Notfallkonzeptes für einen Cloud-Dienst; OPS.2.1.A14 Notfallvorsorge beim Outsourcing; OPS.2.1.A11 Planung und Aufrechterhaltung der Informationssicherheit im laufenden Outsourcing-Betrieb; OPS.2.1.A10 Vereinbarung über Datenaustausch zwischen den Outsourcing-Partnern; OPS.2.1.A13 Sichere Migration bei Outsourcing-Vorhaben,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.15,Vorgehen zur Wiederherstellung,normal-SdT,vollständig,0.6566,OPS.1.1.2.A11; DER.2.1.A6,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; DER.2.1.A6 Wiederherstellung der Betriebsumgebung nach Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.16,Test der Datensicherung,normal-SdT,vollständig,0.6977,CON.3.A8,CON.3.A8 Funktionstests und überprüfung der Wiederherstellbarkeit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.16.1,Test der Wiederherstellung,normal-SdT,vollständig,0.6762,CON.3.A8; DER.2.1.A6,CON.3.A8 Funktionstests und überprüfung der Wiederherstellbarkeit; DER.2.1.A6 Wiederherstellung der Betriebsumgebung nach Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+NOT.4.17,Anwendungstest,erhöht,vollständig,0.6647,DER.2.1.A6; CON.3.A8,DER.2.1.A6 Wiederherstellung der Betriebsumgebung nach Sicherheitsvorfällen; CON.3.A8 Funktionstests und überprüfung der Wiederherstellbarkeit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+PERF.1.1.4,Auswertung von Sicherheitsvorfällen,normal-SdT,vollständig,0.7148,DER.2.1.A17; DER.2.1.A10,DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen; DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.3.1.1,Erstellen eines Auditsplans,normal-SdT,vollständig,0.7012,DER.3.1.A10; DER.3.1.A7,DER.3.1.A10 Erstellung eines Audit- oder Revisionsplans; DER.3.1.A7 Erstellung eines Auditprogramms,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.3.1.2,Planen von internen Audits,normal-SdT,vollständig,0.6737,DER.3.1.A19,DER.3.1.A19 überprüfung des Risikobehandlungsplans,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.3.1.3,Auswahl des Auditteams,normal-SdT,vollständig,0.69,DER.3.1.A9; DER.3.1.A15,DER.3.1.A9 Auswahl eines geeigneten Audit- oder Revionsteams; DER.3.1.A15 Auswahl von geeigneten Prüfmethoden,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.4.1,Dokumentation von Auditergebnissen,normal-SdT,vollständig,0.6752,DER.3.1.A22; DER.3.1.A3,DER.3.1.A22 Erstellung eines Auditberichts; DER.3.1.A3 Durchführung eines Audits,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.4.1.1,Einheitliches Bewertungsschema,normal-SdT,vollständig,0.7498,DER.3.1.A6,DER.3.1.A6 Definition der Prüfungsgrundlage und eines einheitlichen Bewertungsschemas,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1,Eignungsprüfung,normal-SdT,vollständig,0.6839,ISMS.1.A12; ISMS.1.A15; ISMS.1.A1; DER.3.1.A5; ISMS.1.A2,ISMS.1.A12 Management-Berichte zur Informationssicherheit; ISMS.1.A15 Wirtschaftlicher Einsatz von Ressourcen für Informationssicherheit; ISMS.1.A1 übernahme der Gesamtverantwortung für Informationssicherheit durch die Leitungsebene; DER.3.1.A5 Integration in den Informationssicherheitsprozess; ISMS.1.A2 Festlegung der Sicherheitsziele und -strategie,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.3,Erfolge und Probleme,normal-SdT,vollständig,0.6744,ISMS.1.A12; DER.3.1.A5; ISMS.1.A13,ISMS.1.A12 Management-Berichte zur Informationssicherheit; DER.3.1.A5 Integration in den Informationssicherheitsprozess; ISMS.1.A13 Dokumentation des Sicherheitsprozesses,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.4,Interne Überprüfungen und Audits,normal-SdT,vollständig,0.7283,DER.3.1.A5,DER.3.1.A5 Integration in den Informationssicherheitsprozess,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.5,Eignungsprüfung bisheriger Sicherheitsmaßnahmen,normal-SdT,vollständig,0.6504,DER.3.1.A21,DER.3.1.A21 Auswertung der Prüfungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.6,Rückmeldung von Stakeholdern,normal-SdT,vollständig,0.6551,DER.3.1.A5; ISMS.1.A13; ISMS.1.A12,DER.3.1.A5 Integration in den Informationssicherheitsprozess; ISMS.1.A13 Dokumentation des Sicherheitsprozesses; ISMS.1.A12 Management-Berichte zur Informationssicherheit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.1.8,Verbesserungen,normal-SdT,vollständig,0.6676,ISMS.1.A13; DER.3.1.A5,ISMS.1.A13 Dokumentation des Sicherheitsprozesses; DER.3.1.A5 Integration in den Informationssicherheitsprozess,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.5.2,Bericht an die Institutionsleitung,normal-SdT,vollständig,0.7051,ISMS.1.A12,ISMS.1.A12 Management-Berichte zur Informationssicherheit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERF.6.1.1,Sicherheitsvorfälle,normal-SdT,vollständig,0.6787,DER.2.1.A17,DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.2.3,Rollentrennung,normal-SdT,vollständig,0.6525,ORP.1.A4,ORP.1.A4 Funktionstrennung zwischen operativen und kontrollierenden Aufgaben,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.3.6,Vertrauenswürdigkeit von Bewerbenden,normal-SdT,vollständig,0.668,ORP.2.A7,ORP.2.A7 überprüfung der Vertrauenswürdigkeit von Mitarbeitern,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.3.7,Einarbeitung,normal-SdT,vollständig,0.6823,ORP.2.A1; ORP.3.A3; ORP.5.A6,ORP.2.A1 Geregelte Einarbeitung neuer Mitarbeiter; ORP.3.A3 Einweisung des Personals in den sicheren Umgang mit IT; ORP.5.A6 Einweisung des Personals in den sicheren Umgang mit IT,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+PERS.6.1,Vorgehensweise für den Weggang,normal-SdT,vollständig,0.7245,ORP.2.A2,ORP.2.A2 Geregelte Verfahrensweise beim Weggang von Mitarbeitern,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
+REA.1.1,Verfahren und Regelungen,normal-SdT,vollständig,0.7084,DER.2.1.A7; DER.2.1.A10; DER.2.1.A17; DER.2.1.A2; DER.2.1.A5,DER.2.1.A7 Etablierung einer Vorgehensweise zur Behandlung von Sicherheitsvorfällen; DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen; DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen; DER.2.1.A2 Erstellung einer Richtlinie zur Behandlung von Sicherheitsvorfällen; DER.2.1.A5 Behebung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.1.1.3,Bekanntgabe,normal-SdT,vollständig,0.6508,DER.2.1.A4,DER.2.1.A4 Benachrichtigung betroffener Stellen bei Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.1.2,Regelmäßige Überprüfung,normal-SdT,vollständig,0.6963,DER.2.1.A18,DER.2.1.A18 Weiterentwicklung der Prozesse durch Erkenntnisse aus Sicherheitsvorfällen und Branchenentwicklungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.1.3,Übungen zur Vorfallsbehandlung,erhöht,vollständig,0.6617,DER.2.1.A17; DER.2.1.A6,DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen; DER.2.1.A6 Wiederherstellung der Betriebsumgebung nach Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.1,Triage und Erstreaktion,normal-SdT,vollständig,0.6585,DER.2.1.A10,DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.3,Dokumentation von Vorfällen,normal-SdT,vollständig,0.6737,DER.2.1.A16,DER.2.1.A16 Dokumentation der Behandlung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.4,Diagnosedaten,normal-SdT,vollständig,0.6624,DER.2.1.A17; DER.2.1.A10,DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen; DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.5,IT-Forensik,erhöht,vollständig,0.6723,DER.2.2.A10,DER.2.2.A10 IT-forensische Sicherung von Beweismitteln,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.5.1,Rechtssichere Beweissicherung,normal-SdT,vollständig,0.6635,DER.2.2.A10,DER.2.2.A10 IT-forensische Sicherung von Beweismitteln,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.5.2,Vier-Augen-Prinzip,erhöht,vollständig,0.6712,DER.2.2.A11; DER.2.2.A10,DER.2.2.A11 Dokumentation der Beweissicherung; DER.2.2.A10 IT-forensische Sicherung von Beweismitteln,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.6,Ursachenanalyse und Behandlung,normal-SdT,vollständig,0.6785,DER.2.1.A6; DER.2.1.A10; DER.2.1.A5; DER.2.1.A17,DER.2.1.A6 Wiederherstellung der Betriebsumgebung nach Sicherheitsvorfällen; DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen; DER.2.1.A5 Behebung von Sicherheitsvorfällen; DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.6.1,Dokumentation des Vorgehens,normal-SdT,vollständig,0.7207,DER.2.1.A16,DER.2.1.A16 Dokumentation der Behandlung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.6.3,Koordinierung,normal-SdT,vollständig,0.6588,DER.2.1.A10,DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.2.6.5,Eskalation,normal-SdT,vollständig,0.7238,DER.2.1.A14,DER.2.1.A14 Eskalationsstrategie für Sicherheitsvorfälle,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.3.1,Verbesserung durch Erkenntnisse,normal-SdT,vollständig,0.6692,DER.2.1.A17; DER.2.1.A18; DER.2.1.A10; DER.2.1.A5,DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen; DER.2.1.A18 Weiterentwicklung der Prozesse durch Erkenntnisse aus Sicherheitsvorfällen und Branchenentwicklungen; DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen; DER.2.1.A5 Behebung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+REA.3.1.1,Quantitative Analyse,normal-SdT,vollständig,0.6663,DER.2.1.A10; DER.2.1.A17,DER.2.1.A10 Eindämmen der Auswirkung von Sicherheitsvorfällen; DER.2.1.A17 Nachbereitung von Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.1.1,Verfahren und Regelungen,normal-SdT,vollständig,0.6665,ORP.3.A4,ORP.3.A4 Konzeption eines Sensibilisierungs- und Schulungsprogramms zur Informationssicherheit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.2.4.1,Verbindung unautorisierter IT-Systeme,normal-SdT,vollständig,0.6762,INF.10.A6,INF.10.A6 Einrichtung sicherer Netzzugänge,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.1,Personengebundene Authentisierungsmittel,normal-SdT,vollständig,0.6522,APP.3.1.A1,APP.3.1.A1 Authentisierung bei Webanwendungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.1.3,Wahl von Passwörtern,normal-SdT,vollständig,0.6548,APP.1.2.A6,APP.1.2.A6 Kennwortmanagement im Web-Browser,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.1.4,Passwörter nur im Passwortmanager,normal-SdT,vollständig,0.6918,APP.1.2.A6,APP.1.2.A6 Kennwortmanagement im Web-Browser,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.4.3,Abmelden nach Nutzung,normal-SdT,vollständig,0.6689,SYS.2.1.A22,SYS.2.1.A22 Abmelden nach Aufgabenerfüllung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.5.5,Löschfristen,normal-SdT,vollständig,0.6554,CON.6.A6,CON.6.A6 Einweisung aller Mitarbeiter in die Methoden zur Löschung oder Vernichtung von Informationen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.5.6,Papiervernichtung,normal-SdT,vollständig,0.6571,CON.6.A1,CON.6.A1 Regelung der Vorgehensweise für die Löschung und Vernichtung von Informationen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.2,Virenscan,normal-SdT,vollständig,0.6742,APP.1.1.A3; APP.5.1.A18,APP.1.1.A3 öffnen von Dokumenten aus externen Quellen; APP.5.1.A18 Spam- und Virenschutz durch Einsatz eines E-Mail-Scanners auf dem Mailserver,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.7,SPAM - Anhänge,normal-SdT,vollständig,0.6601,APP.1.1.A3,APP.1.1.A3 öffnen von Dokumenten aus externen Quellen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.14,Unautorisierte WLANs,erhöht,vollständig,0.6518,NET.2.1.A6,NET.2.1.A6 Sichere Konfiguration der WLAN-Clients,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.18,Mobiltelefone in Sicherheitsbereichen,erhöht,vollständig,0.6749,INF.9.A11,INF.9.A11 Verbot der Nutzung unsicherer Umgebungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.7.24,Zertifikatswarnungen,normal-SdT,vollständig,0.6976,APP.1.2.A3,APP.1.2.A3 Verwendung von Zertifikaten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.1,Risiken der Nutzung von mobilen Endgeräten,normal-SdT,vollständig,0.7023,INF.9.A11,INF.9.A11 Verbot der Nutzung unsicherer Umgebungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.2,Schließen von Türen und Fenstern,normal-SdT,vollständig,0.6549,INF.1.A11; INF.7.A2; INF.1.A22,INF.1.A11 Abgeschlossene Türen; INF.7.A2 Geschlossene Fenster und abgeschlossene Türen; INF.1.A22 Sichere Türen und Fenster,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.3,Mitbringen von IT-Systemen,erhöht,vollständig,0.6581,INF.9.A4,INF.9.A4 Arbeiten mit fremden IT-Systemen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.8.7,Verwendung von Brandschutmitteln,normal-SdT,vollständig,0.6703,INF.2.A9,INF.2.A9 Einsatz einer Lösch- oder Brandvermeidungsanlage,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.9.2,Vorsicht vor Mithören,normal-SdT,vollständig,0.6585,INF.9.A11,INF.9.A11 Verbot der Nutzung unsicherer Umgebungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.9.5,Mitnahme zur mobilen Arbeit,normal-SdT,vollständig,0.6651,CON.7.A13; INF.9.A1; INF.9.A11,CON.7.A13 Mitnahme von Daten und Datenträgern; INF.9.A1 Geeignete Auswahl und Nutzung eines mobilen Arbeitsplatzes; INF.9.A11 Verbot der Nutzung unsicherer Umgebungen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.9.6,Mitnahme ins Ausland,erhöht,vollständig,0.7069,CON.7.A13; CON.7.A3; INF.9.A11,"CON.7.A13 Mitnahme von Daten und Datenträgern; CON.7.A3 Identifikation länderspezifischer Regelungen, Reise- und Umgebungsbedingungen; INF.9.A11 Verbot der Nutzung unsicherer Umgebungen",N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.9.7,Reise- und Sicherheitshinweise,normal-SdT,vollständig,0.6943,CON.7.A3,"CON.7.A3 Identifikation länderspezifischer Regelungen, Reise- und Umgebungsbedingungen",N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.10.2,Umgang mit privilegierten Berechtigungen,normal-SdT,vollständig,0.6591,APP.3.3.A5; APP.5.1.A9,APP.3.3.A5 Restriktive Rechtevergabe; APP.5.1.A9 Sichere Administration von Groupware-Systemen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.10.3,Systemadministration - Sicherheitsvorfälle,normal-SdT,vollständig,0.6599,SYS.3.2.1.A7,SYS.3.2.1.A7 Verhaltensregeln bei Sicherheitsvorfällen,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.10.4,Systemadministration - Strukturierte Verkabelung,normal-SdT,vollständig,0.6626,INF.2.A23,INF.2.A23 Sicher strukturierte Verkabelung im Rechenzentrum,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+SENS.11.1,Sensibilisierung der Institutionsleitung,normal-SdT,vollständig,0.6725,ORP.3.A1; ORP.3.A4,ORP.3.A1 Sensibilisierung des Managements für Informationssicherheit; ORP.3.A4 Konzeption eines Sensibilisierungs- und Schulungsprogramms zur Informationssicherheit,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.1.1,Verfahren und Regelungen,normal-SdT,vollständig,0.6649,OPS.1.1.3.A4,OPS.1.1.3.A4 Planung des änderungsmanagementprozesses,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.1.1.1,Dokumentation,normal-SdT,vollständig,0.7247,OPS.1.1.2.A11; OPS.1.1.3.A11,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.1.1.3,Bekanntgabe,normal-SdT,vollständig,0.6576,OPS.1.1.3.A11; OPS.1.1.2.A11,OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung; OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.1.2,Regelmäßige Überprüfung,normal-SdT,vollständig,0.6679,APP.4.3.A20; APP.3.3.A10; OPS.1.2.2.A13,APP.4.3.A20 Regelmäßige Audits; APP.3.3.A10 Regelmäßige Tests des Datensicherungs- bzw. Wiederherstellungskonzepts; OPS.1.2.2.A13 Regelmäßige Revision der Archivierungsprozesse,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.2.2.2,Anpassung der Dokumentation,normal-SdT,vollständig,0.6995,OPS.1.1.2.A11; OPS.1.1.3.A11; OPS.1.1.3.A4,OPS.1.1.2.A11 Dokumentation von IT-Administrationstätigkeiten; OPS.1.1.3.A11 Kontinuierliche Dokumentation der Informationsverarbeitung; OPS.1.1.3.A4 Planung des änderungsmanagementprozesses,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.1,Dokumentation von Testergebnissen,normal-SdT,vollständig,0.6743,OPS.1.1.6.A5; OPS.1.1.6.A12; OPS.1.1.6.A2,OPS.1.1.6.A5 Durchführung nicht-funktionaler Software-Tests; OPS.1.1.6.A12 Durchführung von Regressionstests; OPS.1.1.6.A2 Durchführung von funktionalen Software-Tests,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.3,Testdaten,normal-SdT,vollständig,0.6579,OPS.1.1.6.A11,OPS.1.1.6.A11 Verwendung von anonymisierten oder pseudonymisierten Testdaten,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.4,Testumgebung,normal-SdT,vollständig,0.718,OPS.1.1.6.A13,OPS.1.1.6.A13 Trennung von Test- und Qualitätsmanagement-Umgebung von der Produktivumgebung,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.3.1.5,Kontinuierliche Tests,erhöht,vollständig,0.6547,OPS.1.1.6.A2,OPS.1.1.6.A2 Durchführung von funktionalen Software-Tests,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+TEST.5.5,Rückblick,normal-SdT,vollständig,0.6556,OPS.1.1.3.A1,OPS.1.1.3.A1 Konzept für das Patch- und änderungsmanagement,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:44
+VRB.1.2,Änderungen im ISMS,normal-SdT,vollständig,0.6716,ISMS.1.A13,ISMS.1.A13 Dokumentation des Sicherheitsprozesses,N/A,N/A,text-embedding-3-small,2026-04-21T13:36:43
