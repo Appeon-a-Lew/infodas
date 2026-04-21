@@ -19,8 +19,12 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Map Grundschutz++ to IT-Grundschutz")
     p.add_argument("--model", default="claude-sonnet-4-5",
                    help="e.g. claude-sonnet-4-5, claude-opus-4-1-20250805, gpt-4o-2024-11-20")
-    p.add_argument("--scope", default="GC.",
-                   help="GS++ ID-prefix to include (default: 'GC.')")
+    p.add_argument("--scope", default="",
+                   help="GS++ ID-prefix to include (default: all categories)")
+    p.add_argument("--sample-ratio", type=float, default=0.20,
+                   help="ratio of GS++ controls sampled per category (default: 0.20 = 20%%, <=0 or >=1 means all)")
+    p.add_argument("--seed", type=int, default=42,
+                   help="random seed for per-category sampling")
     p.add_argument("--top-k", type=int, default=15)
     p.add_argument("--gs-levels", default="Basis,Standard",
                    help="comma-separated levels from GS to consider")
@@ -29,9 +33,19 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
 
     levels = tuple(s.strip() for s in args.gs_levels.split(",") if s.strip())
-    print(f"[i] scope={args.scope!r} model={args.model} top_k={args.top_k} levels={levels}", file=sys.stderr)
+    scope_display = args.scope or "<all>"
+    print(
+        f"[i] scope={scope_display!r} sample_ratio={args.sample_ratio:.2f} "
+        f"seed={args.seed} model={args.model} top_k={args.top_k} levels={levels}",
+        file=sys.stderr,
+    )
 
-    gspp_reqs = parse_gspp.parse(ROOT / "data" / "gspp.json", scope_prefix=args.scope)
+    gspp_reqs = parse_gspp.parse(
+        ROOT / "data" / "gspp.json",
+        scope_prefix=args.scope,
+        sample_ratio_per_category=args.sample_ratio,
+        random_seed=args.seed,
+    )
     gs_reqs = parse_gs.parse(ROOT / "data" / "gs.xml", levels=levels)
     if args.limit:
         gspp_reqs = gspp_reqs[: args.limit]

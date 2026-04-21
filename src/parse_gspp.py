@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import math
+import random
 from pathlib import Path
 
 from .models import Requirement
@@ -31,9 +33,20 @@ def _sec_level(ctrl: dict) -> str | None:
     return None
 
 
+
+def _tiered_sample_size(category_size: int) -> int:
+    if category_size < 10:
+        return min(3, category_size)
+    if category_size > 50:
+        return max(1, math.ceil(category_size * 0.10))
+    return max(1, math.ceil(category_size * 0.20))
+
+
 def parse(
     json_path: Path | str,
-    scope_prefix: str = "GC.",
+    scope_prefix: str = "",
+    sample_ratio_per_category: float = 0.20,
+    random_seed: int | None = None,
 ) -> list[Requirement]:
     catalog = json.loads(Path(json_path).read_text(encoding="utf-8"))["catalog"]
     collected: list[tuple[dict, list[str]]] = []
@@ -58,12 +71,27 @@ def parse(
                 level=_sec_level(ctrl),
             )
         )
+
+    if 0 < sample_ratio_per_category < 1:
+        rng = random.Random(random_seed)
+        by_category: dict[str, list[Requirement]] = {}
+        for req in out:
+            category = req.id.split(".", 1)[0]
+            by_category.setdefault(category, []).append(req)
+
+        sampled: list[Requirement] = []
+        for category in sorted(by_category):
+            bucket = by_category[category]
+            k = _tiered_sample_size(len(bucket))
+            sampled.extend(rng.sample(bucket, k=k))
+        out = sampled
+
     return out
 
 
 if __name__ == "__main__":
     reqs = parse(Path(__file__).resolve().parent.parent / "data" / "gspp.json")
-    print(f"parsed {len(reqs)} GS++ controls in scope GC.")
+    print(f"parsed {len(reqs)} GS++ controls")
     for r in reqs[:3]:
         print(" -", r.id, "|", r.title)
         print("   text:", r.text[:120].replace("\n", " "), "...")
