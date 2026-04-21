@@ -16,6 +16,10 @@ class MappingEdge:
     coverage: str
     gs_id: str
 
+    @property
+    def edge_key(self) -> str:
+        return f"{self.gspp_id}|||{self.gs_id}"
+
 
 COVERAGE_COLORS = {
     "voll": "#2e7d32",
@@ -116,13 +120,15 @@ def _build_node_payloads(
     gspp_texts: dict[str, str],
     gs_titles: dict[str, str],
     gs_texts: dict[str, str],
-) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, str]]]:
+  ) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, str]], dict[str, list[dict[str, str]]]]:
     left_payload: dict[str, dict[str, str]] = {}
     right_payload: dict[str, dict[str, str]] = {}
+    edges_by_left: dict[str, list[dict[str, str]]] = {}
 
     row_by_left: dict[str, dict[str, str]] = {}
     right_titles_from_csv: dict[str, str] = {}
     mapped_from: dict[str, list[str]] = {rid: [] for rid in right_nodes}
+    seen_edges: set[str] = set()
 
     for row in rows:
         gspp_id = (row.get("gspp_id") or "").strip()
@@ -137,6 +143,24 @@ def _build_node_payloads(
         for rid in _split_ids(row.get("gs_ids") or ""):
             if rid in mapped_from and gspp_id and gspp_id not in mapped_from[rid]:
                 mapped_from[rid].append(gspp_id)
+            if not gspp_id:
+              continue
+            edge_key = f"{gspp_id}|||{rid}"
+            if edge_key in seen_edges:
+              continue
+            seen_edges.add(edge_key)
+            edges_by_left.setdefault(gspp_id, []).append(
+              {
+                "edge_key": edge_key,
+                "gspp_id": gspp_id,
+                "gspp_title": (row.get("gspp_title") or "").strip(),
+                "gs_id": rid,
+                "gs_title": gs_titles.get(rid) or parsed_titles.get(rid) or right_titles_from_csv.get(rid, ""),
+                "coverage": (row.get("coverage") or "").strip(),
+                "confidence": (row.get("confidence") or "").strip(),
+                "source_text": gs_texts.get(rid, ""),
+              }
+            )
 
     for node in left_nodes:
         row = row_by_left.get(node, {})
@@ -159,7 +183,7 @@ def _build_node_payloads(
             "source_text": gs_texts.get(node, ""),
         }
 
-    return left_payload, right_payload
+        return left_payload, right_payload, edges_by_left
 
 
 def _json_for_script(data: dict[str, dict[str, str]]) -> str:
@@ -168,11 +192,13 @@ def _json_for_script(data: dict[str, dict[str, str]]) -> str:
 
 def _build_html(
     title: str,
+  source_csv_name: str,
     edges: list[MappingEdge],
     left_nodes: list[str],
     right_nodes: list[str],
     left_payload: dict[str, dict[str, str]],
     right_payload: dict[str, dict[str, str]],
+  edges_by_left: dict[str, list[dict[str, str]]],
 ) -> str:
     left_x = 220
     right_x = 980
@@ -196,7 +222,10 @@ def _build_html(
         c1x = left_x + 250
         c2x = right_x - 250
         d = f"M {left_x} {y1} C {c1x} {y1}, {c2x} {y2}, {right_x} {y2}"
-        edge_lines.append(f'<path d="{d}" stroke="{color}" stroke-width="1.6" fill="none" opacity="0.6" />')
+        edge_lines.append(
+          f'<path class="edge" data-edge-key="{html.escape(e.edge_key)}" '
+          f'data-default-color="{color}" d="{d}" stroke="{color}" stroke-width="1.6" fill="none" opacity="0.6" />'
+        )
 
     left_nodes_svg: list[str] = []
     for node in left_nodes:
@@ -222,6 +251,7 @@ def _build_html(
 
     left_json = _json_for_script(left_payload)
     right_json = _json_for_script(right_payload)
+    edge_json = _json_for_script(edges_by_left)
 
     return f"""<!doctype html>
 <html lang=\"de\">
@@ -265,9 +295,19 @@ def _build_html(
     .clickable {{ cursor: pointer; }}
     .clickable:hover text {{ text-decoration: underline; }}
     .node.active circle {{ stroke: #111827; stroke-width: 2; }}
+    .edge.accepted {{ stroke: #2e7d32 !important; opacity: 0.95 !important; stroke-width: 2.6 !important; }}
+    .edge.denied {{ stroke: #c62828 !important; opacity: 0.9 !important; stroke-width: 2.4 !important; stroke-dasharray: 6 3; }}
     .label-left, .label-right {{ fill: var(--ink); font-size: 12px; font-weight: 500; }}
     .column-title {{ fill: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }}
     .details {{ margin-top: 14px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; padding: 12px; }}
+    .toolbar {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }}
+    .btn {{ border: 1px solid #d1d5db; background: #fff; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 0.88rem; }}
+    .btn.primary {{ background: #0d47a1; color: #fff; border-color: #0d47a1; }}
+    .btn:disabled {{ opacity: 0.5; cursor: not-allowed; }}
+    .status {{ font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }}
+    .link-card {{ border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin: 8px 0; background: #fafafa; }}
+    .link-head {{ display: flex; justify-content: space-between; gap: 10px; align-items: center; }}
+    .decision-select {{ border: 1px solid #d1d5db; border-radius: 6px; padding: 4px 6px; background: #fff; }}
     .details h2 {{ margin: 0 0 8px; font-size: 1rem; }}
     .details .meta-row {{ margin: 6px 0; color: var(--muted); font-size: 0.9rem; }}
     .details pre {{
@@ -292,6 +332,14 @@ def _build_html(
       <span><span class=\"dot\" style=\"background:{COVERAGE_COLORS['voll']}\"></span>voll</span>
       <span><span class=\"dot\" style=\"background:{COVERAGE_COLORS['teilweise']}\"></span>teilweise</span>
       <span><span class=\"dot\" style=\"background:{COVERAGE_COLORS['keine']}\"></span>keine</span>
+      <span><span class=\"dot\" style=\"background:#2e7d32\"></span>accepted</span>
+      <span><span class=\"dot\" style=\"background:#c62828\"></span>denied</span>
+    </div>
+    <div class=\"status\" id=\"review-status\"></div>
+    <div class=\"toolbar\">
+      <button id=\"save-json\" class=\"btn primary\" type=\"button\" disabled>Save Ground Truth JSON</button>
+      <button id=\"save-csv\" class=\"btn\" type=\"button\" disabled>Save Ground Truth CSV</button>
+      <button id=\"reset-decisions\" class=\"btn\" type=\"button\">Reset Decisions</button>
     </div>
     <div class=\"viewport\">
       <svg viewBox=\"0 0 {width} {height}\" role=\"img\" aria-label=\"GS++ zu GS Mapping\">
@@ -309,10 +357,34 @@ def _build_html(
   </div>
   <script id=\"left-data\" type=\"application/json\">{left_json}</script>
   <script id=\"right-data\" type=\"application/json\">{right_json}</script>
+  <script id=\"edge-data\" type=\"application/json\">{edge_json}</script>
   <script>
+    const SOURCE_CSV = "{html.escape(source_csv_name)}";
+    const STORAGE_KEY = "groundtruth_decisions_" + SOURCE_CSV;
     const leftData = JSON.parse(document.getElementById('left-data').textContent || '{{}}');
     const rightData = JSON.parse(document.getElementById('right-data').textContent || '{{}}');
+    const edgesByLeft = JSON.parse(document.getElementById('edge-data').textContent || '{{}}');
     const details = document.getElementById('node-details');
+    const reviewStatus = document.getElementById('review-status');
+    const saveJsonBtn = document.getElementById('save-json');
+    const saveCsvBtn = document.getElementById('save-csv');
+    const resetBtn = document.getElementById('reset-decisions');
+
+    let selectedLeftId = null;
+    let decisions = loadDecisions();
+
+    function loadDecisions() {{
+      try {{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {{}};
+      }} catch (err) {{
+        return {{}};
+      }}
+    }}
+
+    function saveDecisions() {{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(decisions));
+    }}
 
     function escapeHtml(value) {{
       return String(value || '')
@@ -339,6 +411,93 @@ def _build_html(
       document.querySelectorAll(selector).forEach((el) => el.classList.add('active'));
     }}
 
+    function flattenEdges() {{
+      const out = [];
+      Object.keys(edgesByLeft).forEach((leftId) => {{
+        (edgesByLeft[leftId] || []).forEach((edge) => out.push(edge));
+      }});
+      return out;
+    }}
+
+    function allReviewed() {{
+      const all = flattenEdges();
+      if (all.length === 0) return false;
+      return all.every((edge) => decisions[edge.edge_key] === 'accept' || decisions[edge.edge_key] === 'deny');
+    }}
+
+    function reviewedCounts() {{
+      const all = flattenEdges();
+      let done = 0;
+      all.forEach((edge) => {{
+        const d = decisions[edge.edge_key];
+        if (d === 'accept' || d === 'deny') done += 1;
+      }});
+      return {{ done, total: all.length }};
+    }}
+
+    function updateEdgeStyles() {{
+      document.querySelectorAll('.edge').forEach((el) => {{
+        const key = el.dataset.edgeKey;
+        const decision = decisions[key];
+        el.classList.remove('accepted', 'denied');
+        if (decision === 'accept') {{
+          el.classList.add('accepted');
+        }} else if (decision === 'deny') {{
+          el.classList.add('denied');
+        }} else {{
+          el.style.stroke = el.dataset.defaultColor || '#757575';
+          el.style.opacity = '0.6';
+          el.style.strokeWidth = '1.6';
+          el.style.strokeDasharray = 'none';
+        }}
+      }});
+    }}
+
+    function updateStatus() {{
+      const c = reviewedCounts();
+      reviewStatus.textContent = 'Reviewed connections: ' + c.done + ' / ' + c.total;
+      const ready = allReviewed();
+      saveJsonBtn.disabled = !ready;
+      saveCsvBtn.disabled = !ready;
+      updateEdgeStyles();
+    }}
+
+    function connectionCardHtml(edge) {{
+      const decision = decisions[edge.edge_key] || '';
+      const options = [
+        '<option value="">Choose decision</option>',
+        '<option value="accept"' + (decision === 'accept' ? ' selected' : '') + '>Accept</option>',
+        '<option value="deny"' + (decision === 'deny' ? ' selected' : '') + '>Deny</option>',
+      ].join('');
+
+      return ''
+        + '<div class="link-card">'
+        +   '<div class="link-head">'
+        +     '<div><strong>' + escapeHtml(edge.gs_id) + '</strong> - ' + escapeHtml(edge.gs_title) + '</div>'
+        +     '<select class="decision-select" data-edge-key="' + escapeHtml(edge.edge_key) + '">' + options + '</select>'
+        +   '</div>'
+        +   '<div class="meta-row">Coverage: ' + escapeHtml(edge.coverage) + ' | Confidence: ' + escapeHtml(edge.confidence) + '</div>'
+        +   '<div class="meta-row"><strong>Original GS text:</strong></div>'
+        +   '<pre>' + escapeHtml(edge.source_text || '') + '</pre>'
+        + '</div>';
+    }}
+
+    function bindDecisionHandlers() {{
+      details.querySelectorAll('.decision-select').forEach((sel) => {{
+        sel.addEventListener('change', () => {{
+          const key = sel.dataset.edgeKey;
+          const val = sel.value;
+          if (val === 'accept' || val === 'deny') {{
+            decisions[key] = val;
+          }} else {{
+            delete decisions[key];
+          }}
+          saveDecisions();
+          updateStatus();
+        }});
+      }});
+    }}
+
     function renderNode(side, id) {{
       activateNode(side, id);
       const payload = side === 'left' ? leftData[id] : rightData[id];
@@ -348,16 +507,24 @@ def _build_html(
       }}
 
       if (side === 'left') {{
-        details.innerHTML = [
-          `<h2>GS++ Node: ${{escapeHtml(payload.id || id)}}</h2>`,
-          detailBlock('Title', payload.title),
-          detailBlock('Level', payload.level),
-          detailBlock('Coverage', payload.coverage),
-          detailBlock('Confidence', payload.confidence),
-          detailText('Rationale', payload.rationale),
-          detailText('Gap Notes', payload.gap_notes),
-          detailText('Source Text (JSON)', payload.source_text),
-        ].join('');
+        selectedLeftId = id;
+        const conns = edgesByLeft[id] || [];
+        const connHtml = conns.length
+          ? conns.map(connectionCardHtml).join('')
+          : '<div class="meta-row">No mapped GS connections for this node.</div>';
+
+        details.innerHTML = ''
+          + '<h2>GS++ Node: ' + escapeHtml(payload.id || id) + '</h2>'
+          + detailBlock('Title', payload.title)
+          + detailBlock('Level', payload.level)
+          + detailBlock('Coverage', payload.coverage)
+          + detailBlock('Confidence', payload.confidence)
+          + detailText('Rationale', payload.rationale)
+          + detailText('Gap Notes', payload.gap_notes)
+          + detailText('Source Text (JSON)', payload.source_text)
+          + '<h2 style="margin-top:12px;">Connected GS Nodes</h2>'
+          + connHtml;
+        bindDecisionHandlers();
       }} else {{
         details.innerHTML = [
           `<h2>GS Node: ${{escapeHtml(payload.id || id)}}</h2>`,
@@ -368,6 +535,71 @@ def _build_html(
       }}
     }}
 
+    function downloadText(filename, text, mime) {{
+      const blob = new Blob([text], {{ type: mime }});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }}
+
+    function buildGroundTruthRows() {{
+      const rows = [];
+      Object.keys(edgesByLeft).forEach((leftId) => {{
+        (edgesByLeft[leftId] || []).forEach((edge) => {{
+          const d = decisions[edge.edge_key] || '';
+          rows.push({{
+            edge_key: edge.edge_key,
+            gspp_id: edge.gspp_id,
+            gspp_title: edge.gspp_title,
+            gs_id: edge.gs_id,
+            gs_title: edge.gs_title,
+            coverage: edge.coverage,
+            confidence: edge.confidence,
+            decision: d,
+          }});
+        }});
+      }});
+      return rows;
+    }}
+
+    function exportJson() {{
+      const now = new Date().toISOString();
+      const doc = {{
+        type: 'ground_truth_mapping',
+        source_csv: SOURCE_CSV,
+        created_at: now,
+        decisions: buildGroundTruthRows(),
+      }};
+      downloadText('groundtruth_' + SOURCE_CSV.replace('.csv', '') + '.json', JSON.stringify(doc, null, 2), 'application/json');
+    }}
+
+    function exportCsv() {{
+      const lines = [];
+      lines.push('edge_key,gspp_id,gspp_title,gs_id,gs_title,coverage,confidence,decision');
+      buildGroundTruthRows().forEach((r) => {{
+        const vals = [r.edge_key, r.gspp_id, r.gspp_title, r.gs_id, r.gs_title, r.coverage, r.confidence, r.decision];
+        const escaped = vals.map((v) => '"' + String(v || '').replace(/"/g, '""') + '"');
+        lines.push(escaped.join(','));
+      }});
+      downloadText('groundtruth_' + SOURCE_CSV.replace('.csv', '') + '.csv', lines.join('\\n'), 'text/csv');
+    }}
+
+    saveJsonBtn.addEventListener('click', exportJson);
+    saveCsvBtn.addEventListener('click', exportCsv);
+    resetBtn.addEventListener('click', () => {{
+      decisions = {{}};
+      saveDecisions();
+      if (selectedLeftId) {{
+        renderNode('left', selectedLeftId);
+      }}
+      updateStatus();
+    }});
+
     document.querySelectorAll('.node.clickable').forEach((node) => {{
       node.addEventListener('click', () => renderNode(node.dataset.side, node.dataset.id));
       node.addEventListener('keydown', (ev) => {{
@@ -377,6 +609,8 @@ def _build_html(
         }}
       }});
     }});
+
+    updateStatus();
   </script>
 </body>
 </html>
@@ -412,7 +646,7 @@ def main(argv: list[str] | None = None) -> int:
     edges, left_nodes, right_nodes = _read_edges(rows)
 
     gspp_titles, gspp_texts, gs_titles, gs_texts = _load_source_texts(args.gspp_json, args.gs_xml)
-    left_payload, right_payload = _build_node_payloads(
+    left_payload, right_payload, edges_by_left = _build_node_payloads(
         rows=rows,
         left_nodes=left_nodes,
         right_nodes=right_nodes,
@@ -425,7 +659,16 @@ def main(argv: list[str] | None = None) -> int:
     out_path = args.out or csv_path.with_name(f"{csv_path.stem}_graph.html")
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    html_doc = _build_html(args.title, edges, left_nodes, right_nodes, left_payload, right_payload)
+    html_doc = _build_html(
+      args.title,
+      csv_path.name,
+      edges,
+      left_nodes,
+      right_nodes,
+      left_payload,
+      right_payload,
+      edges_by_left,
+    )
     out_path.write_text(html_doc, encoding="utf-8")
 
     print(f"[i] input: {csv_path}")
