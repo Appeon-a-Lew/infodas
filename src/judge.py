@@ -170,6 +170,7 @@ def combine_matches(matches: list[Match], model_names: list[str]) -> Match:
     source_count = len(matches)
     candidate_scores: dict[str, float] = defaultdict(float)
     rationales: list[str] = []
+    source_summaries: list[str] = []
     gap_notes: list[str] = []
     coverage_score = 0
 
@@ -177,6 +178,10 @@ def combine_matches(matches: list[Match], model_names: list[str]) -> Match:
         if match.gspp_id != gspp_id:
             raise ValueError("cannot combine matches from different GS++ requirements")
         coverage_score += {"keine": 0, "teilweise": 1, "voll": 2}.get(match.coverage, 0)
+        selected_ids = ";".join(match.gs_candidates)
+        source_summaries.append(
+            f"[{model_name}] coverage={match.coverage} confidence={match.confidence:.4f} gs_ids={selected_ids}"
+        )
         for gs_id in match.gs_candidates:
             candidate_scores[gs_id] += match.confidence
         if match.rationale:
@@ -199,7 +204,13 @@ def combine_matches(matches: list[Match], model_names: list[str]) -> Match:
         confidence = sum(match.confidence for match in matches) / source_count
         rationale_header = "Kein GS-Kandidat wurde von den kombinierten Modellen ausgewählt."
 
-    rationale = "\n".join([rationale_header, *rationales]).strip()
+    rationale = "\n".join([
+        rationale_header,
+        "Model-Entscheidungen:",
+        *source_summaries,
+        "Model-Begründungen:",
+        *rationales,
+    ]).strip()
     combined_gap_notes = "\n".join(gap_notes).strip() or None
     return Match(
         gspp_id=gspp_id,

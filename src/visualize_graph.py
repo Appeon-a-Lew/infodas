@@ -307,7 +307,11 @@ def _build_html(
     .status {{ font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }}
     .link-card {{ border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin: 8px 0; background: #fafafa; }}
     .link-head {{ display: flex; justify-content: space-between; gap: 10px; align-items: center; }}
+    .chips {{ display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }}
+    .chip {{ border: 1px solid #d1d5db; border-radius: 999px; padding: 2px 8px; font-size: 0.78rem; background: #fff; color: #334155; }}
     .decision-select {{ border: 1px solid #d1d5db; border-radius: 6px; padding: 4px 6px; background: #fff; }}
+    .model-box {{ border: 1px solid #dbeafe; border-radius: 8px; background: #f8fbff; padding: 10px; margin: 8px 0; }}
+    .model-head {{ font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }}
     .details h2 {{ margin: 0 0 8px; font-size: 1rem; }}
     .details .meta-row {{ margin: 6px 0; color: var(--muted); font-size: 0.9rem; }}
     .details pre {{
@@ -405,10 +409,98 @@ def _build_html(
       return `<div class=\"meta-row\"><strong>${{escapeHtml(label)}}:</strong></div><pre>${{escapeHtml(value)}}</pre>`;
     }}
 
+    function parseSourceDetails(payload) {{
+      const out = {{}};
+      const summaryRx = /^\\[(.+?)\\]\\s+coverage=([^\\s]+)\\s+confidence=([0-9.]+)\\s+gs_ids=(.*)$/;
+
+      function ensure(name) {{
+        if (!out[name]) {{
+          out[name] = {{
+            model: name,
+            coverage: '',
+            confidence: '',
+            gsIds: [],
+            rationale: '',
+            gapNotes: '',
+          }};
+        }}
+        return out[name];
+      }}
+
+      const rationaleLines = String(payload.rationale || '').split(/\\r?\\n/);
+      rationaleLines.forEach((line) => {{
+        const trimmed = line.trim();
+        if (!trimmed) return;
+
+        const m = trimmed.match(summaryRx);
+        if (m) {{
+          const rec = ensure(m[1]);
+          rec.coverage = m[2];
+          rec.confidence = m[3];
+          rec.gsIds = m[4]
+            ? m[4].split(';').map((x) => x.trim()).filter(Boolean)
+            : [];
+          return;
+        }}
+
+        const prefixed = trimmed.match(/^\\[(.+?)\\]\\s+(.*)$/);
+        if (prefixed) {{
+          const rec = ensure(prefixed[1]);
+          rec.rationale = prefixed[2];
+        }}
+      }});
+
+      const gapLines = String(payload.gap_notes || '').split(/\\r?\\n/);
+      gapLines.forEach((line) => {{
+        const prefixed = line.trim().match(/^\\[(.+?)\\]\\s+(.*)$/);
+        if (!prefixed) return;
+        const rec = ensure(prefixed[1]);
+        rec.gapNotes = prefixed[2];
+      }});
+
+      return out;
+    }}
+
+    function sourceBoxesHtml(sourceMap) {{
+      const names = Object.keys(sourceMap);
+      if (!names.length) return '<div class="meta-row">No per-model details found in this row.</div>';
+
+      return names.sort().map((name) => {{
+        const s = sourceMap[name];
+        const ids = (s.gsIds || []).join(', ');
+        return ''
+          + '<div class="model-box">'
+          +   '<div class="model-head">' + escapeHtml(name) + '</div>'
+          +   detailBlock('Coverage', s.coverage)
+          +   detailBlock('Confidence', s.confidence)
+          +   detailBlock('Selected GS IDs', ids)
+          +   detailText('Rationale', s.rationale)
+          +   detailText('Gap Notes', s.gapNotes)
+          + '</div>';
+      }}).join('');
+    }}
+
+    function modelChipsForEdge(edge, sourceMap) {{
+      const chips = [];
+      Object.keys(sourceMap).forEach((name) => {{
+        const s = sourceMap[name];
+        if ((s.gsIds || []).includes(edge.gs_id)) {{
+          const conf = s.confidence ? ` (conf=${{s.confidence}})` : '';
+          chips.push(`<span class="chip">${{escapeHtml(name + conf)}}</span>`);
+        }}
+      }});
+      if (!chips.length) return '';
+      return '<div class="chips">' + chips.join('') + '</div>';
+    }}
+
     function activateNode(side, id) {{
       document.querySelectorAll('.node.active').forEach((el) => el.classList.remove('active'));
-      const selector = `.node[data-side=\"${{side}}\"][data-id=\"${{CSS.escape(id)}}\"]`;
-      document.querySelectorAll(selector).forEach((el) => el.classList.add('active'));
+      // Avoid CSS.escape dependency so clicks work across browsers and file:// contexts.
+      document.querySelectorAll('.node').forEach((el) => {{
+        if (el.dataset.side === side && el.dataset.id === id) {{
+          el.classList.add('active');
+        }}
+      }});
     }}
 
     function flattenEdges() {{
@@ -462,7 +554,7 @@ def _build_html(
       updateEdgeStyles();
     }}
 
-    function connectionCardHtml(edge) {{
+    function connectionCardHtml(edge, sourceMap) {{
       const decision = decisions[edge.edge_key] || '';
       const options = [
         '<option value="">Choose decision</option>',
@@ -477,6 +569,7 @@ def _build_html(
         +     '<select class="decision-select" data-edge-key="' + escapeHtml(edge.edge_key) + '">' + options + '</select>'
         +   '</div>'
         +   '<div class="meta-row">Coverage: ' + escapeHtml(edge.coverage) + ' | Confidence: ' + escapeHtml(edge.confidence) + '</div>'
+        +   modelChipsForEdge(edge, sourceMap)
         +   '<div class="meta-row"><strong>Original GS text:</strong></div>'
         +   '<pre>' + escapeHtml(edge.source_text || '') + '</pre>'
         + '</div>';
@@ -508,9 +601,10 @@ def _build_html(
 
       if (side === 'left') {{
         selectedLeftId = id;
+        const sourceMap = parseSourceDetails(payload);
         const conns = edgesByLeft[id] || [];
         const connHtml = conns.length
-          ? conns.map(connectionCardHtml).join('')
+          ? conns.map((edge) => connectionCardHtml(edge, sourceMap)).join('')
           : '<div class="meta-row">No mapped GS connections for this node.</div>';
 
         details.innerHTML = ''
@@ -522,6 +616,8 @@ def _build_html(
           + detailText('Rationale', payload.rationale)
           + detailText('Gap Notes', payload.gap_notes)
           + detailText('Source Text (JSON)', payload.source_text)
+          + '<h2 style="margin-top:12px;">Model Details</h2>'
+          + sourceBoxesHtml(sourceMap)
           + '<h2 style="margin-top:12px;">Connected GS Nodes</h2>'
           + connHtml;
         bindDecisionHandlers();
