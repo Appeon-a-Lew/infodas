@@ -4,6 +4,7 @@ import argparse
 import csv
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 
@@ -316,6 +317,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--evaluate", action="store_true",
                    help="evaluate matches against golden dataset")
     p.add_argument("--out-dir", default=str(ROOT / "out"))
+    p.add_argument("--concurrency", type=int, default=1,
+                   help="parallel classify/discriminator requests (1=sequential)")
     args = p.parse_args(argv)
 
     models = _parse_models(args.model)
@@ -392,8 +395,7 @@ def main(argv: list[str] | None = None) -> int:
         sl = make_shortlister(gs_reqs, method=args.shortlist_method)
     judges = [make_judge(model) for model in models]
 
-    matches = []
-    for i, q in enumerate(gspp_reqs, 1):
+    def _classify_one(i: int, q):
         cands = [r for r, _ in sl.top_k(q, k=args.top_k)]
         cand_ids = [c.id for c in cands]
         print(f"[{i}/{len(gspp_reqs)}] {q.id} ...", file=sys.stderr)
@@ -409,9 +411,22 @@ def main(argv: list[str] | None = None) -> int:
                 cand_ids,
                 testing_origin_map,
             )
-        matches.append(m)
         display_candidates = _display_candidate_ids(m.gs_candidates, testing_origin_map)
-        print(f"    → coverage={m.coverage} conf={m.confidence:.2f} gs={display_candidates}", file=sys.stderr)
+        print(f"    [{i}] → coverage={m.coverage} conf={m.confidence:.2f} gs={display_candidates}", file=sys.stderr)
+        return i, m
+
+    matches_by_idx: dict[int, Match] = {}
+    if args.concurrency > 1:
+        with ThreadPoolExecutor(max_workers=args.concurrency) as ex:
+            futures = [ex.submit(_classify_one, i, q) for i, q in enumerate(gspp_reqs, 1)]
+            for fut in as_completed(futures):
+                i, m = fut.result()
+                matches_by_idx[i] = m
+    else:
+        for i, q in enumerate(gspp_reqs, 1):
+            i, m = _classify_one(i, q)
+            matches_by_idx[i] = m
+    matches = [matches_by_idx[i] for i in sorted(matches_by_idx)]
     model_label = "+".join(model_sources)
 
     # Validate matches
@@ -437,25 +452,21 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[i] running discriminator ({args.discriminator_model}) ...", file=sys.stderr)
         discriminator = make_discriminator(args.discriminator_model, strict=args.discriminator_strict)
         discriminated_matches = []
-        for i, m in enumerate(matches, 1):
+        def _discriminate_one(i: int, m: Match):
             gspp_req = gspp_idx.get(m.gspp_id)
             if not gspp_req:
-                continue
+                return i, None
             print(f"[{i}/{len(matches)}] discriminating {m.gspp_id} ...", file=sys.stderr)
             try:
                 per_candidate = discriminator.decide(m, gspp_req, gs_idx)
-                # Apply strict mode post-filtering if enabled
                 if args.discriminator_strict:
                     max_keep = 3
                     kept = [(gid, reason) for gid, (dec, reason) in per_candidate.items() if dec == "keep"]
                     if len(kept) > max_keep:
-                        # Sort by reasoning length (proxy for importance)
                         kept.sort(key=lambda x: len(x[1]), reverse=True)
-                        # Force-remove excess
                         to_remove = [gid for gid, _ in kept[max_keep:]]
                         for gid in to_remove:
                             per_candidate[gid] = ("remove", per_candidate[gid][1] + " [STRICT: removed due to limit]")
-                discriminated_matches.append((m, per_candidate))
                 accepted_ids = _display_candidate_ids(
                     [gid for gid, (dec, _) in per_candidate.items() if dec == "keep"],
                     testing_origin_map,
@@ -464,11 +475,26 @@ def main(argv: list[str] | None = None) -> int:
                     [gid for gid, (dec, _) in per_candidate.items() if dec == "remove"],
                     testing_origin_map,
                 )
-                print(f"    → accepted={accepted_ids} denied={denied_ids}", file=sys.stderr)
+                print(f"    [{i}] → accepted={accepted_ids} denied={denied_ids}", file=sys.stderr)
+                return i, (m, per_candidate)
             except Exception as e:
-                print(f"    → error: {e}", file=sys.stderr)
-                # Fall back: mark all candidates as error
-                discriminated_matches.append((m, {gid: ("error", str(e)) for gid in m.gs_candidates}))
+                print(f"    [{i}] → error: {e}", file=sys.stderr)
+                return i, (m, {gid: ("error", str(e)) for gid in m.gs_candidates})
+
+        disc_results: dict[int, tuple[Match, dict[str, tuple[str, str]]]] = {}
+        if args.concurrency > 1:
+            with ThreadPoolExecutor(max_workers=args.concurrency) as ex:
+                futures = [ex.submit(_discriminate_one, i, m) for i, m in enumerate(matches, 1)]
+                for fut in as_completed(futures):
+                    i, res = fut.result()
+                    if res is not None:
+                        disc_results[i] = res
+        else:
+            for i, m in enumerate(matches, 1):
+                i, res = _discriminate_one(i, m)
+                if res is not None:
+                    disc_results[i] = res
+        discriminated_matches = [disc_results[i] for i in sorted(disc_results)]
 
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
     safe_model = _safe_model_label(model_sources)

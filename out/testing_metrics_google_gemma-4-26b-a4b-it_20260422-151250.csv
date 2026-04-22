@@ -1,0 +1,2 @@
+timestamp,testing_dataset,gspp_evaluated,gs_total,truth_covered_gspp,tp,fp,fn,tn,precision,recall,f1,accuracy,discriminator_enabled,discriminator_model,models
+20260422-151250,data/fake.xml,20,998,20,14,11,6,19929,0.560000,0.700000,0.622222,0.999148,True,gpt-5.4-thinking,google/gemma-4-26b-a4b-it

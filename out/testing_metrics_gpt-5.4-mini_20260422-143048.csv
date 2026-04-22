@@ -1,0 +1,2 @@
+timestamp,testing_dataset,gspp_evaluated,gs_total,truth_covered_gspp,tp,fp,fn,tn,precision,recall,f1,accuracy,discriminator_enabled,discriminator_model,models
+20260422-143048,data/fake.xml,20,998,20,16,8,4,19932,0.666667,0.800000,0.727273,0.999399,True,gpt-5.4-thinking,gpt-5.4-mini

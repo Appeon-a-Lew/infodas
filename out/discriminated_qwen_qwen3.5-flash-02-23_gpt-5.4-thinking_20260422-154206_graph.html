@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GS++ → GS Mapping (Discriminated by gpt-5.4-thinking)</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --panel: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 0% 0%, #f5efe3 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, #e7f3f0 0%, transparent 40%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+      padding: 20px;
+    }
+    .card {
+      max-width: 100%;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.15rem; letter-spacing: 0.01em; }
+    p.meta { margin: 0 0 12px; color: var(--muted); font-size: 0.92rem; }
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0 14px; color: var(--muted); font-size: 0.88rem; }
+    .dot { width: 10px; height: 10px; border-radius: 99px; display: inline-block; margin-right: 6px; }
+    .viewport { overflow: auto; border: 1px solid #e5e7eb; border-radius: 10px; background: #fcfcfc; }
+    svg { width: 100%; min-width: 1100px; height: auto; display: block; }
+    .clickable { cursor: pointer; }
+    .clickable:hover circle { stroke: #111827; stroke-width: 2; }
+    .edge { cursor: help; }
+    .edge:hover { stroke-width: 3 !important; opacity: 1 !important; }
+    .decision-keep { stroke: #2e7d32 !important; }
+    .decision-remove { stroke: #c62828 !important; stroke-dasharray: 6 3; }
+    .decision-error { stroke: #ffb300 !important; }
+    .label-left, .label-right { fill: var(--ink); font-size: 12px; font-weight: 500; }
+    .column-title { fill: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+    .details { margin-top: 14px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; padding: 12px; }
+    .status { font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
+    .stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0 14px; }
+    .stat-item { 
+      border: 1px solid #e5e7eb; 
+      border-radius: 8px; 
+      padding: 10px; 
+      text-align: center; 
+      background: #f9fafb;
+    }
+    .stat-number { font-size: 1.5rem; font-weight: 600; }
+    .stat-label { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+    .node-details { border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin: 8px 0; background: #fafafa; }
+    .node-title { font-weight: 600; margin-bottom: 6px; }
+    .junction-list { max-height: 300px; overflow-y: auto; }
+    .junction-item { padding: 6px; margin: 4px 0; border-left: 3px solid #ddd; padding-left: 10px; font-size: 0.9rem; }
+    .junction-item.keep { border-left-color: #2e7d32; background: #f0f9f0; }
+    .junction-item.remove { border-left-color: #c62828; background: #fef0f0; }
+    .junction-item.error { border-left-color: #ffb300; background: #fff8f0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>GS++ → GS Mapping (Discriminated by gpt-5.4-thinking)</h1>
+    <p class="meta">GS++ nodes: 20 | GS nodes: 19 | Connections: 19 (19 kept, 0 removed)</p>
+    <div class="legend">
+      <span><span class="dot" style="background:#2e7d32"></span>Kept (19)</span>
+      <span><span class="dot" style="background:#c62828"></span>Removed (0)</span>
+      <span><span class="dot" style="background:#ffb300"></span>Error (0)</span>
+    </div>
+    <div class="stats-box">
+      <div class="stat-item">
+        <div class="stat-number" style="color: #2e7d32;">19</div>
+        <div class="stat-label">Kept</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" style="color: #c62828;">0</div>
+        <div class="stat-label">Removed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"style="color: #ffb300;">0</div>
+        <div class="stat-label">Errors</div>
+      </div>
+    </div>
+    <div class="viewport">
+      <svg viewBox="0 0 1280 720" role="img" aria-label="GS++ zu GS Mapping (Discriminated)">
+        <text x="70" y="36" class="column-title">GS++ (neu)</text>
+        <text x="910" y="36" class="column-title">GS (klassisch)</text>
+        <path class="edge" data-edge-key="GC.1.1|||GC.1.1" data-decision="keep" data-reasoning="Der Kandidat ist wortgleich zur Zielanforderung und deckt vollständig die Kernaspekte ab: Verankerung von Verfahren und Regelungen zur Errichtung und Aufrechterhaltung eines ISMS sowie die zugehörigen Erläuterungen aus der Guidance. Es gibt keinen anderen Kandidaten im Set, daher ist er notwendig." d="M 220 80 C 470 80, 730 80, 980 80" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.2.1|||GC.2.1" data-decision="keep" data-reasoning="Notwendig, da dieser Kandidat den Zieltext vollständig und wortgleich abdeckt. Er enthält sowohl die Vorgabe zur Sammlung, Integration und Priorisierung externer Rahmenbedingungen als auch alle in der Guidance genannten externen Faktoren (gesellschaftlich/kulturell, rechtlich/regulatorisch, technologisch, wirtschaftlich, ökologisch/physisch). Es gibt keinen weiteren Kandidaten, der diese Aspekte besser oder ergänzend abdecken könnte." d="M 220 108 C 470 108, 730 108, 980 108" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.2.2|||GC.2.2" data-decision="keep" data-reasoning="Dieser Kandidat ist inhaltlich identisch mit der Zielanforderung und deckt alle Kernaspekte ab: das Verfahren zur Sammlung, Integration und Priorisierung interner Rahmenbedingungen sowie die geforderte Analyse/Dokumentation interner Faktoren (Strategie, Werte/Ziele, Struktur, Prozesse, IT-Infrastruktur, Kultur). Ohne ihn ginge kein Aspekt verloren." d="M 220 136 C 470 136, 730 136, 980 136" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.3.1|||GC.3.1" data-decision="keep" data-reasoning="Der Kandidat ist wortgleich zur Zielanforderung und deckt alle Kernaspekte ab: Ermittlung aller externen interessierten Parteien, Erfassung ihrer Bedürfnisse und Erwartungen sowie Bewertung von Relevanz/Priorität und Überführung relevanter Anforderungen ins ISMS. Es gibt keinen anderen Kandidaten, daher ist er notwendig." d="M 220 164 C 470 164, 730 164, 980 164" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.3.2|||GC.3.2" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 192 C 470 192, 730 192, 980 192" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.4.1|||GC.4.1" data-decision="keep" data-reasoning="Dieser Kandidat ist inhaltlich identisch mit dem Zieltext und deckt alle Kernaspekte ab: Festlegung des ISMS-Geltungsbereichs nach Freigabe der Institutionsleitung, Dokumentation sowie Abgrenzung von Bereichen, Prozessen, Standorten, Systemen, externen Partnern und ausgeschlossenen Bereichen. Da kein weiterer Kandidat vorhanden ist, ist er notwendig." d="M 220 220 C 470 220, 730 220, 980 220" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.5.1.1|||GC.5.1.1" data-decision="keep" data-reasoning="Nicht redundant, da dieser Kandidat den gesamten Zieltext unmittelbar und vollständig abdeckt: Er fordert die Festlegung der für den Geltungsbereich relevanten Geschäftsprozesse und enthält zusätzlich die zugehörige Guidance zu Prozesslandkarten, Managementsystemen bzw. ersatzweise technischen und organisatorischen Praktiken. Da kein weiterer Kandidat im Set vorhanden ist, würde beim Entfernen dieser Anforderung ein Kernaspekt verloren gehen." d="M 220 276 C 470 276, 730 248, 980 248" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.5.1.2|||GC.5.1.2" data-decision="keep" data-reasoning="Notwendig: Der Kandidat entspricht der Zielanforderung wortgleich und deckt alle Kernaspekte ab (Festlegung des Schutzbedarfs, relevante Geschäftsprozesse und Informationsarten, Berücksichtigung der Geschäftsziele, Absprache mit der Institutionsleitung sowie Einstufung in normal/hoch). Ohne ihn wäre kein Kernaspekt abgedeckt." d="M 220 304 C 470 304, 730 276, 980 276" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.5.1.3|||GC.5.1.3" data-decision="keep" data-reasoning="Dieser Kandidat ist notwendig, da er den gesamten Zieltext vollständig und wortgleich abdeckt: sowohl die Pflicht zur dedizierten Risikobetrachtung von Geschäftsprozessen bzw. Informationsarten mit hohem Schutzbedarf als auch den Hinweis auf ein separates Dokument mit verbindlichen Vorgaben zur Risikomethodik. Es gibt keinen weiteren Kandidaten, der diese Aspekte ersetzen könnte." d="M 220 332 C 470 332, 730 304, 980 304" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.6.1|||GC.6.1" data-decision="keep" data-reasoning="Der Kandidat ist notwendig, da er den gesamten Zieltext vollständig und unverändert abdeckt: die Festlegung konkreter und messbarer Informationssicherheitsziele auf Basis der identifizierten Rahmenbedingungen sowie den Bezug zu Geschäftszielen, Kontext und interessierten Parteien. Es gibt keinen anderen Kandidaten, der diese Aspekte alternativ abdecken könnte." d="M 220 360 C 470 360, 730 332, 980 332" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.6.1.1|||GC.6.1.1" data-decision="keep" data-reasoning="Dieser Kandidat deckt die vollständige Zielanforderung 1:1 ab (inkl. Festlegung einer grundlegenden Sicherheitsstrategie gemeinsam mit der Institutionsleitung sowie Fokus auf Ziele, Ansatz und Prinzipien). Da kein anderer Kandidat im Set vorhanden ist, ist er notwendig, damit der Kernaspekt nicht verloren geht." d="M 220 388 C 470 388, 730 360, 980 360" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.6.1.2|||GC.6.1.2" data-decision="keep" data-reasoning="Exakte Übereinstimmung mit der Zielanforderung. Deckt die formale Zuweisung der Verpflichtung der Institutionsleitung sowie die zugehörigen Aspekte aus der Guidance vollständig ab; es gibt keinen anderen Kandidaten, der diesen Kernaspekt abdeckt." d="M 220 416 C 470 416, 730 388, 980 388" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.6.1.3|||GC.6.1.3" data-decision="keep" data-reasoning="Notwendig: Dieser Kandidat deckt die gesamte Zielanforderung vollständig ab (Festlegung einer passenden Sicherheitsleitlinie inklusive Kommunikations-, Orientierungs- und Inhaltsaspekten). Es gibt keinen anderen Kandidaten im Set, der diesen Kernaspekt alternativ abdeckt." d="M 220 444 C 470 444, 730 416, 980 416" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.6.1.4|||GC.6.1.4" data-decision="keep" data-reasoning="Der Kandidat ist textidentisch zur Zielanforderung und deckt den einzigen Kernaspekt vollständig ab: Die festgelegte Sicherheitsleitlinie muss durch die Institutionsleitung autorisiert werden. Es gibt keinen anderen Kandidaten im Set, der diesen Aspekt abdeckt." d="M 220 472 C 470 472, 730 444, 980 444" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1|||GC.7.1" data-decision="keep" data-reasoning="Exakter Volltreffer zum Zieltext: beschreibt das zu verankernde Verfahren zur Sammlung, Integration und Priorisierung relevanter Rahmenbedingungen für das Informationssicherheitsmanagement sowie die Compliance-Guidance zu gesetzlichen, regulatorischen und vertraglichen Verpflichtungen. Ohne diesen Kandidaten geht kein Kernaspekt verloren, da er alle wesentlichen Inhalte allein abdeckt." d="M 220 500 C 470 500, 730 472, 980 472" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1.1|||GC.7.1.1" data-decision="keep" data-reasoning="Dieser Kandidat entspricht exakt der Zielanforderung zu gesetzlichen Verpflichtungen bei der Verarbeitung von Informationen. Er deckt den Kernaspekt vollständig und spezifisch ab; ohne ihn ginge dieser Aspekt verloren." d="M 220 528 C 470 528, 730 500, 980 500" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1.2|||GC.7.1.2" data-decision="keep" data-reasoning="Dieser Kandidat ist identisch mit der Zielanforderung und deckt den Kernaspekt vollständig ab: die für die Einhaltung gesetzlicher Verpflichtungen in der Informationsverarbeitung zuständigen Stellen in der Institution anzuhören. Da es keinen anderen Kandidaten gibt, ist er notwendig und nicht redundant." d="M 220 556 C 470 556, 730 528, 980 528" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1.3|||GC.7.1.3" data-decision="keep" data-reasoning="Der Kandidat deckt die einzige Kernanforderung vollständig ab: die Dokumentation vertraglicher Verpflichtungen im Zusammenhang mit der Informationsverarbeitung, inklusive der Erläuterung, dass damit rechtlich bindende Vereinbarungen unabhängig von ihrer Bezeichnung gemeint sind. Da kein anderer Kandidat vorhanden ist, wäre ohne ihn der Zieltext nicht abgedeckt." d="M 220 584 C 470 584, 730 556, 980 556" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1.4|||GC.7.1.4" data-decision="keep" data-reasoning="Notwendig, da dieser Kandidat die Zielanforderung exakt und vollständig abdeckt: Verfahren zur Prävention gegen Verstöße inklusive der genannten Beispiele (Schulungen, Berücksichtigung in Freigabe- und Testprozessen, konstruktive Fehlerkultur). Ohne ihn ginge kein Kernaspekt verloren." d="M 220 612 C 470 612, 730 584, 980 584" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" />
+        <g class="node clickable" data-side="left" data-id="GC.1.1" data-title="Errichtung und Aufrechterhaltung eines ISMS" role="button" tabindex="0"><circle cx="220" cy="80" r="7" fill="#0d47a1" /><text x="206" y="84" text-anchor="end" class="label-left">GC.1.1</text></g><g class="node clickable" data-side="left" data-id="GC.2.1" data-title="Festlegung des externen Kontextes der Institution" role="button" tabindex="0"><circle cx="220" cy="108" r="7" fill="#0d47a1" /><text x="206" y="112" text-anchor="end" class="label-left">GC.2.1</text></g><g class="node clickable" data-side="left" data-id="GC.2.2" data-title="Festlegung des internen Kontextes der Institution" role="button" tabindex="0"><circle cx="220" cy="136" r="7" fill="#0d47a1" /><text x="206" y="140" text-anchor="end" class="label-left">GC.2.2</text></g><g class="node clickable" data-side="left" data-id="GC.3.1" data-title="Analyse der externen interessierten Parteien" role="button" tabindex="0"><circle cx="220" cy="164" r="7" fill="#0d47a1" /><text x="206" y="168" text-anchor="end" class="label-left">GC.3.1</text></g><g class="node clickable" data-side="left" data-id="GC.3.2" data-title="Analyse der internen interessierten Parteien" role="button" tabindex="0"><circle cx="220" cy="192" r="7" fill="#0d47a1" /><text x="206" y="196" text-anchor="end" class="label-left">GC.3.2</text></g><g class="node clickable" data-side="left" data-id="GC.4.1" data-title="Festlegung des Geltungsbereichs" role="button" tabindex="0"><circle cx="220" cy="220" r="7" fill="#0d47a1" /><text x="206" y="224" text-anchor="end" class="label-left">GC.4.1</text></g><g class="node clickable" data-side="left" data-id="GC.5.1" data-title="Vorgehen bei der Infomationssicherheitseinstufung" role="button" tabindex="0"><circle cx="220" cy="248" r="7" fill="#0d47a1" /><text x="206" y="252" text-anchor="end" class="label-left">GC.5.1</text></g><g class="node clickable" data-side="left" data-id="GC.5.1.1" data-title="Festlegung der Geschäftsprozesse" role="button" tabindex="0"><circle cx="220" cy="276" r="7" fill="#0d47a1" /><text x="206" y="280" text-anchor="end" class="label-left">GC.5.1.1</text></g><g class="node clickable" data-side="left" data-id="GC.5.1.2" data-title="Festlegung des Schutzbedarfs" role="button" tabindex="0"><circle cx="220" cy="304" r="7" fill="#0d47a1" /><text x="206" y="308" text-anchor="end" class="label-left">GC.5.1.2</text></g><g class="node clickable" data-side="left" data-id="GC.5.1.3" data-title="Geschäftsprozesse mit hohem Schutzbedarf" role="button" tabindex="0"><circle cx="220" cy="332" r="7" fill="#0d47a1" /><text x="206" y="336" text-anchor="end" class="label-left">GC.5.1.3</text></g><g class="node clickable" data-side="left" data-id="GC.6.1" data-title="Festlegung von Zielen für die Informationssicherheit" role="button" tabindex="0"><circle cx="220" cy="360" r="7" fill="#0d47a1" /><text x="206" y="364" text-anchor="end" class="label-left">GC.6.1</text></g><g class="node clickable" data-side="left" data-id="GC.6.1.1" data-title="Festlegung einer Sicherheitsstrategie" role="button" tabindex="0"><circle cx="220" cy="388" r="7" fill="#0d47a1" /><text x="206" y="392" text-anchor="end" class="label-left">GC.6.1.1</text></g><g class="node clickable" data-side="left" data-id="GC.6.1.2" data-title="Verpflichtung der Institutionsleitung" role="button" tabindex="0"><circle cx="220" cy="416" r="7" fill="#0d47a1" /><text x="206" y="420" text-anchor="end" class="label-left">GC.6.1.2</text></g><g class="node clickable" data-side="left" data-id="GC.6.1.3" data-title="Erstellung einer Sicherheitsleitlinie" role="button" tabindex="0"><circle cx="220" cy="444" r="7" fill="#0d47a1" /><text x="206" y="448" text-anchor="end" class="label-left">GC.6.1.3</text></g><g class="node clickable" data-side="left" data-id="GC.6.1.4" data-title="Freigabe der Sicherheitsleitlinie" role="button" tabindex="0"><circle cx="220" cy="472" r="7" fill="#0d47a1" /><text x="206" y="476" text-anchor="end" class="label-left">GC.6.1.4</text></g><g class="node clickable" data-side="left" data-id="GC.7.1" data-title="Verfahren und Regelungen" role="button" tabindex="0"><circle cx="220" cy="500" r="7" fill="#0d47a1" /><text x="206" y="504" text-anchor="end" class="label-left">GC.7.1</text></g><g class="node clickable" data-side="left" data-id="GC.7.1.1" data-title="Gesetzliche Verpflichtungen" role="button" tabindex="0"><circle cx="220" cy="528" r="7" fill="#0d47a1" /><text x="206" y="532" text-anchor="end" class="label-left">GC.7.1.1</text></g><g class="node clickable" data-side="left" data-id="GC.7.1.2" data-title="Anhörung zuständiger Stellen" role="button" tabindex="0"><circle cx="220" cy="556" r="7" fill="#0d47a1" /><text x="206" y="560" text-anchor="end" class="label-left">GC.7.1.2</text></g><g class="node clickable" data-side="left" data-id="GC.7.1.3" data-title="Vertragliche Verpflichtungen" role="button" tabindex="0"><circle cx="220" cy="584" r="7" fill="#0d47a1" /><text x="206" y="588" text-anchor="end" class="label-left">GC.7.1.3</text></g><g class="node clickable" data-side="left" data-id="GC.7.1.4" data-title="Prävention von Verstößen" role="button" tabindex="0"><circle cx="220" cy="612" r="7" fill="#0d47a1" /><text x="206" y="616" text-anchor="end" class="label-left">GC.7.1.4</text></g>
+        <g class="node clickable" data-side="right" data-id="GC.1.1" data-title="Errichtung und Aufrechterhaltung eines ISMS" role="button" tabindex="0"><circle cx="980" cy="80" r="7" fill="#004d40" /><text x="994" y="84" text-anchor="start" class="label-right">GC.1.1</text></g><g class="node clickable" data-side="right" data-id="GC.2.1" data-title="Festlegung des externen Kontextes der Institution" role="button" tabindex="0"><circle cx="980" cy="108" r="7" fill="#004d40" /><text x="994" y="112" text-anchor="start" class="label-right">GC.2.1</text></g><g class="node clickable" data-side="right" data-id="GC.2.2" data-title="Festlegung des internen Kontextes der Institution" role="button" tabindex="0"><circle cx="980" cy="136" r="7" fill="#004d40" /><text x="994" y="140" text-anchor="start" class="label-right">GC.2.2</text></g><g class="node clickable" data-side="right" data-id="GC.3.1" data-title="Analyse der externen interessierten Parteien" role="button" tabindex="0"><circle cx="980" cy="164" r="7" fill="#004d40" /><text x="994" y="168" text-anchor="start" class="label-right">GC.3.1</text></g><g class="node clickable" data-side="right" data-id="GC.3.2" data-title="Analyse der internen interessierten Parteien" role="button" tabindex="0"><circle cx="980" cy="192" r="7" fill="#004d40" /><text x="994" y="196" text-anchor="start" class="label-right">GC.3.2</text></g><g class="node clickable" data-side="right" data-id="GC.4.1" data-title="Festlegung des Geltungsbereichs" role="button" tabindex="0"><circle cx="980" cy="220" r="7" fill="#004d40" /><text x="994" y="224" text-anchor="start" class="label-right">GC.4.1</text></g><g class="node clickable" data-side="right" data-id="GC.5.1.1" data-title="Festlegung der Geschäftsprozesse" role="button" tabindex="0"><circle cx="980" cy="248" r="7" fill="#004d40" /><text x="994" y="252" text-anchor="start" class="label-right">GC.5.1.1</text></g><g class="node clickable" data-side="right" data-id="GC.5.1.2" data-title="Festlegung des Schutzbedarfs" role="button" tabindex="0"><circle cx="980" cy="276" r="7" fill="#004d40" /><text x="994" y="280" text-anchor="start" class="label-right">GC.5.1.2</text></g><g class="node clickable" data-side="right" data-id="GC.5.1.3" data-title="Geschäftsprozesse mit hohem Schutzbedarf" role="button" tabindex="0"><circle cx="980" cy="304" r="7" fill="#004d40" /><text x="994" y="308" text-anchor="start" class="label-right">GC.5.1.3</text></g><g class="node clickable" data-side="right" data-id="GC.6.1" data-title="Festlegung von Zielen für die Informationssicherheit" role="button" tabindex="0"><circle cx="980" cy="332" r="7" fill="#004d40" /><text x="994" y="336" text-anchor="start" class="label-right">GC.6.1</text></g><g class="node clickable" data-side="right" data-id="GC.6.1.1" data-title="Festlegung einer Sicherheitsstrategie" role="button" tabindex="0"><circle cx="980" cy="360" r="7" fill="#004d40" /><text x="994" y="364" text-anchor="start" class="label-right">GC.6.1.1</text></g><g class="node clickable" data-side="right" data-id="GC.6.1.2" data-title="Verpflichtung der Institutionsleitung" role="button" tabindex="0"><circle cx="980" cy="388" r="7" fill="#004d40" /><text x="994" y="392" text-anchor="start" class="label-right">GC.6.1.2</text></g><g class="node clickable" data-side="right" data-id="GC.6.1.3" data-title="Erstellung einer Sicherheitsleitlinie" role="button" tabindex="0"><circle cx="980" cy="416" r="7" fill="#004d40" /><text x="994" y="420" text-anchor="start" class="label-right">GC.6.1.3</text></g><g class="node clickable" data-side="right" data-id="GC.6.1.4" data-title="Freigabe der Sicherheitsleitlinie" role="button" tabindex="0"><circle cx="980" cy="444" r="7" fill="#004d40" /><text x="994" y="448" text-anchor="start" class="label-right">GC.6.1.4</text></g><g class="node clickable" data-side="right" data-id="GC.7.1" data-title="Verfahren und Regelungen" role="button" tabindex="0"><circle cx="980" cy="472" r="7" fill="#004d40" /><text x="994" y="476" text-anchor="start" class="label-right">GC.7.1</text></g><g class="node clickable" data-side="right" data-id="GC.7.1.1" data-title="Gesetzliche Verpflichtungen" role="button" tabindex="0"><circle cx="980" cy="500" r="7" fill="#004d40" /><text x="994" y="504" text-anchor="start" class="label-right">GC.7.1.1</text></g><g class="node clickable" data-side="right" data-id="GC.7.1.2" data-title="Anhörung zuständiger Stellen" role="button" tabindex="0"><circle cx="980" cy="528" r="7" fill="#004d40" /><text x="994" y="532" text-anchor="start" class="label-right">GC.7.1.2</text></g><g class="node clickable" data-side="right" data-id="GC.7.1.3" data-title="Vertragliche Verpflichtungen" role="button" tabindex="0"><circle cx="980" cy="556" r="7" fill="#004d40" /><text x="994" y="560" text-anchor="start" class="label-right">GC.7.1.3</text></g><g class="node clickable" data-side="right" data-id="GC.7.1.4" data-title="Prävention von Verstößen" role="button" tabindex="0"><circle cx="980" cy="584" r="7" fill="#004d40" /><text x="994" y="588" text-anchor="start" class="label-right">GC.7.1.4</text></g>
+      </svg>
+    </div>
+    <div class="details">
+      <h2>Connection Details</h2>
+      <p class="meta">Hover over edges or click nodes to see mapping details or click an edge to see discriminator reasoning.</p>
+      <div id="connection-info">
+        <p class="meta">Hover over a connection or click a node to display details.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+    
+    document.querySelectorAll('.edge').forEach((edge) => {
+      edge.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const decision = edge.dataset.decision;
+        const reasoning = edge.dataset.reasoning;
+        const info = document.getElementById('connection-info');
+        
+        const decisionLabel = decision === 'keep' ? '✓ Kept' : decision === 'remove' ? '✗ Removed' : '⚠ Error';
+        const decisionColor = decision === 'keep' ? '#2e7d32' : decision === 'remove' ? '#c62828' : '#ffb300';
+        
+        info.innerHTML = `
+          <div style="border-left: 4px solid ${decisionColor}; padding: 10px; background: rgba(${+(decision === 'accept')} ? 0, 125, 50 : ${+(decision === 'deny')} ? 198, 40, 40 : 255, 179, 0, 0.1);">
+            <div style="font-weight: 600; color: ${decisionColor};">${decisionLabel}</div>
+            <div style="margin-top: 8px; color: #6b7280; font-size: 0.9rem;">
+              <strong>Reasoning:</strong>
+              <pre style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; margin-top: 6px; white-space: pre-wrap; word-wrap: break-word; font-size: 0.85rem; max-height: 300px; overflow-y: auto;">${escapeHtml(reasoning)}</pre>
+            </div>
+          </div>
+        `;
+      });
+    });
+    
+    document.querySelectorAll('.node.clickable').forEach((node) => {
+      node.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const side = node.dataset.side;
+        const id = node.dataset.id;
+        const title = node.dataset.title;
+        const info = document.getElementById('connection-info');
+        
+        let html = `<div class="node-details">
+          <div class="node-title">${side === 'left' ? 'GS++' : 'GS'}: ${escapeHtml(id)} — ${escapeHtml(title)}</div>`;
+        
+        if (side === 'left') {
+          html += '<div class="junction-list"><strong>Connected GS nodes:</strong><br/>';
+          // Find all edges from this left node
+          document.querySelectorAll('.edge[data-edge-key*="' + id + '|||"]').forEach((edge) => {
+            const edgeKey = edge.dataset.edgeKey;
+            const parts = edgeKey.split('|||');
+            if (parts.length === 2 && parts[0] === id) {
+              const rightId = parts[1];
+              const decision = edge.dataset.decision;
+              const decisionClass = 'junction-item ' + decision;
+              const label = decision === 'keep' ? '✓' : decision === 'remove' ? '✗' : '⚠';
+              html += `<div class="${decisionClass}">${label} ${escapeHtml(rightId)}</div>`;
+            }
+          });
+          html += '</div>';
+        } else {
+          html += '<div class="junction-list"><strong>Connected GS++ nodes:</strong><br/>';
+          // Find all edges to this right node
+          document.querySelectorAll('.edge[data-edge-key*="|||' + id + '"]').forEach((edge) => {
+            const edgeKey = edge.dataset.edgeKey;
+            const parts = edgeKey.split('|||');
+            if (parts.length === 2 && parts[1] === id) {
+              const leftId = parts[0];
+              const decision = edge.dataset.decision;
+              const decisionClass = 'junction-item ' + decision;
+              const label = decision === 'keep' ? '✓' : decision === 'remove' ? '✗' : '⚠';
+              html += `<div class="${decisionClass}">${label} ${escapeHtml(leftId)}</div>`;
+            }
+          });
+          html += '</div>';
+        }
+        
+        html += '</div>';
+        info.innerHTML = html;
+      });
+    });
+  </script>
+</body>
+</html>

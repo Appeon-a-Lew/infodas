@@ -238,6 +238,72 @@ class OpenAIJudge(Judge):
         raise RuntimeError("unreachable")
 
 
+class OpenRouterJudge(Judge):
+    """Judge via OpenRouter (OpenAI-compatible API). Model names like 'google/gemma-4-26b-a4b-it'."""
+
+    def __init__(self, model: str, enable_reasoning: bool | None = None) -> None:
+        if enable_reasoning is None:
+            enable_reasoning = os.environ.get("OPENROUTER_REASONING", "0") == "1"
+        from openai import OpenAI
+
+        self.model = model
+        self.enable_reasoning = enable_reasoning
+        self.client = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=os.environ["OPENROUTER_API_KEY"],
+        )
+
+    def classify(self, gspp: Requirement, candidates: list[Requirement]) -> Match:
+        schema = {
+            "name": "mapping_result",
+            "strict": True,
+            "schema": OUTPUT_SCHEMA,
+        }
+        valid_gs_ids = {c.id for c in candidates}
+        extra_body: dict = {}
+        if self.enable_reasoning:
+            extra_body["reasoning"] = {"enabled": True}
+
+        import sys as _sys
+        for attempt in range(3):
+            try:
+                t0 = time.time()
+                print(f"  [openrouter] {self.model} reasoning={self.enable_reasoning} cand={len(candidates)} ...", file=_sys.stderr, flush=True)
+                try:
+                    resp = self.client.chat.completions.create(
+                        model=self.model,
+                        messages=[
+                            {"role": "system", "content": SYSTEM_PROMPT},
+                            {"role": "user", "content": self._build_user(gspp, candidates)},
+                        ],
+                        response_format={"type": "json_schema", "json_schema": schema},
+                        extra_body=extra_body or None,
+                        timeout=120,
+                    )
+                except Exception as _e:
+                    print(f"  [openrouter] json_schema failed: {_e}; retry json_object", file=_sys.stderr, flush=True)
+                    # Fallback: model may not support json_schema; use json_object
+                    resp = self.client.chat.completions.create(
+                        model=self.model,
+                        messages=[
+                            {"role": "system", "content": SYSTEM_PROMPT + " Antworte als JSON."},
+                            {"role": "user", "content": self._build_user(gspp, candidates)},
+                        ],
+                        response_format={"type": "json_object"},
+                        extra_body=extra_body or None,
+                        timeout=120,
+                    )
+                dt = time.time() - t0
+                content = resp.choices[0].message.content or "{}"
+                print(f"  [openrouter] done in {dt:.1f}s", file=_sys.stderr, flush=True)
+                return self._to_match(gspp.id, json.loads(content), valid_gs_ids)
+            except Exception:
+                if attempt == 2:
+                    raise
+                time.sleep(1 + attempt)
+        raise RuntimeError("unreachable")
+
+
 class CombinedJudge(Judge):
     def __init__(self, judges: list[Judge]) -> None:
         if not judges:
@@ -314,10 +380,14 @@ def combine_matches(matches: list[Match], model_names: list[str]) -> Match:
 
 def make_judge(model: str) -> Judge:
     m = model.lower()
+    if m.startswith("openrouter:"):
+        return OpenRouterJudge(model=model.split(":", 1)[1])
     if m.startswith("claude") or m.startswith("anthropic"):
         return AnthropicJudge(model=model)
     if m.startswith("gpt") or m.startswith("o1") or m.startswith("o3") or m.startswith("o4") or m.startswith("openai"):
         return OpenAIJudge(model=model)
+    if "/" in model:
+        return OpenRouterJudge(model=model)
     raise ValueError(f"Unknown model family for: {model}")
 
 

@@ -1,0 +1,287 @@
+# GS++ → IT-Grundschutz Mapping (Model: `gpt-5.4+gpt-5.4-mini`)
+
+Erzeugt: 2026-04-22T14:28:00
+
+**Gesamt:** 20 GS++-Anforderungen
+
+| Coverage | Anzahl |
+|---|---|
+| Voll abgedeckt | 9 |
+| Teilweise abgedeckt | 11 |
+| Keine Abdeckung | 0 |
+
+## Voll abgedeckt (9)
+
+### GC.1.1 — Errichtung und Aufrechterhaltung eines ISMS
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.1.1` [normal-SdT] Errichtung und Aufrechterhaltung eines ISMS — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.1.1=0.99
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.1.1
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.1.1
+Model-Begründungen:
+[gpt-5.4] GC.1.1 deckt die GS++-Anforderung vollständig ab, da ID, Titel, Muss-Formulierung und erläuternder Inhalt inhaltlich identisch sind: Verankerung von Verfahren und Regelungen zur Errichtung und Aufrechterhaltung eines ISMS, einschließlich standardkonformer Etablierung, vollständigem Durchlaufen der Vorgehensweise und kontinuierlicher Überprüfung bzw. Verbesserung. Andere Kandidaten wie GC.6.1.2, GC.4.1 oder GC.6.1 betreffen nur Teilaspekte eines ISMS und sind für die vollständige Abdeckung nicht erforderlich.
+[gpt-5.4-mini] Die GS++-Anforderung GC.1.1 ist inhaltlich identisch mit dem Kandidaten GC.1.1. Beide verlangen die Errichtung und Aufrechterhaltung eines ISMS durch verankerte Verfahren und Regelungen; auch die Hinweise zur vollständigen Durchführung, Etablierung und kontinuierlichen Überprüfung decken sich vollständig.
+
+### GC.3.2 — Analyse der internen interessierten Parteien
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.3.2` [normal-SdT] Analyse der internen interessierten Parteien — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.3.2=0.99
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=1.0000 gs_ids=GC.3.2
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.3.2
+Model-Begründungen:
+[gpt-5.4] GC.3.2 deckt die GS++-Anforderung vollständig ab, da ID, Titel, Muss-Formulierung und inhaltlicher Fokus identisch sind: Es wird explizit ein Verfahren verlangt, um alle internen interessierten Parteien sowie deren Bedürfnisse und Erwartungen an das Informationssicherheitsmanagement zu ermitteln und organisatorisch zu verankern. Andere Kandidaten wie GC.3.1 oder GC.2.2 betreffen benachbarte, aber nicht gleichwertige Inhalte (externe Parteien bzw. interner Kontext).
+[gpt-5.4-mini] GC.3.2 ist inhaltlich identisch zur GS++-Anforderung: Beide verlangen ein Verfahren zum Ermitteln aller internen interessierten Parteien sowie ihrer Bedürfnisse und Erwartungen an das Informationssicherheitsmanagement. Die genannten Beispiele (z. B. Geschäftsführung, Mitarbeitende, Führungskräfte, Betriebsrat/Personalrat) entsprechen ebenfalls der gleichen Zielrichtung.
+
+### GC.5.1 — Vorgehen bei der Infomationssicherheitseinstufung
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.5.1` [normal-SdT] Vorgehen bei der Infomationssicherheitseinstufung — _None_
+  - `GC.5.1.1` [normal-SdT] Festlegung der Geschäftsprozesse — _None_
+  - `GC.5.1.2` [normal-SdT] Festlegung des Schutzbedarfs — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.5.1=0.99, GC.5.1.1=0.49, GC.5.1.2=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.5.1
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.5.1;GC.5.1.2;GC.5.1.1
+Model-Begründungen:
+[gpt-5.4] GC.5.1 deckt die GS++-Anforderung vollständig ab, da ID, Titel, Statement und Guidance inhaltlich wortgleich sind: Es wird ausdrücklich ein Verfahren zur Festlegung relevanter Geschäftsprozesse und zur Einstufung des Schutzbedarfs dieser Geschäftsprozesse sowie der dabei verarbeiteten Informationen verlangt. Damit sind sowohl Verfahrensverankerung als auch der prozessorientierte Bezug auf Geschäftsprozesse und Informationen vollständig enthalten.
+[gpt-5.4-mini] Die GS++-Anforderung GC.5.1 wird inhaltlich direkt durch GC.5.1 abgedeckt, da der Text identisch ist und exakt das Verfahren zur Festlegung von Geschäftsprozessen sowie zur Einstufung des Schutzbedarfs beschreibt. Zusätzlich konkretisiert GC.5.1.1 die Festlegung der relevanten Geschäftsprozesse und GC.5.1.2 die eigentliche Schutzbedarfsfestlegung für Geschäftsprozesse und Informationsarten. Zusammen bilden diese Anforderungen den prozessorientierten Ansatz der Informationssicherheitseinstufung vollständig ab.
+- **Lücken:** [gpt-5.4-mini] Keine inhaltlichen Lücken gegenüber der GS++-Anforderung erkennbar.
+
+### GC.6.1 — Festlegung von Zielen für die Informationssicherheit
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1` [normal-SdT] Festlegung von Zielen für die Informationssicherheit — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.6.1=0.99
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.6.1
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.6.1
+Model-Begründungen:
+[gpt-5.4] Die Kandidatenanforderung GC.6.1 ist wortgleich mit der Grundschutz++-Anforderung und deckt damit alle wesentlichen Inhalte vollständig ab: Festlegung konkreter und messbarer Informationssicherheitsziele, Herleitung aus identifizierten Rahmenbedingungen sowie Bezug zu Geschäftszielen, interessierten Parteien und Kontext. Die übrigen Kandidaten wie GC.6.1.1, GC.6.1.2, GC.6.1.3 und GC.6.1.4 betreffen angrenzende Aspekte (Strategie, Verpflichtung der Leitung, Sicherheitsleitlinie, Freigabe), ersetzen aber nicht die eigentliche Forderung zur Zieldefinition.
+[gpt-5.4-mini] Die Kandidatenanforderung GC.6.1 entspricht der GS++-Anforderung GC.6.1 in Wortlaut und Inhalt vollständig: Beide verlangen, konkrete und messbare Ziele für die Informationssicherheit auf Basis der identifizierten Rahmenbedingungen festzulegen, unter Berücksichtigung von Geschäftszielen, interessierten Parteien und Kontext.
+- **Lücken:** [gpt-5.4-mini] Keine inhaltliche Lücke; die Anforderung ist identisch.
+
+### GC.6.1.1 — Festlegung einer Sicherheitsstrategie
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1.1` [normal-SdT] Festlegung einer Sicherheitsstrategie — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.6.1.1=0.99
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.6.1.1
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.6.1.1
+Model-Begründungen:
+[gpt-5.4] GC.6.1.1 deckt die GS++-Anforderung vollständig ab, da Titel, Statement und Guidance inhaltlich identisch sind: gemeinsame Festlegung einer grundlegenden Sicherheitsstrategie mit der Institutionsleitung zur Erreichung der Informationssicherheitsziele sowie Fokus auf übergeordneten Ansatz und Prinzipien. Andere Kandidaten wie GC.6.1 (Ziele), GC.6.1.3 (Sicherheitsleitlinie) oder GC.6.1.2 (Verpflichtung der Leitung) sind thematisch verwandt, aber nicht erforderlich, da GC.6.1.1 selbst bereits den vollständigen Inhalt abbildet.
+[gpt-5.4-mini] Die Kandidatin GC.6.1.1 ist inhaltlich identisch zur GS++-Anforderung GC.6.1.1: Beide fordern, dass Governance und Compliance gemeinsam mit der Institutionsleitung eine grundlegende Sicherheitsstrategie zur Erreichung der Informationssicherheitsziele festlegt. Auch die Guidances stimmen überein, insbesondere der übergeordnete Ansatz und die Prinzipien der Strategie.
+
+### GC.6.1.2 — Verpflichtung der Institutionsleitung
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1.2` [normal-SdT] Verpflichtung der Institutionsleitung — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.6.1.2=0.99
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=1.0000 gs_ids=GC.6.1.2
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.6.1.2
+Model-Begründungen:
+[gpt-5.4] Die Kandidatenanforderung GC.6.1.2 deckt die GS++-Anforderung vollständig ab, da ID, Titel, Statement und Guidance inhaltlich identisch sind. Insbesondere werden die formale Zuweisung der Verpflichtung der Institutionsleitung, die Übernahme der Gesamtverantwortung, die Bestätigung und Überwachung der Informationssicherheitsziele in Bezug auf die Organisationsziele, die Förderung des ISMS, die Unterstützung der Integration des ISMS, die Bereitstellung von Ressourcen sowie die kontinuierliche Verbesserung vollständig adressiert. Andere Kandidaten wie GC.6.1.4, GC.6.1.3 oder GC.1.1 berühren nur Teilaspekte, sind aber für das Mapping nicht erforderlich, weil GC.6.1.2 selbst bereits die vollständige Abdeckung liefert.
+[gpt-5.4-mini] Die Kandidatin GC.6.1.2 ist inhaltlich identisch zur GS++-Anforderung GC.6.1.2. Beide fordern die formale Verpflichtung der Institutionsleitung; die Guidance beschreibt übereinstimmend Gesamtverantwortung, Bestätigung und Überwachung der Informationssicherheitsziele, Förderung des ISMS sowie Bereitstellung von Ressourcen und Unterstützung der kontinuierlichen Verbesserung.
+
+### GC.6.1.3 — Erstellung einer Sicherheitsleitlinie
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1.3` [normal-SdT] Erstellung einer Sicherheitsleitlinie — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.6.1.3=0.99
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.6.1.3
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.6.1.3
+Model-Begründungen:
+[gpt-5.4] Die Kandidatenanforderung GC.6.1.3 ist wortgleich mit der GS++-Anforderung und deckt damit sämtliche wesentlichen Aspekte vollständig ab: Festlegung einer zur Institution passenden Sicherheitsleitlinie, Kommunikation an alle Mitarbeitenden, Orientierungsfunktion für sicherheitsrelevante Entscheidungen sowie die inhaltlichen Mindestbestandteile (Verantwortung der Institutionsleitung, Informationssicherheitsziele, Strategie, Rollen/Zuständigkeiten, kontinuierliche Verbesserung). Die übrigen Kandidaten wie GC.6.1, GC.6.1.2, GC.6.1.4 und GC.6.1.1 betreffen nur Teilaspekte der Leitlinie, sind hier aber nicht erforderlich, da GC.6.1.3 selbst die Anforderung bereits vollständig abbildet.
+[gpt-5.4-mini] Die Kandidatenanforderung GC.6.1.3 ist inhaltlich identisch zur GS++-Anforderung GC.6.1.3. Beide verlangen, dass die Institution eine passende Sicherheitsleitlinie festlegt; auch die begleitende Beschreibung (Kommunikation an Mitarbeitende, Inhalte wie Gesamtverantwortung, Ziele, Strategie, Rollen/Zuständigkeiten und kontinuierliche Verbesserung) stimmt überein.
+
+### GC.6.1.4 — Freigabe der Sicherheitsleitlinie
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1.4` [normal-SdT] Freigabe der Sicherheitsleitlinie — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.6.1.4=0.99
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.6.1.4
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.6.1.4
+Model-Begründungen:
+[gpt-5.4] GC.6.1.4 deckt die GS++-Anforderung vollständig ab, da ID, Titel und Wortlaut identisch sind: Die festgelegte Sicherheitsleitlinie MUSS durch die Institutionsleitung autorisiert werden. Damit sind Aspektüberdeckung, Detailtiefe, Domain und Regelungsart vollständig kongruent. GC.6.1.2 und GC.6.1.3 sind hierfür nicht erforderlich, da sie nur angrenzende Inhalte (Verpflichtung der Leitung bzw. Erstellung der Leitlinie) behandeln, aber nicht die ausdrückliche Autorisierung/Freigabe der Sicherheitsleitlinie selbst in gleicher Präzision ersetzen.
+[gpt-5.4-mini] GC.6.1.4 ist identisch zur GS++-Anforderung: Beide fordern, dass die festgelegte Sicherheitsleitlinie durch die Institutionsleitung autorisiert bzw. freigegeben wird. Es liegt eine direkte inhaltliche Übereinstimmung ohne Abweichungen vor.
+
+### GC.7.1.3 — Vertragliche Verpflichtungen
+- **Confidence:** 0.99
+- **Gemappte GS-Anforderungen:**
+  - `GC.7.1.3` [normal-SdT] Vertragliche Verpflichtungen — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.7.1.3=0.99
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.7.1.3
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.7.1.3
+Model-Begründungen:
+[gpt-5.4] GC.7.1.3 deckt die GS++-Anforderung vollständig ab, da Titel, Aussage und Guidance inhaltlich identisch sind: Die Zusammenstellung vertraglicher Verpflichtungen bezüglich der Verarbeitung von Informationen durch die Institution soll dokumentiert werden. Damit sind Schutzaspekte, Detailtiefe, Domain und Regelungsart vollständig deckungsgleich.
+[gpt-5.4-mini] GC.7.1.3 deckt die GS++-Anforderung unmittelbar und wortgleich ab: Beide verlangen die Dokumentation vertraglicher Verpflichtungen, die die Verarbeitung von Informationen durch die Institution betreffen. Inhalt, Regelungsart und Detailtiefe stimmen vollständig überein.
+
+## Teilweise abgedeckt (11)
+
+### GC.2.1 — Festlegung des externen Kontextes der Institution
+- **Confidence:** 0.47
+- **Gemappte GS-Anforderungen:**
+  - `GC.3.1` [normal-SdT] Analyse der externen interessierten Parteien — _None_
+  - `GC.6.1` [normal-SdT] Festlegung von Zielen für die Informationssicherheit — _None_
+  - `GC.6.1.1` [normal-SdT] Festlegung einer Sicherheitsstrategie — _None_
+  - `GC.6.1.3` [normal-SdT] Erstellung einer Sicherheitsleitlinie — _None_
+  - `GC.7.1` [normal-SdT] Verfahren und Regelungen — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.3.1=0.47, GC.6.1=0.47, GC.6.1.1=0.47, GC.6.1.3=0.47, GC.7.1=0.47
+Model-Entscheidungen:
+[gpt-5.4] coverage=keine confidence=0.9900 gs_ids=
+[gpt-5.4-mini] coverage=teilweise confidence=0.9300 gs_ids=GC.3.1;GC.7.1;GC.6.1;GC.6.1.1;GC.6.1.3
+Model-Begründungen:
+[gpt-5.4] Keiner der Kandidaten ist eine klassische IT-Grundschutz-Anforderung im geforderten Format eines Bausteins mit Anforderungsnummer (z. B. ORP.x.Ay oder ISMS.x.Ay). Zwar ist Kandidat „GC.2.1“ inhaltlich identisch zur GS++-Anforderung, er ist jedoch derselbe GC/Grundschutz++-Eintrag und keine klassische Basis-/Standard-Anforderung. Die übrigen Kandidaten wie GC.2.2, GC.3.1 oder GC.7.1 betreffen nur Teilaspekte oder andere Kontexte und sind ebenfalls keine klassischen IT-Grundschutz-Anforderungen im verlangten Sinne.
+[gpt-5.4-mini] GC.3.1 adressiert die Ermittlung externer interessierter Parteien und ihrer Bedürfnisse/Erwartungen; damit ist ein wesentlicher Teil der externen Umfeldanalyse für das ISMS abgedeckt. GC.7.1 deckt die Sammlung, Integration und Priorisierung rechtlicher, regulatorischer und vertraglicher Verpflichtungen ab und trifft damit einen weiteren Kernaspekt des externen Kontextes. GC.6.1 verlangt Ziele für die Informationssicherheit auf Basis identifizierter Rahmenbedingungen, und GC.6.1.1 sowie GC.6.1.3 binden diese konzeptionell in Sicherheitsstrategie bzw. Sicherheitsleitlinie ein. Zusammen bilden die Kandidaten aber nur einen Teil der geforderten Festlegung des externen Kontextes ab, weil die GS++-Anforderung ausdrücklich auch gesellschaftliche und kulturelle Faktoren, technologische Entwicklungen, wirtschaftliche Bedingungen sowie ökologische und physische Umweltbedingungen systematisch analysieren und dokumentieren lässt; diese breiten externen Kontextfaktoren werden durch die genannten IT-Grundschutz-Anforderungen nicht vollständig abgedeckt.
+- **Lücken:** [gpt-5.4] Es wurde kein gültiger klassischer IT-Grundschutz-Kandidat (Basis/Standard) bereitgestellt, der die Anforderung abdecken könnte. Für eine belastbare Zuordnung wären klassische Kompendium-Anforderungen aus Bausteinen wie ISMS, ORP oder DER mit A-Nummer erforderlich.
+[gpt-5.4-mini] Nicht abgedeckt bzw. nicht explizit gefordert sind die systematische Betrachtung gesellschaftlicher und kultureller Faktoren, technologischer Entwicklungen, wirtschaftlicher Marktbedingungen sowie ökologischer und physischer Umweltbedingungen am Standort. Außerdem verlangt die GS++-Anforderung ein explizites Verfahren zur Sammlung, Integration und Priorisierung aller externen Rahmenbedingungen; die Kandidaten adressieren nur Teilaspekte davon (v. a. Stakeholder/Compliance/Ziele/Leitlinie).
+
+### GC.2.2 — Festlegung des internen Kontextes der Institution
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.2.2` [normal-SdT] Festlegung des internen Kontextes der Institution — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.2.2=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=keine confidence=0.9900 gs_ids=
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.2.2
+Model-Begründungen:
+[gpt-5.4] Keiner der angegebenen Kandidaten ist eine klassische IT-Grundschutz-Anforderung aus Basis/Standard mit gültiger GS-ID im geforderten Format, die hier als Mapping herangezogen werden könnte. Zwar ist Kandidat „GC.2.2“ inhaltlich identisch zur GS++-Anforderung, er ist jedoch dieselbe GC-Anforderung und keine klassische IT-Grundschutz-Anforderung (Basis/Standard) im Sinne der Aufgabenstellung. Die übrigen Kandidaten wie GC.2.1, GC.5.1.1, GC.6.1, GC.7.1 oder GC.3.2 adressieren andere Themen bzw. nur Teilaspekte, aber nicht die vollständige Festlegung des internen Kontextes der Institution.
+[gpt-5.4-mini] GC.2.2 aus dem IT-Grundschutz-Kompendium deckt die Grundschutz++-Anforderung inhaltlich identisch ab: Beide fordern ein Verfahren zur Sammlung, Integration und Priorisierung relevanter interner Rahmenbedingungen für das Informationssicherheitsmanagement sowie die systematische Analyse und Dokumentation interner Faktoren wie Strategie, Struktur, Prozesse, Infrastruktur und Sicherheitskultur.
+- **Lücken:** [gpt-5.4] Es fehlt unter den Kandidaten eine klassische IT-Grundschutz-Anforderung, die die systematische Sammlung, Integration, Priorisierung und Dokumentation aller internen Rahmenbedingungen für das ISMS abdeckt, einschließlich Strategien, Ziele, Aufbauorganisation, Prozesse, IT-Infrastruktur sowie Sicherheitskultur.
+
+### GC.3.1 — Analyse der externen interessierten Parteien
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.3.1` [normal-SdT] Analyse der externen interessierten Parteien — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.3.1=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=keine confidence=0.9900 gs_ids=
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.3.1
+Model-Begründungen:
+[gpt-5.4] Keiner der angegebenen Kandidaten ist eine klassische IT-Grundschutz-Anforderung (Basis/Standard) im geforderten Sinne, sondern ebenfalls GC-Anforderungen aus demselben Governance-und-Compliance-Kontext. Daher liegt kein zulässiges Mapping auf eine oder mehrere klassische IT-Grundschutz-Anforderungen vor. Inhaltlich wäre Kandidat GC.3.1 zwar identisch, er ist aber keine klassische Basis-/Standard-Anforderung, sondern dieselbe Anforderung erneut.
+[gpt-5.4-mini] Die Kandidatin GC.3.1 entspricht in Wortlaut und Inhalt exakt der GS++-Anforderung: Sie fordert ein Verfahren zum Ermitteln aller externen interessierten Parteien und ihrer Bedürfnisse und Erwartungen an das Informationssicherheitsmanagement sowie die Bewertung der Relevanz/Priorität und die Festlegung verbindlicher Verpflichtungen im ISMS.
+- **Lücken:** [gpt-5.4] Es fehlt ein passender klassischer IT-Grundschutz-Kandidat (Basis/Standard) zur Analyse externer interessierter Parteien. Die vorliegenden Kandidaten decken entweder andere Inhalte ab (interne Parteien, Kontext, Compliance-Teilpflichten, Scope) oder sind keine zulässigen klassischen GS-Matches.
+
+### GC.4.1 — Festlegung des Geltungsbereichs
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.4.1` [normal-SdT] Festlegung des Geltungsbereichs — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.4.1=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.4.1
+[gpt-5.4-mini] coverage=keine confidence=0.9900 gs_ids=
+Model-Begründungen:
+[gpt-5.4] Die Anforderung GC.4.1 deckt die GS++-Anforderung vollständig ab, da sie wortgleich dieselbe Pflicht beschreibt: den nachvollziehbar abgegrenzten Geltungsbereich des ISMS nach Freigabe der Institutionsleitung festzulegen und zu dokumentieren. Auch die inhaltlichen Details stimmen überein, insbesondere die Festlegung des formalen und organisatorischen Umfangs, die Abgrenzung von Institutionsbereichen, Geschäftsprozessen, Tätigkeiten, Standorten, Systemen, externen Partnern/Dienstleistern sowie bewusst ausgeschlossenen Bereichen.
+[gpt-5.4-mini] Keine der Kandidatenanforderungen deckt die spezifische Anforderung GC.4.1 zur nachvollziehbaren Festlegung des ISMS-Geltungsbereichs nach Freigabe der Institutionsleitung inhaltlich vollständig ab. GC.6.1.2 und GC.6.1.4 betreffen die Verpflichtung bzw. Autorisierung der Institutionsleitung, aber nicht die Scope-Festlegung. GC.2.1 und GC.2.2 behandeln externen bzw. internen Kontext, nicht die formale Abgrenzung des ISMS-Geltungsbereichs. GC.5.1.1, GC.5.1.2 und GC.5.1 behandeln Prozess- und Schutzbedarfseinstufung, nicht die Scope-Definition. GC.6.1.1, GC.6.1.3 und GC.6.1.4 betreffen Sicherheitsstrategie/-leitlinie. Daher gibt es keine echte inhaltliche Übereinstimmung.
+- **Lücken:** [gpt-5.4-mini] Es fehlt eine Anforderung zur formalen Definition und Dokumentation des ISMS-Scope einschließlich organisatorischer und infrastruktureller Abgrenzung, Einbezug externer Partner/Dienstleister sowie bewusster Ausschlüsse; auch die Freigabe des abgegrenzten Geltungsbereichs durch die Institutionsleitung wird von keiner Kandidatin abgedeckt.
+
+### GC.5.1.1 — Festlegung der Geschäftsprozesse
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.5.1.1` [normal-SdT] Festlegung der Geschäftsprozesse — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.5.1.1=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=keine confidence=0.9900 gs_ids=
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.5.1.1
+Model-Begründungen:
+[gpt-5.4] Keiner der Kandidaten ist als klassische IT-Grundschutz-Anforderung im geforderten gültigen GS-ID-Format aus der Kandidatenliste verwendbar. Zwar ist Kandidat GC.5.1.1 inhaltlich identisch zur GS++-Anforderung, jedoch handelt es sich nicht um eine klassische IT-Grundschutz-Anforderung mit gültigem Baustein.A-Format gemäß den vorgegebenen Regeln. Daher ist kein zulässiges Mapping auswählbar.
+[gpt-5.4-mini] Die Kandidatin GC.5.1.1 entspricht der GS++-Anforderung wort- und inhaltsgleich: Beide fordern, dass Governance und Compliance die für den Geltungsbereich relevanten Geschäftsprozesse festlegen. Es gibt keine inhaltlichen Abweichungen in Aspekt, Detaillierung oder Regelungsart.
+- **Lücken:** [gpt-5.4] Formaler Gap: In der Kandidatenliste befindet sich keine zulässige klassische IT-Grundschutz-Anforderung im Format BAUSTEIN.Anummer, die für ein regelkonformes Mapping verwendet werden kann.
+
+### GC.5.1.2 — Festlegung des Schutzbedarfs
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.4.1` [normal-SdT] Festlegung des Geltungsbereichs — _None_
+  - `GC.5.1` [normal-SdT] Vorgehen bei der Infomationssicherheitseinstufung — _None_
+  - `GC.5.1.1` [normal-SdT] Festlegung der Geschäftsprozesse — _None_
+  - `GC.5.1.2` [normal-SdT] Festlegung des Schutzbedarfs — _None_
+  - `GC.5.1.3` [normal-SdT] Geschäftsprozesse mit hohem Schutzbedarf — _None_
+  - `GC.6.1.2` [normal-SdT] Verpflichtung der Institutionsleitung — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.4.1=0.49, GC.5.1=0.49, GC.5.1.1=0.49, GC.5.1.2=0.49, GC.5.1.3=0.49, GC.6.1.2=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=keine confidence=0.9900 gs_ids=
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.5.1.2;GC.5.1.1;GC.5.1;GC.5.1.3;GC.6.1.2;GC.4.1
+Model-Begründungen:
+[gpt-5.4] Keiner der angegebenen Kandidaten ist eine klassische IT-Grundschutz-Anforderung (Basis/Standard) mit gültiger GS-ID im geforderten Format, sondern es handelt sich um GC-/GS++-Einträge bzw. übergeordnete/verwandte Governance-Anforderungen. Zwar ist Kandidat „GC.5.1.2“ inhaltlich identisch zur Zielanforderung, er ist jedoch keine zulässige klassische GS-Anforderung im Sinne der vorgegebenen Mapping-Regeln. Daher ist kein gültiges Mapping auswählbar.
+[gpt-5.4-mini] Die GS++-Anforderung GC.5.1.2 wird inhaltlich direkt durch GC.5.1.2 abgedeckt, da beide die Festlegung des Schutzbedarfs für relevante Geschäftsprozesse und Informationsarten unter Berücksichtigung von Geschäftsziele bzw. Institutionsleitung beschreiben. Ergänzend stützen GC.5.1.1 und GC.5.1 das vorgelagerte Vorgehen der Identifikation relevanter Geschäftsprozesse sowie das Verfahren zur Schutzbedarfsfeststellung. GC.5.1.3 deckt den Sonderfall der Geschäftsprozesse mit hohem Schutzbedarf und die dafür vorgesehene Risikobetrachtung ab, was mit dem Teil der GS++-Anforderung zur Einstufung auf 'hoch' übereinstimmt. GC.6.1.2 ist passend, weil die Entscheidung in Abstimmung mit bzw. unter Verantwortung der Institutionsleitung erfolgen soll. GC.4.1 unterstützt die Kontext- und Scope-Festlegung, die für die Bestimmung relevanter Geschäftsprozesse und Informationsarten vorausgesetzt wird.
+- **Lücken:** [gpt-5.4] Es fehlt ein passender klassischer IT-Grundschutz-Kandidat (Basis/Standard) zur Schutzbedarfsfeststellung von Geschäftsprozessen und Informationsarten unter Einbezug von Geschäftszielen und Institutionsleitung.
+[gpt-5.4-mini] Keine wesentlichen Lücken, da die direkt einschlägige Anforderung GC.5.1.2 den Kern bereits vollständig beschreibt. Die übrigen genannten Anforderungen sind unterstützend bzw. rahmenbildend.
+
+### GC.5.1.3 — Geschäftsprozesse mit hohem Schutzbedarf
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.5.1` [normal-SdT] Vorgehen bei der Infomationssicherheitseinstufung — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.5.1=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=keine confidence=0.9900 gs_ids=
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.5.1
+Model-Begründungen:
+[gpt-5.4] Unter den angegebenen Kandidaten gibt es keine klassische IT-Grundschutz-Anforderung (Basis/Standard) im geforderten BAUSTEIN.A-Format, die als gültiger Match herangezogen werden kann. Zwar ist Kandidat GC.5.1.3 inhaltlich wortgleich zur GS++-Anforderung, er ist jedoch selbst eine GC-/GS++-artige Anforderung und keine klassische Kompendiums-Anforderung im Sinne der vorgegebenen Mapping-Regeln. Die übrigen Kandidaten wie GC.5.1, GC.5.1.2 oder GC.7.1 adressieren nur allgemeines Verfahren, Schutzbedarfsfestlegung oder Compliance-Regelungen, aber nicht präzise die geforderte dedizierte Risikobetrachtung für Geschäftsprozesse bzw. Informationsarten mit hohem Schutzbedarf einschließlich verbindlicher Vorgaben an die Risikomethodik.
+[gpt-5.4-mini] Die Anforderung GC.5.1 deckt den Kern von GC.5.1.3 vollständig ab, da sie ein Verfahren zur Festlegung der Geschäftsprozesse und zur Einstufung des Schutzbedarfs der Geschäftsprozesse und der verarbeiteten Informationen verlangt. Die in GC.5.1.3 geforderte dedizierte Risikobetrachtung von Geschäftsprozessen oder Informationsarten mit hohem Schutzbedarf ist damit inhaltlich bereits enthalten; die Unterscheidung normal/hoch sowie die prozessorientierte Betrachtung sind identisch zum Ziel der Grundschutz++-Anforderung.
+- **Lücken:** [gpt-5.4] Es fehlt eine klassische IT-Grundschutz-Anforderung, die explizit eine separate bzw. dedizierte Risikobetrachtung für hochschutzbedürftige Geschäftsprozesse oder Informationsarten sowie verbindliche methodische Vorgaben für diese Risikobetrachtung fordert.
+[gpt-5.4-mini] Keine wesentlichen Lücken. Die Guidance von GC.5.1.3 zu einem separaten Dokument mit verbindlichen Vorgaben an die Risikomethodik geht über die Pflicht aus GC.5.1 hinaus, ändert aber den inhaltlichen Kern der Anforderung nicht.
+
+### GC.7.1 — Verfahren und Regelungen
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.7.1` [normal-SdT] Verfahren und Regelungen — _None_
+  - `GC.2.1` [normal-SdT] Festlegung des externen Kontextes der Institution — _None_
+  - `GC.7.1.1` [normal-SdT] Gesetzliche Verpflichtungen — _None_
+  - `GC.7.1.2` [normal-SdT] Anhörung zuständiger Stellen — _None_
+  - `GC.7.1.3` [normal-SdT] Vertragliche Verpflichtungen — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.7.1=0.49, GC.2.1=0.48, GC.7.1.1=0.48, GC.7.1.2=0.48, GC.7.1.3=0.48
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=0.9900 gs_ids=GC.7.1
+[gpt-5.4-mini] coverage=teilweise confidence=0.9700 gs_ids=GC.2.1;GC.7.1.1;GC.7.1.2;GC.7.1.3
+Model-Begründungen:
+[gpt-5.4] GC.7.1 ist wortgleich zur gegebenen Grundschutz++-Anforderung und deckt damit alle wesentlichen Aspekte vollständig ab: Verankerung eines Verfahrens zur Sammlung, Integration und Priorisierung aller für das ISMS relevanten Rahmenbedingungen sowie den Compliance-Bezug auf gesetzliche, regulatorische und vertragliche Verpflichtungen. Die Unteranforderungen GC.7.1.1, GC.7.1.2 und GC.7.1.3 konkretisieren nur Teilaspekte, sind aber für das Mapping nicht erforderlich, da GC.7.1 selbst bereits die vollständige inhaltliche Abdeckung liefert.
+[gpt-5.4-mini] GC.7.1 wird durch die Kandidaten nur teilweise abgedeckt. GC.2.1 deckt den Aspekt ab, externe Rahmenbedingungen für das Informationssicherheitsmanagement systematisch zu sammeln, zu integrieren und zu priorisieren, allerdings nur allgemein im Kontext externer Faktoren. GC.7.1.1 ergänzt dies für gesetzliche Verpflichtungen, GC.7.1.2 für die Einbindung zuständiger Stellen bei der Dokumentation dieser Verpflichtungen und GC.7.1.3 für die Zusammenstellung vertraglicher Verpflichtungen. Gemeinsam bilden diese Anforderungen wesentliche Teile eines Compliance-Management-Verfahrens ab, aber nicht die gesamte von GC.7.1 geforderte Gesamtheit aller relevanten Rahmenbedingungen einschließlich deren konsistenter Verfahrensverankerung und Priorisierung über alle Verpflichtungsarten hinweg.
+- **Lücken:** [gpt-5.4-mini] Nicht vollständig abgedeckt sind insbesondere die explizite Gesamtsicht auf alle für das Informationssicherheitsmanagement relevanten Rahmenbedingungen in einem einheitlichen Verfahren sowie die Priorisierung über gesetzliche, regulatorische und vertragliche Verpflichtungen hinaus im Sinne der GS++-Anforderung. Die allgemeine Verfahrensverankerung als umfassendes Compliance-Management ist nur indirekt abgedeckt.
+
+### GC.7.1.1 — Gesetzliche Verpflichtungen
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.7.1.1` [normal-SdT] Gesetzliche Verpflichtungen — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.7.1.1=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=keine confidence=0.9800 gs_ids=
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.7.1.1
+Model-Begründungen:
+[gpt-5.4] Keiner der Kandidaten ist eine klassische IT-Grundschutz-Anforderung (Basis/Standard) im geforderten Sinne; die Liste enthält ausschließlich GC-/Grundschutz++-Einträge, darunter sogar die identische GS++-Anforderung GC.7.1.1 selbst. Nach der Vorgabe dürfen nur echte inhaltliche Abdeckungen durch klassische IT-Grundschutz-Anforderungen als Match zählen. Daher ist kein gültiges Mapping aus der Kandidatenliste möglich.
+[gpt-5.4-mini] GC.7.1.1 ist inhaltlich identisch zur GS++-Anforderung: Beide verlangen die Analyse bzw. Dokumentation der gesetzlichen Verpflichtungen, die die Verarbeitung von Informationen in der Institution betreffen. Die Textpassagen stimmen in Zweck, Gegenstand und Regelungsart vollständig überein.
+- **Lücken:** [gpt-5.4] Es fehlt eine klassische IT-Grundschutz-Anforderung, die die Analyse und Dokumentation gesetzlicher Verpflichtungen zur Informationsverarbeitung abdeckt. Die vorhandenen Kandidaten sind thematisch teils nah (z. B. GC.7.1, GC.7.1.2, GC.2.1), aber nicht als klassische Basis-/Standard-Anforderungen verwendbar.
+
+### GC.7.1.2 — Anhörung zuständiger Stellen
+- **Confidence:** 0.49
+- **Gemappte GS-Anforderungen:**
+  - `GC.7.1.2` [normal-SdT] Anhörung zuständiger Stellen — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.7.1.2=0.49
+Model-Entscheidungen:
+[gpt-5.4] coverage=keine confidence=0.9800 gs_ids=
+[gpt-5.4-mini] coverage=voll confidence=0.9900 gs_ids=GC.7.1.2
+Model-Begründungen:
+[gpt-5.4] Keiner der Kandidaten aus der Liste ist eine klassische IT-Grundschutz-Anforderung mit gültiger GS-ID im geforderten Format BAUSTEIN.Anummer. Zwar ist Kandidat GC.7.1.2 inhaltlich identisch zur GS++-Anforderung, er ist jedoch selbst dieselbe GC-/GS++-Anforderung und kein klassischer Basis-/Standard-Requirement. Die übrigen Kandidaten wie GC.7.1.1 oder GC.7.1 beschreiben nur angrenzende Themen (Analyse gesetzlicher Verpflichtungen bzw. allgemeines Verfahren), decken aber den spezifischen Kern der Anforderung – die Anhörung zuständiger interner Stellen bei der Dokumentation von Compliance-Verpflichtungen – nicht als klassische IT-Grundschutz-Anforderung ab.
+[gpt-5.4-mini] GC.7.1.2 deckt die GS++-Anforderung inhaltlich identisch ab: Beide fordern, dass Governance und Compliance die für gesetzliche Verpflichtungen in der Informationsverarbeitung zuständigen Stellen innerhalb der Institution anhört. Auch die Beispiele in der Guidance (z. B. Rechtsabteilung, Datenschutzbeauftragte, Brandschutzbeauftragte) stimmen überein.
+- **Lücken:** [gpt-5.4] Es fehlt in der Kandidatenliste eine klassische Basis-/Standard-Anforderung, die ausdrücklich die Einbindung bzw. Anhörung zuständiger Stellen wie Rechtsabteilung, Datenschutzbeauftragte oder Fachverantwortliche bei der Ermittlung/Dokumentation gesetzlicher Verpflichtungen fordert.
+
+### GC.7.1.4 — Prävention von Verstößen
+- **Confidence:** 0.50
+- **Gemappte GS-Anforderungen:**
+  - `GC.7.1.4` [normal-SdT] Prävention von Verstößen — _None_
+  - `GC.1.1` [normal-SdT] Errichtung und Aufrechterhaltung eines ISMS — _None_
+- **Begründung:** Gemittelte Kandidatenscores: GC.7.1.4=0.50, GC.1.1=0.48
+Model-Entscheidungen:
+[gpt-5.4] coverage=voll confidence=1.0000 gs_ids=GC.7.1.4
+[gpt-5.4-mini] coverage=teilweise confidence=0.9700 gs_ids=GC.1.1
+Model-Begründungen:
+[gpt-5.4] Die Kandidatenanforderung GC.7.1.4 ist mit der GS++-Anforderung in Titel, Aussage und Guidance wortgleich. Sie fordert ausdrücklich Verfahren zur Prävention gegen Verstöße und nennt dieselben Beispiele wie zielgruppengerechte Schulungen, Berücksichtigung von Compliance-Verpflichtungen in Freigabe- und Testprozessen sowie eine konstruktive Fehlerkultur. Damit sind Aspekt-Überdeckung, Detailtiefe, Domain und Regelungsart vollständig identisch.
+[gpt-5.4-mini] GC.1.1 beschreibt allgemein, dass ein ISMS Verfahren und Regelungen etablieren und aufrechterhalten muss. Das ist die organisatorische Klammer, innerhalb der auch präventive Regelungen gegen Verstöße verankert werden können. Die konkrete GS++-Anforderung GC.7.1.4 verlangt jedoch spezifisch Verfahren zur Prävention von Verstößen, etwa zielgruppengerechte Schulungen, die Berücksichtigung von Compliance-Verpflichtungen in Freigabe- und Testprozessen sowie die Förderung einer konstruktiven Fehlerkultur. Diese inhaltliche Spezifizierung wird durch GC.1.1 nicht eigenständig abgedeckt. Die übrigen Kandidaten behandeln Rahmenbedingungen, Schutzbedarf, Leitlinie oder Zuständigkeiten, aber nicht die Präventionsverfahren gegen Verstöße.
+- **Lücken:** [gpt-5.4-mini] Nicht abgedeckt sind die konkreten Präventionsmaßnahmen gegen Verstöße, insbesondere Schulungen, Einbindung von Compliance-Aspekten in Freigabe- und Testprozesse sowie Maßnahmen zur Fehlerkultur. GC.1.1 deckt nur den allgemeinen ISMS-Rahmen ab.

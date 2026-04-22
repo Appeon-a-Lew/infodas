@@ -1,0 +1,148 @@
+# GS++ → IT-Grundschutz Mapping (Model: `google/gemma-4-26b-a4b-it`)
+
+Erzeugt: 2026-04-22T15:12:50
+
+**Gesamt:** 20 GS++-Anforderungen
+
+| Coverage | Anzahl |
+|---|---|
+| Voll abgedeckt | 17 |
+| Teilweise abgedeckt | 2 |
+| Keine Abdeckung | 1 |
+
+## Voll abgedeckt (17)
+
+### GC.1.1 — Errichtung und Aufrechterhaltung eines ISMS
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.1.1` [normal-SdT] Errichtung und Aufrechterhaltung eines ISMS — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.1.1 ist eine exakte Kopie der klassischen IT-Grundschutz-Anforderung GC.1.1. Da die GS++-Anforderung wortgleich die Errichtung und Aufrechterhaltung eines ISMS sowie die Verankerung von Verfahren und Regelungen fordert, deckt die Kandidaten-ID GC.1.1 diesen Anspruch zu 100% inhaltlich, strukturell und regulatorisch ab.
+
+### GC.2.1 — Festlegung des externen Kontextes der Institution
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.2.1` [normal-SdT] Festlegung des externen Kontextes der Institution — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.2.1 ist in diesem spezifischen Fall eine exakte Kopie (identischer Text, Statement und Guidance) der klassischen IT-Grundschutz-Anforderung [1] GC.2.1. Da die GS++-Anforderung keine zusätzliche Tiefe oder neue Aspekte gegenüber der IT-Grundschutz-Anforderung GC.2.1 aufweist, bietet die GS-Anforderung eine vollständige Abdeckung aller geforderten Aspekte (Sammlung, Integration und Priorisierung externer Rahmenbedingungen inkl. gesellschaftlicher, rechtlicher, technologischer, wirtschaftlicher und ökologischer Faktoren).
+
+### GC.2.2 — Festlegung des internen Kontextes der Institution
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.2.2` [normal-SdT] Festlegung des internen Kontextes der Institution — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.2.2 ist inhaltlich identisch mit der im IT-Grundschutz-Kompendium gelisteten Anforderung [1] GC.2.2. Sowohl das Statement als auch die Guidance decken exakt dieselben Aspekte ab: Das Verfahren zur Sammlung, Integration und Priorisierung interner Rahmenbedingungen sowie die systematische Analyse interner Faktoren (Strategien, Werte, Struktur, Prozesse, IT-Infrastruktur und Kultur). Da die Anforderung im Kompendium als 1:1-Entsprechung existiert, ist die Abdeckung vollständig.
+
+### GC.3.1 — Analyse der externen interessierten Parteien
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.3.1` [normal-SdT] Analyse der externen interessierten Parteien — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.3.1 ist inhaltlich identisch mit der Kandidaten-Anforderung GC.3.1 aus dem IT-Grundschutz-Kompendium. Beide fordern das Verankern eines Verfahrens zur Ermittlung externer interessierter Parteien sowie die Bewertung ihrer Anforderungen (Gesetzgeber, Kunden, etc.) für das ISMS. Da die GS++-Anforderung eine exakte Kopie der vorliegenden GS-Anforderung ist, ist die Abdeckung als 'voll' zu bewerten.
+
+### GC.3.2 — Analyse der internen interessierten Parteien
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.3.2` [normal-SdT] Analyse der internen interessierten Parteien — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.3.2 ist in der bereitgestellten Kandidatenliste [1] mit der identischen ID 'GC.3.2' enthalten. Da der Text, das Statement und die Guidance exakt übereinstimmen, ist eine vollständige inhaltliche Abdeckung gegeben.
+- **Lücken:** keine
+
+### GC.4.1 — Festlegung des Geltungsbereichs
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.4.1` [normal-SdT] Festlegung des Geltungsbereichs — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.4.1 ist inhaltlich identisch mit der klassischen IT-Grundschutz-Anforderung [1] GC.4.1. Beide fordern die Festlegung und Dokumentation des Geltungsbereichs (Scope) des ISMS inklusive der Abgrenzung von Organisationsbereichen, Geschäftsprozessen, Standorten, Systemen und externen Partnern sowie die formale Freigabe durch die Institutionsleitung.
+
+### GC.5.1 — Vorgehen bei der Infomationssicherheitseinstufung
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.5.1.1` [normal-SdT] Festlegung der Geschäftsprozesse — _None_
+  - `GC.5.1.2` [normal-SdT] Festlegung des Schutzbedarfs — _None_
+- **Begründung:** Die GS++-Anforderung GC.5.1 fordert die Verankerung eines Verfahrens zur Festlegung von Geschäftsprozessen und der Einstufung des Schutzbedarfs (normal/hoch). Dies wird durch die Kandidaten vollumfänglich abgedeckt: GC.5.1.1 adressiert die notwendige Festlegung der relevanten Geschäftsprozesse, und GC.5.1.2 konkretisiert das Verfahren zur eigentlichen Schutzbedarfsfeststellung (einschließlich der Unterscheidung zwischen 'normal' und 'hoch' sowie der Einbindung der Institutionsleitung). Zusammen bilden sie den im GS++-Statement geforderten Prozess ab.
+- **Lücken:** keine
+
+### GC.5.1.1 — Festlegung der Geschäftsprozesse
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.5.1.1` [normal-SdT] Festlegung der Geschäftsprozesse — _None_
+  - `GC.5.1` [normal-SdT] Vorgehen bei der Infomationssicherheitseinstufung — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.5.1.1 ('Festlegung der Geschäftsprozesse') ist inhaltlich identisch mit der IT-Grundschutz-Anforderung [1] GC.5.1.1. Zudem wird die Anforderung durch [2] GC.5.1 ('Vorgehen bei der Informationssicherheitseinstufung') ergänzt/abgedeckt, da diese die Verankerung des Verfahrens zur Festlegung von Geschäftsprozessen als integralen Bestandteil des Einstufungsprozesses explizit fordert. Damit sind sowohl die Festlegung als auch die prozessuale Verankerung vollständig abgedeckt.
+
+### GC.5.1.2 — Festlegung des Schutzbedarfs
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.5.1.2` [normal-SdT] Festlegung des Schutzbedarfs — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.5.1.2 ist inhaltlich identisch mit der Kandidaten-Anforderung GC.5.1.2 aus dem IT-Grundschutz-Kompendium. Beide fordern die Einstufung des Schutzbedarfs von Geschäftsprozessen und Informationsarten in die Stufen 'normal' oder 'hoch' unter Berücksichtigung der Geschäftsziele und in Absprache mit der Institutionsleitung.
+
+### GC.5.1.3 — Geschäftsprozesse mit hohem Schutzbedarf
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.5.1.3` [normal-SdT] Geschäftsprozesse mit hohem Schutzbedarf — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.5.1.3 ist identisch mit der IT-Grundschutz-Anforderung [1] GC.5.1.3. Da die Anforderung im Kompendium bereits als eigenständiger Baustein existiert, deckt sie sich inhaltlich zu 100% mit sich selbst hinsichtlich der Pflicht zur dedizierten Risikobetrachtung für Prozesse mit hohem Schutzbedarf und der Vorgabe einer Risikomethodik.
+
+### GC.6.1 — Festlegung von Zielen für die Informationssicherheit
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1` [normal-SdT] Festlegung von Zielen für die Informationssicherheit — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.6.1 ist eine identische Kopie der klassischen IT-Grundschutz-Anforderung GC.6.1. Sowohl der [statement] als auch der [guidance]-Teil stimmen wortwörtlich überein. Da die GS++-Anforderung somit exakt die Anforderungen der GS-Anforderung widerspiegelt, ist die Abdeckung vollumfänglich gegeben.
+
+### GC.6.1.2 — Verpflichtung der Institutionsleitung
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1.2` [normal-SdT] Verpflichtung der Institutionsleitung — _None_
+- **Begründung:** Die GS++-Anforderung GC.6.1.2 ist in diesem Fall identisch mit der vorliegenden IT-Grundschutz-Anforderung [1] GC.6.1.2. Da der Text, das Statement und die Guidance der GS++-Anforderung exakt den Inhalten des Kandidaten entsprechen, ist eine vollständige inhaltliche Abdeckung gegeben.
+
+### GC.6.1.3 — Erstellung einer Sicherheitsleitlinie
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1.3` [normal-SdT] Erstellung einer Sicherheitsleitlinie — _None_
+  - `GC.6.1.4` [normal-SdT] Freigabe der Sicherheitsleitlinie — _None_
+  - `GC.6.1.2` [normal-SdT] Verpflichtung der Institutionsleitung — _None_
+  - `GC.6.1.1` [normal-SdT] Festlegung einer Sicherheitsstrategie — _None_
+- **Begründung:** Die GS++-Anforderung GC.6.1.3 ist inhaltlich eine identische Spiegelung der klassischen Grundschutz-Anforderung GC.6.1.3. Die weiteren Aspekte der Leitlinie (Ziele, Strategie, Rollen, Verantwortlichkeiten der Leitung), die in der Guidance von GC.6.1.3 gefordert werden, werden durch die spezifischen Kandidaten GC.6.1.1 (Strategie), GC.6.1.2 (Verantwortung der Leitung), GC.6.1.3 (Erstellung der Leitlinie selbst) und GC.6.1.4 (Freigabe durch Leitung) vollumfänglich abgedeckt. Die Kombination dieser Anforderungen deckt den gesamten Lebenszyklus und Inhalt der Leitlinie ab.
+
+### GC.6.1.4 — Freigabe der Sicherheitsleitlinie
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1.4` [normal-SdT] Freigabe der Sicherheitsleitlinie — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.6.1.4 ist identisch mit der IT-Grundschutz-Anforderung GC.6.1.4. Sie fordert die Autorisierung der Sicherheitsleitlinie durch die Institutionsleitung, was durch den Kandidaten [1] (GC.6.1.4) eins zu eins abgedeckt wird.
+
+### GC.7.1 — Verfahren und Regelungen
+- **Confidence:** 0.95
+- **Gemappte GS-Anforderungen:**
+  - `GC.2.1` [normal-SdT] Festlegung des externen Kontextes der Institution — _None_
+  - `GC.2.2` [normal-SdT] Festlegung des internen Kontextes der Institution — _None_
+- **Begründung:** Die GS++-Anforderung GC.7.1 fordert ein Verfahren zur Sammlung, Integration und Priorisierung aller relevanten Rahmenbedingungen (Compliance Management). Dies umfasst sowohl die externen als auch die internen Rahmenbedingungen. Die Kandidaten GC.2.1 (Festlegung des externen Kontextes) deckt die externen Rahmenbedingungen (rechtlich, regulatorisch, technologisch etc.) ab, während GC.2.2 (Festlegung des internen Kontextes) die internen Rahmenbedingungen (Strategien, Strukturen, Prozesse etc.) abdeckt. Zusammen bilden sie das in GC.7.1 geforderte Verfahren zur Erfassung der Gesamtheit der Rahmenbedingungen ab.
+
+### GC.7.1.1 — Gesetzliche Verpflichtungen
+- **Confidence:** 0.90
+- **Gemappte GS-Anforderungen:**
+  - `GC.2.1` [normal-SdT] Festlegung des externen Kontextes der Institution — _None_
+  - `GC.7.1` [normal-SdT] Verfahren und Regelungen — _None_
+- **Begründung:** Die GS++-Anforderung GC.7.1.1 fordert die Analyse und Dokumentation gesetzlicher Verpflichtungen. Diese wird durch die Kombination zweier Anforderungen vollständig abgedeckt: GC.2.1 (Festlegung des externen Kontextes) verlangt explizit die Analyse und Dokumentation rechtlicher und regulatorischer Rahmenbedingungen als Teil des externen Kontexts. GC.7.1 (Verfahren und Regelungen) stellt sicher, dass das Compliance-Management ein Verfahren zur Sammlung, Integration und Priorisierung aller relevanten Rahmenbedingungen (was die gesetzlichen Verpflichtungen einschließt) verankert. Zusammen decken sie sowohl die Identifikation (Kontext) als auch die prozessuale Einbindung (Verfahren) der gesetzlichen Pflichten ab.
+
+### GC.7.1.2 — Anhörung zuständiger Stellen
+- **Confidence:** 1.00
+- **Gemappte GS-Anforderungen:**
+  - `GC.7.1.2` [normal-SdT] Anhörung zuständiger Stellen — _None_
+- **Begründung:** Die Grundschutz++-Anforderung GC.7.1.2 ('Anhörung zuständiger Stellen') ist in der bereitgestellten Kandidatenliste identisch mit der IT-Grundschutz-Anforderung [1] GC.7.1.2. Da die Anforderungen textlich und inhaltlich (Statement und Guidance) absolut deckungsgleich sind, ist eine vollständige Abdeckung gegeben.
+- **Lücken:** keine
+
+## Teilweise abgedeckt (2)
+
+### GC.6.1.1 — Festlegung einer Sicherheitsstrategie
+- **Confidence:** 0.85
+- **Gemappte GS-Anforderungen:**
+  - `GC.6.1.3` [normal-SdT] Erstellung einer Sicherheitsleitlinie — _None_
+- **Begründung:** Die GS++-Anforderung GC.6.1.1 fordert die Festlegung einer grundlegenden Strategie zur Erreichung der Sicherheitsziele. Die Anforderung GC.6.1.3 (Erstellung einer Sicherheitsleitlinie) deckt diesen Aspekt inhaltlich ab, da in deren Guidance explizit erwähnt wird, dass die Sicherheitsleitlinie eine 'Informationssicherheitsstrategie' enthalten muss. Da die GS++-Anforderung jedoch spezifisch die Strategie als eigenständiges Element (SOLL-Anforderung) adressiert, während GC.6.1.3 die Strategie lediglich als Bestandteil der Leitlinie beschreibt, ist die Abdeckung als 'teilweise' einzustufen.
+- **Lücken:** Die GS++-Anforderung fokussiert auf die explizite Festlegung der Strategie als prozessualen Schritt/Dokument. In den IT-Grundschutz-Kandidaten ist die Strategie nur als Teilinhalt der Sicherheitsleitlinie (GC.6.1.3) vorgesehen, nicht als eigenständiges, isoliertes Element, das die GS++-Anforderung in ihrer spezifischen Tiefe (Fokus auf übergeordneten Ansatz und Prinzipien als eigenständige Vorgabe) vollumfänglich spiegelt.
+
+### GC.7.1.3 — Vertragliche Verpflichtungen
+- **Confidence:** 0.85
+- **Gemappte GS-Anforderungen:**
+  - `GC.7.1` [normal-SdT] Verfahren und Regelungen — _None_
+- **Begründung:** Die GS++-Anforderung GC.7.1.3 fordert explizit die Dokumentation der Zusammenstellung vertraglicher Verpflichtungen. Die Anforderung GC.7.1 (Verfahren und Regelungen) deckt dies als Teil des übergeordneten Compliance-Management-Verfahrens ab, da die Guidance zu GC.7.1 explizit nennt, dass das Compliance Management sicherstellen muss, dass auch 'vertragliche Verpflichtungen' eingehalten werden. Da GC.7.1 jedoch ein prozessualer Baustein ist, der das gesamte Spektrum (gesetzlich, regulatorisch, vertraglich) abdeckt, wird die spezifische Detailforderung der Dokumentation der 'Zusammenstellung' der vertraglichen Pflichten durch den prozessualen Rahmen zwar adressiert, aber nicht als eigenständiger, spezifischer Prüfpunkt für die Dokumentation der Verträge selbst isoliert.
+- **Lücken:** Die Kandidaten decken den prozessualen Rahmen ab (GC.7.1), jedoch gibt es keine Anforderung, die sich ausschließlich und detailliert auf die reine Dokumentation/Zusammenstellung der vertraglichen Verpflichtungen konzentriert, ohne sie mit gesetzlichen oder regulatorischen Rahmenbedingungen zu vermischen. GC.7.1.1 bezieht sich nur auf gesetzliche Pflichten, was eine unvollständige Abdeckung der vertraglichen Komponente darstellt.
+
+## Keine Abdeckung (1)
+
+### GC.7.1.4 — Prävention von Verstößen
+- **Confidence:** 1.00
+- **Begründung:** Die Grundschutz++-Anforderung GC.7.1.4 zielt spezifisch auf die Prävention von Verstößen durch organisatorische Maßnahmen wie Schulungen, die Integration von Compliance in Freigabeprozesse und die Förderung einer Fehlerkultur ab. Die untersuchten Kandidaten decken zwar das Compliance-Management allgemein ab (z. B. GC.7.1 zur Sammlung von Rahmenbedingungen, GC.7.1.1/GC.7.1.3 zur Analyse von Pflichten), adressieren aber nicht die in der Guidance explizit genannten präventiven Verhaltens- und Prozessmaßnahmen (Schulungen, Fehlerkultur, Testprozesse). Es besteht somit keine inhaltliche Übereinstimmung hinsichtlich der präventiven Umsetzungsebene.
+- **Lücken:** Die Kandidaten konzentrieren sich auf die Identifikation und Dokumentation von Compliance-Verpflichtungen (Recht/Vertrag), während die GS++-Anforderung die methodische Prävention von Verstößen (Schulung, Fehlerkultur, Prozessintegration) fordert.
