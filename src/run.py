@@ -12,7 +12,7 @@ from . import parse_gs, parse_gspp, report
 from .discriminator import make_discriminator
 from .judge import combine_matches, make_judge
 from .models import Match
-from .shortlist import Shortlister
+from .shortlist import make_shortlister
 from . import visualize_graph
 from .validation import validate_matches, print_validation_report
 from .golden_dataset import evaluate_matches, print_evaluation_report
@@ -165,6 +165,9 @@ def main(argv: list[str] | None = None) -> int:
                    help="model to use for discriminator (default: claude-sonnet-4-5)")
     p.add_argument("--discriminator-strict", action="store_true",
                    help="use aggressive discrimination (keep only essential candidates, max 3)")
+    p.add_argument("--shortlist-method", default="tfidf",
+                   choices=["tfidf", "embedding", "cached_embedding"],
+                   help="method for retrieving GS candidates: tfidf (fast), embedding (better quality)")
     p.add_argument("--evaluate", action="store_true",
                    help="evaluate matches against golden dataset")
     p.add_argument("--out-dir", default=str(ROOT / "out"))
@@ -176,7 +179,8 @@ def main(argv: list[str] | None = None) -> int:
     scope_display = args.scope or "<all>"
     print(
         f"[i] scope={scope_display!r} sample_ratio={args.sample_ratio:.2f} "
-        f"seed={args.seed} models={'+'.join(model_sources)} top_k={args.top_k} levels={levels}",
+        f"seed={args.seed} models={'+'.join(model_sources)} top_k={args.top_k} levels={levels} "
+        f"shortlist={args.shortlist_method}",
         file=sys.stderr,
     )
 
@@ -204,7 +208,7 @@ def main(argv: list[str] | None = None) -> int:
             model_sources.append(manual_source)
             print(f"[i] loaded manual mappings from {manual_csv_path} for {len(manual_matches)} GS++ controls", file=sys.stderr)
 
-    sl = Shortlister(gs_reqs)
+    sl = make_shortlister(gs_reqs, method=args.shortlist_method)
     judges = [make_judge(model) for model in models]
 
     matches = []

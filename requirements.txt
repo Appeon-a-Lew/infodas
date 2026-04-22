@@ -4,3 +4,4 @@ scikit-learn
 openai
 anthropic
 requests
+sentence-transformers  # optional, for --shortlist-method embedding

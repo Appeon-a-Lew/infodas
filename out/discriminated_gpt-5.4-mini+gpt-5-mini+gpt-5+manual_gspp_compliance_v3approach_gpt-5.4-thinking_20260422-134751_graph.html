@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GS++ → GS Mapping (Discriminated by gpt-5.4-thinking)</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --panel: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 0% 0%, #f5efe3 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, #e7f3f0 0%, transparent 40%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+      padding: 20px;
+    }
+    .card {
+      max-width: 100%;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.15rem; letter-spacing: 0.01em; }
+    p.meta { margin: 0 0 12px; color: var(--muted); font-size: 0.92rem; }
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0 14px; color: var(--muted); font-size: 0.88rem; }
+    .dot { width: 10px; height: 10px; border-radius: 99px; display: inline-block; margin-right: 6px; }
+    .viewport { overflow: auto; border: 1px solid #e5e7eb; border-radius: 10px; background: #fcfcfc; }
+    svg { width: 100%; min-width: 1100px; height: auto; display: block; }
+    .clickable { cursor: pointer; }
+    .clickable:hover circle { stroke: #111827; stroke-width: 2; }
+    .edge { cursor: help; }
+    .edge:hover { stroke-width: 3 !important; opacity: 1 !important; }
+    .decision-keep { stroke: #2e7d32 !important; }
+    .decision-remove { stroke: #c62828 !important; stroke-dasharray: 6 3; }
+    .decision-error { stroke: #ffb300 !important; }
+    .label-left, .label-right { fill: var(--ink); font-size: 12px; font-weight: 500; }
+    .column-title { fill: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+    .details { margin-top: 14px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; padding: 12px; }
+    .status { font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
+    .stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0 14px; }
+    .stat-item { 
+      border: 1px solid #e5e7eb; 
+      border-radius: 8px; 
+      padding: 10px; 
+      text-align: center; 
+      background: #f9fafb;
+    }
+    .stat-number { font-size: 1.5rem; font-weight: 600; }
+    .stat-label { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+    .node-details { border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin: 8px 0; background: #fafafa; }
+    .node-title { font-weight: 600; margin-bottom: 6px; }
+    .junction-list { max-height: 300px; overflow-y: auto; }
+    .junction-item { padding: 6px; margin: 4px 0; border-left: 3px solid #ddd; padding-left: 10px; font-size: 0.9rem; }
+    .junction-item.keep { border-left-color: #2e7d32; background: #f0f9f0; }
+    .junction-item.remove { border-left-color: #c62828; background: #fef0f0; }
+    .junction-item.error { border-left-color: #ffb300; background: #fff8f0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>GS++ → GS Mapping (Discriminated by gpt-5.4-thinking)</h1>
+    <p class="meta">GS++ nodes: 8 | GS nodes: 42 | Connections: 51 (38 kept, 13 removed)</p>
+    <div class="legend">
+      <span><span class="dot" style="background:#2e7d32"></span>Kept (38)</span>
+      <span><span class="dot" style="background:#c62828"></span>Removed (13)</span>
+      <span><span class="dot" style="background:#ffb300"></span>Error (0)</span>
+    </div>
+    <div class="stats-box">
+      <div class="stat-item">
+        <div class="stat-number" style="color: #2e7d32;">38</div>
+        <div class="stat-label">Kept</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" style="color: #c62828;">13</div>
+        <div class="stat-label">Removed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"style="color: #ffb300;">0</div>
+        <div class="stat-label">Errors</div>
+      </div>
+    </div>
+    <div class="viewport">
+      <svg viewBox="0 0 1280 1336" role="img" aria-label="GS++ zu GS Mapping (Discriminated)">
+        <text x="70" y="36" class="column-title">GS++ (neu)</text>
+        <text x="910" y="36" class="column-title">GS (klassisch)</text>
+        <path class="edge" data-edge-key="ARCH.5.1.8|||NET.3.2.A20" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 80 C 470 80, 730 80, 980 80" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.8|||DER.1.A10" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 80 C 470 80, 730 108, 980 108" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.8|||NET.3.2.A16" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 80 C 470 80, 730 136, 980 136" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.8|||NET.3.2.A21" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 80 C 470 80, 730 164, 980 164" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.8|||NET.1.1.A12" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 80 C 470 80, 730 192, 980 192" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.8|||NET.4.2.A4" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 80 C 470 80, 730 220, 980 220" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.5.1.8|||SYS.3.2.1.A28" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 80 C 470 80, 730 248, 980 248" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.2.2.1|||NET.1.1.A11" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 108 C 470 108, 730 276, 980 276" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.1|||SYS.3.1.A9" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 108 C 470 108, 730 304, 980 304" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.2.2.1|||NET.1.1.A18" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 108 C 470 108, 730 332, 980 332" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.1|||NET.1.1.A24" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 108 C 470 108, 730 360, 980 360" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.2.2.1|||INF.14.A28" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 108 C 470 108, 730 388, 980 388" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.1|||INF.14.A6" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 108 C 470 108, 730 416, 980 416" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.1|||NET.3.1.A4" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 108 C 470 108, 730 444, 980 444" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.2.2.1|||NET.1.1.A22" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 108 C 470 108, 730 472, 980 472" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.1|||NET.3.3.A11" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 108 C 470 108, 730 500, 980 500" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.1.1.1|||ISMS.1.A13" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 136 C 470 136, 730 528, 980 528" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.1.1.1|||NET.3.2.A14" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 136 C 470 136, 730 556, 980 556" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.1.1.1|||OPS.1.1.2.A11" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 136 C 470 136, 730 584, 980 584" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.1.1.1|||OPS.1.1.3.A11" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 136 C 470 136, 730 612, 980 612" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.1.1.1|||INF.13.A2" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 136 C 470 136, 730 640, 980 640" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.1.1.1|||OPS.1.2.2.A10" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 136 C 470 136, 730 668, 980 668" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.1.1.1|||OPS.1.2.2.A2" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 136 C 470 136, 730 696, 980 696" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.1.1.1|||CON.8.A12" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 136 C 470 136, 730 724, 980 724" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.12|||NET.1.1.A16" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 164 C 470 164, 730 752, 980 752" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.12|||IND.2.1.A16" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 164 C 470 164, 730 780, 980 780" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.12|||INF.14.A6" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 164 C 470 164, 730 416, 980 416" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.12|||NET.3.1.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 164 C 470 164, 730 444, 980 444" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.5.1.12|||OPS.1.1.2.A16" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 164 C 470 164, 730 808, 980 808" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.5.1.12|||SYS.1.5.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 164 C 470 164, 730 836, 980 836" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.11|||NET.1.1.A31" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 192 C 470 192, 730 864, 980 864" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.2.2.11|||NET.1.1.A23" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 192 C 470 192, 730 892, 980 892" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.11|||NET.1.2.A32" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 192 C 470 192, 730 920, 980 920" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.11|||SYS.1.5.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 192 C 470 192, 730 836, 980 836" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.11|||NET.1.1.A22" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 192 C 470 192, 730 472, 980 472" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.11|||NET.1.1.A33" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 192 C 470 192, 730 948, 980 948" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.9|||NET.3.2.A17" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 220 C 470 220, 730 976, 980 976" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ARCH.2.2.9|||NET.1.1.A22" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 220 C 470 220, 730 472, 980 472" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.9|||INF.14.A19" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 220 C 470 220, 730 1004, 980 1004" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.9|||INF.14.A6" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 220 C 470 220, 730 416, 980 416" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.9|||NET.1.1.A21" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 220 C 470 220, 730 1032, 980 1032" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.9|||NET.1.1.A23" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 220 C 470 220, 730 892, 980 892" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.8|||NET.1.1.A23" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 248 C 470 248, 730 892, 980 892" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.8|||OPS.1.1.6.A13" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 248 C 470 248, 730 1060, 980 1060" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ARCH.2.2.8|||NET.1.1.A22" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 248 C 470 248, 730 472, 980 472" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ASST.2.2.1|||INF.14.A11" data-decision="remove" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]" d="M 220 276 C 470 276, 730 1088, 980 1088" stroke="#c62828" stroke-width="2.4" fill="none" opacity="0.9" class="decision-remove" /><path class="edge" data-edge-key="ASST.2.2.1|||DER.1.A11" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 276 C 470 276, 730 1116, 980 1116" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ASST.2.2.1|||DER.1.A15" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 276 C 470 276, 730 1144, 980 1144" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ASST.2.2.1|||NET.2.1.A14" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 276 C 470 276, 730 1172, 980 1172" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ASST.2.2.1|||DER.1.A5" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 276 C 470 276, 730 1200, 980 1200" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="ASST.2.2.1|||SYS.2.1.A24" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 276 C 470 276, 730 1228, 980 1228" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" />
+        <g class="node clickable" data-side="left" data-id="ARCH.5.1.8" data-title="Inspektion verschlüsselter Verbindungen" role="button" tabindex="0"><circle cx="220" cy="80" r="7" fill="#0d47a1" /><text x="206" y="84" text-anchor="end" class="label-left">ARCH.5.1.8</text></g><g class="node clickable" data-side="left" data-id="ARCH.2.2.1" data-title="Externe Netzanschlüsse" role="button" tabindex="0"><circle cx="220" cy="108" r="7" fill="#0d47a1" /><text x="206" y="112" text-anchor="end" class="label-left">ARCH.2.2.1</text></g><g class="node clickable" data-side="left" data-id="ARCH.1.1.1" data-title="Dokumentation" role="button" tabindex="0"><circle cx="220" cy="136" r="7" fill="#0d47a1" /><text x="206" y="140" text-anchor="end" class="label-left">ARCH.1.1.1</text></g><g class="node clickable" data-side="left" data-id="ARCH.5.1.12" data-title="Software-definierte Verbindungen" role="button" tabindex="0"><circle cx="220" cy="164" r="7" fill="#0d47a1" /><text x="206" y="168" text-anchor="end" class="label-left">ARCH.5.1.12</text></g><g class="node clickable" data-side="left" data-id="ARCH.2.2.11" data-title="Physische Segmentierung" role="button" tabindex="0"><circle cx="220" cy="192" r="7" fill="#0d47a1" /><text x="206" y="196" text-anchor="end" class="label-left">ARCH.2.2.11</text></g><g class="node clickable" data-side="left" data-id="ARCH.2.2.9" data-title="Segmentierung von IPv4 und IPv6" role="button" tabindex="0"><circle cx="220" cy="220" r="7" fill="#0d47a1" /><text x="206" y="224" text-anchor="end" class="label-left">ARCH.2.2.9</text></g><g class="node clickable" data-side="left" data-id="ARCH.2.2.8" data-title="Segmentierung von Test und Betrieb" role="button" tabindex="0"><circle cx="220" cy="248" r="7" fill="#0d47a1" /><text x="206" y="252" text-anchor="end" class="label-left">ARCH.2.2.8</text></g><g class="node clickable" data-side="left" data-id="ASST.2.2.1" data-title="Aufdecken unautorisierter IT-Systeme" role="button" tabindex="0"><circle cx="220" cy="276" r="7" fill="#0d47a1" /><text x="206" y="280" text-anchor="end" class="label-left">ASST.2.2.1</text></g>
+        <g class="node clickable" data-side="right" data-id="NET.3.2.A20" data-title="Absicherung von grundlegenden Internetprotokollen" role="button" tabindex="0"><circle cx="980" cy="80" r="7" fill="#004d40" /><text x="994" y="84" text-anchor="start" class="label-right">NET.3.2.A20</text></g><g class="node clickable" data-side="right" data-id="DER.1.A10" data-title="Einsatz von TLS-/SSL-Proxies" role="button" tabindex="0"><circle cx="980" cy="108" r="7" fill="#004d40" /><text x="994" y="112" text-anchor="start" class="label-right">DER.1.A10</text></g><g class="node clickable" data-side="right" data-id="NET.3.2.A16" data-title="Aufbau einer „P-A-P“-Struktur" role="button" tabindex="0"><circle cx="980" cy="136" r="7" fill="#004d40" /><text x="994" y="140" text-anchor="start" class="label-right">NET.3.2.A16</text></g><g class="node clickable" data-side="right" data-id="NET.3.2.A21" data-title="Temporäre Entschlüsselung des Datenverkehrs" role="button" tabindex="0"><circle cx="980" cy="164" r="7" fill="#004d40" /><text x="994" y="168" text-anchor="start" class="label-right">NET.3.2.A21</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A12" data-title="Absicherung ausgehender interner Kommunikation zum Internet" role="button" tabindex="0"><circle cx="980" cy="192" r="7" fill="#004d40" /><text x="994" y="196" text-anchor="start" class="label-right">NET.1.1.A12</text></g><g class="node clickable" data-side="right" data-id="NET.4.2.A4" data-title="Einschränkung der Erreichbarkeit über VoIP" role="button" tabindex="0"><circle cx="980" cy="220" r="7" fill="#004d40" /><text x="994" y="224" text-anchor="start" class="label-right">NET.4.2.A4</text></g><g class="node clickable" data-side="right" data-id="SYS.3.2.1.A28" data-title="Verwendung der Filteroption für Webseiten" role="button" tabindex="0"><circle cx="980" cy="248" r="7" fill="#004d40" /><text x="994" y="252" text-anchor="start" class="label-right">SYS.3.2.1.A28</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A11" data-title="Absicherung eingehender Kommunikation vom Internet in das interne Netz" role="button" tabindex="0"><circle cx="980" cy="276" r="7" fill="#004d40" /><text x="994" y="280" text-anchor="start" class="label-right">NET.1.1.A11</text></g><g class="node clickable" data-side="right" data-id="SYS.3.1.A9" data-title="Sicherer Fernzugriff mit Laptops" role="button" tabindex="0"><circle cx="980" cy="304" r="7" fill="#004d40" /><text x="994" y="308" text-anchor="start" class="label-right">SYS.3.1.A9</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A18" data-title="P-A-P-Struktur für die Internet-Anbindung" role="button" tabindex="0"><circle cx="980" cy="332" r="7" fill="#004d40" /><text x="994" y="336" text-anchor="start" class="label-right">NET.1.1.A18</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A24" data-title="Sichere logische Trennung mittels VLAN" role="button" tabindex="0"><circle cx="980" cy="360" r="7" fill="#004d40" /><text x="994" y="364" text-anchor="start" class="label-right">NET.1.1.A24</text></g><g class="node clickable" data-side="right" data-id="INF.14.A28" data-title="Physische Trennung der GA" role="button" tabindex="0"><circle cx="980" cy="388" r="7" fill="#004d40" /><text x="994" y="392" text-anchor="start" class="label-right">INF.14.A28</text></g><g class="node clickable" data-side="right" data-id="INF.14.A6" data-title="Separierung von Netzen der GA" role="button" tabindex="0"><circle cx="980" cy="416" r="7" fill="#004d40" /><text x="994" y="420" text-anchor="start" class="label-right">INF.14.A6</text></g><g class="node clickable" data-side="right" data-id="NET.3.1.A4" data-title="Schutz der Administrationsschnittstellen" role="button" tabindex="0"><circle cx="980" cy="444" r="7" fill="#004d40" /><text x="994" y="448" text-anchor="start" class="label-right">NET.3.1.A4</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A22" data-title="Spezifikation des Segmentierungskonzepts" role="button" tabindex="0"><circle cx="980" cy="472" r="7" fill="#004d40" /><text x="994" y="476" text-anchor="start" class="label-right">NET.1.1.A22</text></g><g class="node clickable" data-side="right" data-id="NET.3.3.A11" data-title="Sichere Anbindung eines externen Netzes" role="button" tabindex="0"><circle cx="980" cy="500" r="7" fill="#004d40" /><text x="994" y="504" text-anchor="start" class="label-right">NET.3.3.A11</text></g><g class="node clickable" data-side="right" data-id="ISMS.1.A13" data-title="Dokumentation des Sicherheitsprozesses" role="button" tabindex="0"><circle cx="980" cy="528" r="7" fill="#004d40" /><text x="994" y="532" text-anchor="start" class="label-right">ISMS.1.A13</text></g><g class="node clickable" data-side="right" data-id="NET.3.2.A14" data-title="Betriebsdokumentationen" role="button" tabindex="0"><circle cx="980" cy="556" r="7" fill="#004d40" /><text x="994" y="560" text-anchor="start" class="label-right">NET.3.2.A14</text></g><g class="node clickable" data-side="right" data-id="OPS.1.1.2.A11" data-title="Dokumentation von IT-Administrationstätigkeiten" role="button" tabindex="0"><circle cx="980" cy="584" r="7" fill="#004d40" /><text x="994" y="588" text-anchor="start" class="label-right">OPS.1.1.2.A11</text></g><g class="node clickable" data-side="right" data-id="OPS.1.1.3.A11" data-title="Kontinuierliche Dokumentation der Informationsverarbeitung" role="button" tabindex="0"><circle cx="980" cy="612" r="7" fill="#004d40" /><text x="994" y="616" text-anchor="start" class="label-right">OPS.1.1.3.A11</text></g><g class="node clickable" data-side="right" data-id="INF.13.A2" data-title="Regelung und Dokumentation von Verantwortlichkeiten und Zuständigkeiten im Gebäude" role="button" tabindex="0"><circle cx="980" cy="640" r="7" fill="#004d40" /><text x="994" y="644" text-anchor="start" class="label-right">INF.13.A2</text></g><g class="node clickable" data-side="right" data-id="OPS.1.2.2.A10" data-title="Erstellung einer Richtlinie für die Nutzung von Archivsystemen" role="button" tabindex="0"><circle cx="980" cy="668" r="7" fill="#004d40" /><text x="994" y="672" text-anchor="start" class="label-right">OPS.1.2.2.A10</text></g><g class="node clickable" data-side="right" data-id="OPS.1.2.2.A2" data-title="Entwicklung eines Archivierungskonzepts" role="button" tabindex="0"><circle cx="980" cy="696" r="7" fill="#004d40" /><text x="994" y="700" text-anchor="start" class="label-right">OPS.1.2.2.A2</text></g><g class="node clickable" data-side="right" data-id="CON.8.A12" data-title="Ausführliche Dokumentation" role="button" tabindex="0"><circle cx="980" cy="724" r="7" fill="#004d40" /><text x="994" y="728" text-anchor="start" class="label-right">CON.8.A12</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A16" data-title="Spezifikation der Netzarchitektur" role="button" tabindex="0"><circle cx="980" cy="752" r="7" fill="#004d40" /><text x="994" y="756" text-anchor="start" class="label-right">NET.1.1.A16</text></g><g class="node clickable" data-side="right" data-id="IND.2.1.A16" data-title="Schutz externer Schnittstellen" role="button" tabindex="0"><circle cx="980" cy="780" r="7" fill="#004d40" /><text x="994" y="784" text-anchor="start" class="label-right">IND.2.1.A16</text></g><g class="node clickable" data-side="right" data-id="OPS.1.1.2.A16" data-title="Erweiterte Sicherheitsmaßnahmen für Administrationszugänge" role="button" tabindex="0"><circle cx="980" cy="808" r="7" fill="#004d40" /><text x="994" y="812" text-anchor="start" class="label-right">OPS.1.1.2.A16</text></g><g class="node clickable" data-side="right" data-id="SYS.1.5.A4" data-title="Sichere Konfiguration eines Netzes für virtuelle Infrastrukturen" role="button" tabindex="0"><circle cx="980" cy="836" r="7" fill="#004d40" /><text x="994" y="840" text-anchor="start" class="label-right">SYS.1.5.A4</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A31" data-title="Physische Trennung von Netzsegmenten" role="button" tabindex="0"><circle cx="980" cy="864" r="7" fill="#004d40" /><text x="994" y="868" text-anchor="start" class="label-right">NET.1.1.A31</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A23" data-title="Trennung von Netzsegmenten" role="button" tabindex="0"><circle cx="980" cy="892" r="7" fill="#004d40" /><text x="994" y="896" text-anchor="start" class="label-right">NET.1.1.A23</text></g><g class="node clickable" data-side="right" data-id="NET.1.2.A32" data-title="Physische Trennung des Managementnetzes" role="button" tabindex="0"><circle cx="980" cy="920" r="7" fill="#004d40" /><text x="994" y="924" text-anchor="start" class="label-right">NET.1.2.A32</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A33" data-title="Mikrosegmentierung des Netzes" role="button" tabindex="0"><circle cx="980" cy="948" r="7" fill="#004d40" /><text x="994" y="952" text-anchor="start" class="label-right">NET.1.1.A33</text></g><g class="node clickable" data-side="right" data-id="NET.3.2.A17" data-title="Deaktivierung von IPv4 oder IPv6" role="button" tabindex="0"><circle cx="980" cy="976" r="7" fill="#004d40" /><text x="994" y="980" text-anchor="start" class="label-right">NET.3.2.A17</text></g><g class="node clickable" data-side="right" data-id="INF.14.A19" data-title="Nutzung dedizierter Adressbereiche für GA-Netze" role="button" tabindex="0"><circle cx="980" cy="1004" r="7" fill="#004d40" /><text x="994" y="1008" text-anchor="start" class="label-right">INF.14.A19</text></g><g class="node clickable" data-side="right" data-id="NET.1.1.A21" data-title="Separierung des Management-Bereichs" role="button" tabindex="0"><circle cx="980" cy="1032" r="7" fill="#004d40" /><text x="994" y="1036" text-anchor="start" class="label-right">NET.1.1.A21</text></g><g class="node clickable" data-side="right" data-id="OPS.1.1.6.A13" data-title="Trennung der Testumgebung von der Produktivumgebung" role="button" tabindex="0"><circle cx="980" cy="1060" r="7" fill="#004d40" /><text x="994" y="1064" text-anchor="start" class="label-right">OPS.1.1.6.A13</text></g><g class="node clickable" data-side="right" data-id="INF.14.A11" data-title="Absicherung von frei zugänglichen Ports und Zugängen der GA" role="button" tabindex="0"><circle cx="980" cy="1088" r="7" fill="#004d40" /><text x="994" y="1092" text-anchor="start" class="label-right">INF.14.A11</text></g><g class="node clickable" data-side="right" data-id="DER.1.A11" data-title="Nutzung einer zentralen Protokollierungsinfrastruktur für die Auswertung sicherheitsrelevanter Ereignisse" role="button" tabindex="0"><circle cx="980" cy="1116" r="7" fill="#004d40" /><text x="994" y="1120" text-anchor="start" class="label-right">DER.1.A11</text></g><g class="node clickable" data-side="right" data-id="DER.1.A15" data-title="Zentrale Detektion und Echtzeitüberprüfung von Ereignismeldungen" role="button" tabindex="0"><circle cx="980" cy="1144" r="7" fill="#004d40" /><text x="994" y="1148" text-anchor="start" class="label-right">DER.1.A15</text></g><g class="node clickable" data-side="right" data-id="NET.2.1.A14" data-title="Regelmäßige Audits der WLAN-Komponenten" role="button" tabindex="0"><circle cx="980" cy="1172" r="7" fill="#004d40" /><text x="994" y="1176" text-anchor="start" class="label-right">NET.2.1.A14</text></g><g class="node clickable" data-side="right" data-id="DER.1.A5" data-title="Einsatz von mitgelieferten Systemfunktionen zur Detektion" role="button" tabindex="0"><circle cx="980" cy="1200" r="7" fill="#004d40" /><text x="994" y="1204" text-anchor="start" class="label-right">DER.1.A5</text></g><g class="node clickable" data-side="right" data-id="SYS.2.1.A24" data-title="Umgang mit externen Medien und Wechseldatenträgern" role="button" tabindex="0"><circle cx="980" cy="1228" r="7" fill="#004d40" /><text x="994" y="1232" text-anchor="start" class="label-right">SYS.2.1.A24</text></g>
+      </svg>
+    </div>
+    <div class="details">
+      <h2>Connection Details</h2>
+      <p class="meta">Hover over edges or click nodes to see mapping details or click an edge to see discriminator reasoning.</p>
+      <div id="connection-info">
+        <p class="meta">Hover over a connection or click a node to display details.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+    
+    document.querySelectorAll('.edge').forEach((edge) => {
+      edge.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const decision = edge.dataset.decision;
+        const reasoning = edge.dataset.reasoning;
+        const info = document.getElementById('connection-info');
+        
+        const decisionLabel = decision === 'keep' ? '✓ Kept' : decision === 'remove' ? '✗ Removed' : '⚠ Error';
+        const decisionColor = decision === 'keep' ? '#2e7d32' : decision === 'remove' ? '#c62828' : '#ffb300';
+        
+        info.innerHTML = `
+          <div style="border-left: 4px solid ${decisionColor}; padding: 10px; background: rgba(${+(decision === 'accept')} ? 0, 125, 50 : ${+(decision === 'deny')} ? 198, 40, 40 : 255, 179, 0, 0.1);">
+            <div style="font-weight: 600; color: ${decisionColor};">${decisionLabel}</div>
+            <div style="margin-top: 8px; color: #6b7280; font-size: 0.9rem;">
+              <strong>Reasoning:</strong>
+              <pre style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; margin-top: 6px; white-space: pre-wrap; word-wrap: break-word; font-size: 0.85rem; max-height: 300px; overflow-y: auto;">${escapeHtml(reasoning)}</pre>
+            </div>
+          </div>
+        `;
+      });
+    });
+    
+    document.querySelectorAll('.node.clickable').forEach((node) => {
+      node.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const side = node.dataset.side;
+        const id = node.dataset.id;
+        const title = node.dataset.title;
+        const info = document.getElementById('connection-info');
+        
+        let html = `<div class="node-details">
+          <div class="node-title">${side === 'left' ? 'GS++' : 'GS'}: ${escapeHtml(id)} — ${escapeHtml(title)}</div>`;
+        
+        if (side === 'left') {
+          html += '<div class="junction-list"><strong>Connected GS nodes:</strong><br/>';
+          // Find all edges from this left node
+          document.querySelectorAll('.edge[data-edge-key*="' + id + '|||"]').forEach((edge) => {
+            const edgeKey = edge.dataset.edgeKey;
+            const parts = edgeKey.split('|||');
+            if (parts.length === 2 && parts[0] === id) {
+              const rightId = parts[1];
+              const decision = edge.dataset.decision;
+              const decisionClass = 'junction-item ' + decision;
+              const label = decision === 'keep' ? '✓' : decision === 'remove' ? '✗' : '⚠';
+              html += `<div class="${decisionClass}">${label} ${escapeHtml(rightId)}</div>`;
+            }
+          });
+          html += '</div>';
+        } else {
+          html += '<div class="junction-list"><strong>Connected GS++ nodes:</strong><br/>';
+          // Find all edges to this right node
+          document.querySelectorAll('.edge[data-edge-key*="|||' + id + '"]').forEach((edge) => {
+            const edgeKey = edge.dataset.edgeKey;
+            const parts = edgeKey.split('|||');
+            if (parts.length === 2 && parts[1] === id) {
+              const leftId = parts[0];
+              const decision = edge.dataset.decision;
+              const decisionClass = 'junction-item ' + decision;
+              const label = decision === 'keep' ? '✓' : decision === 'remove' ? '✗' : '⚠';
+              html += `<div class="${decisionClass}">${label} ${escapeHtml(leftId)}</div>`;
+            }
+          });
+          html += '</div>';
+        }
+        
+        html += '</div>';
+        info.innerHTML = html;
+      });
+    });
+  </script>
+</body>
+</html>
