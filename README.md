@@ -132,7 +132,20 @@ Checks for:
 ### Quick Test
 ```bash
 python3.11 -m src.run --model gpt-5.4-mini --limit 5
+
 ```
+
+### Testing withz Gs-> Gs
+'''
+python -m src.run \
+  --testing-mode \
+  --testing-gs-xml data/fake.xml \
+  --model gpt-5.4,gpt-5.4-mini \     
+  --expand-hierarchical \   
+  --discriminator \
+  --sample-ratio 1.0   --testing-limit 20 --discriminator-model gpt-5.4-thinking --shortlist-method embedding
+
+'''
 
 ### High Quality Mapping (Recommended)
 ```bash
