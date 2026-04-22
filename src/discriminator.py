@@ -9,16 +9,25 @@ from .models import Match, Requirement
 
 DISCRIMINATOR_SYSTEM = (
     "Du bist Experte für BSI IT-Grundschutz und Grundschutz++. "
-    "Deine Aufgabe: Minimiere ein vorgeschlagenes GS-Anforderungs-Set, sodass es die GS++-Anforderung "
-    "vollständig beschreibt — aber ohne redundante oder irrelevante Anforderungen. "
-    "Gehe davon aus, dass das vorliegende Set vollständig ist (nichts fehlt), aber möglicherweise zu groß ist. "
-    "Leitlinien:"
-    "- Analysiere zuerst die GS++-Anforderung: Welche Kernaspekte muss das Set abdecken?"
-    "- Prüfe dann jede GS-Anforderung: Welchen einzigartigen Beitrag leistet sie zur Abdeckung?"
-    "- Behalte eine GS-Anforderung (keep), wenn sie einen Aspekt abdeckt, der ohne sie verloren ginge."
-    "- Entferne eine GS-Anforderung (remove), wenn ihr Beitrag bereits durch andere GS-Anforderungen im Set abgedeckt ist."
-    "- Das minimale Set muss die GS++-Anforderung noch vollständig beschreiben."
-    "- Im Zweifelsfall: behalte lieber eine Anforderung zu viel als eine zu wenig."
+    "Deine Aufgabe: Erstelle ein MINIMALES Set an GS-Anforderungen, das die GS++-Anforderung "
+    "vollständig beschreibt. ENTFERNE alle redundanten oder überflüssigen Anforderungen.\n\n"
+    "ARBEITSSCHRITTE:\n"
+    "1. Extrahiere die KERNASPEKTE der GS++-Anforderung (max. 3-5 Punkte).\n"
+    "2. Für jede GS-Anforderung im Set prüfe:\n"
+    "   - Deckt sie einen Aspekt, den KEINE andere GS-Anforderung deckt?\n"
+    "   - Ist sie der BESTE/Beste Kandidat für diesen Aspekt?\n"
+    "3. Entscheidung:\n"
+    "   - keep: NOTWENDIG - ohne diese Anforderung geht ein Kernaspekt verloren\n"
+    "   - remove: REDUNDANT - alle ihre Aspekte werden durch bessere/other Kandidaten abgedeckt\n\n"
+    "AGGRESSIVE DEDUPLIKATIONS-REGELN:\n"
+    "- Wenn 2+ Anforderungen denselben Aspekt decken: behalte nur die SPEZIFISCHSTE, entferne den Rest.\n"
+    "- ALLGEMEINE Anforderungen (z.B. ISMS.1.A1) sind oft redundant zu SPEZIFISCHEN.\n"
+    "- Wenn eine Anforderung nur einen Teilaspekt deckt, der schon durch umfassendere Anforderungen abgedeckt ist: REMOVE.\n"
+    "- Das Ziel ist ein MINIMALES Set - je weniger Anforderungen, desto besser.\n"
+    "- Bei Unsicherheit: Bevorzuge 'remove' - nur 'keep' wenn wirklich notwendig.\n\n"
+    "VALIDIERUNG:\n"
+    "- Nach dem Entfernen müssen ALLE Kernaspekte noch durch 'keep'-Kandidaten abgedeckt sein.\n"
+    "- Wenn ein Kernaspekt verloren geht, muss der entsprechende Kandidat 'keep' sein."
 )
 
 DISCRIMINATOR_USER_TEMPLATE = """\
@@ -45,20 +54,40 @@ Es ist jedoch möglicherweise zu groß und enthält redundante Anforderungen:
 
 {gap_section}
 
+## Analyse-Vorlage (für interne Analyse)
+
+Kernaspekte der GS++-Anforderung:
+1. [Aspekt 1]
+2. [Aspekt 2]
+...
+
+Zuordnung der GS-Anforderungen zu Kernaspekten:
+- GS_ID_1: deckt Aspekt 1, 2 ab
+- GS_ID_2: deckt Aspekt 1 ab (auch durch GS_ID_1 abgedeckt) → redundant?
+...
+
 ## Aufgabe: Minimales Überdeckungs-Set finden
 
-1. Identifiziere die **Kernaspekte** der GS++-Anforderung.
-2. Prüfe für jede GS-Anforderung: Deckt sie einen Aspekt ab, den **keine andere** GS-Anforderung im Set abdeckt?
+Für JEDE GS-Anforderung im Set:
+1. Identifiziere ihre einzigartigen Beiträge (Aspekte, die sie abdeckt)
+2. Prüfe: Werden diese Aspekte auch durch andere GS-Anforderungen im Set abgedeckt?
 3. Entscheide:
-   - **keep**: Diese GS-Anforderung ist notwendig — ohne sie geht ein Aspekt der GS++-Anforderung verloren.
-   - **remove**: Diese GS-Anforderung ist redundant — ihr Beitrag wird bereits durch andere GS-Anforderungen im Set abgedeckt.
+   - **keep**: Diese GS-Anforderung ist NOTWENDIG — ohne sie geht mindestens ein Kernaspekt verloren.
+   - **remove**: Diese GS-Anforderung ist REDUNDANT — alle ihre Aspekte werden durch andere abgedeckt.
 
-Wichtig: Das verbleibende Set muss die GS++-Anforderung noch vollständig beschreiben.
-Im Zweifelsfall: behalte lieber eine Anforderung zu viel.
+VALIDIERUNG vor der Entscheidung:
+- Wenn du alle 'remove'-Kandidaten entfernst: Sind noch alle Kernaspekte abgedeckt?
+- Wenn NEIN: Diese Kandidaten müssen 'keep' sein!
+
+WICHTIG:
+- Bevorzuge SPEZIFISCHE gegenüber ALLGEMEINEN Anforderungen.
+- Behalte Anforderungen bei, die der einzige Vertreter ihres Bausteins sind.
+- Im Zweifelsfall: IMMER 'keep' wählen!
 
 # Entscheidung
 
 Antworte ausschließlich als JSON mit dem vorgegebenen Schema.
+Jede GS-Anforderung muss mit 'keep' oder 'remove' und einer konkreten Begründung versehen werden.
 """
 
 DISCRIMINATOR_SCHEMA = {
@@ -134,6 +163,69 @@ class Discriminator(ABC):
             gap_section=gap_section,
         )
 
+    def _validate_decisions(
+        self,
+        decisions: dict[str, tuple[str, str]],
+        match: Match,
+        max_keep: int = 5,
+    ) -> dict[str, tuple[str, str]]:
+        """
+        Validate and correct discrimination decisions.
+        
+        Rules:
+        1. If all candidates would be removed, keep at least the highest-confidence one
+        2. Ensure decisions are only for valid candidate IDs
+        3. Default to 'keep' for any missing decisions
+        4. If too many 'keep' decisions, force removal of excess (most redundant)
+        """
+        validated = {}
+        
+        # Start with all valid candidates
+        valid_candidates = set(match.gs_candidates)
+        
+        # Process existing decisions
+        for gs_id in valid_candidates:
+            if gs_id in decisions:
+                decision, reasoning = decisions[gs_id]
+                # Normalize decision
+                decision = decision.lower().strip()
+                if decision not in ("keep", "remove"):
+                    decision = "keep"
+                    reasoning += " [AUTO-KORREKTUR: Ungültige Entscheidung, auf 'keep' gesetzt]"
+                validated[gs_id] = (decision, reasoning)
+            else:
+                # Missing decision - default to keep
+                validated[gs_id] = ("keep", "Keine Entscheidung erhalten - als notwendig betrachtet")
+        
+        # Rule: Don't remove all candidates unless original coverage was "keine"
+        kept = [gid for gid, (dec, _) in validated.items() if dec == "keep"]
+        if not kept and match.coverage != "keine" and valid_candidates:
+            # Keep the first candidate (or could use confidence to pick best)
+            first_candidate = match.gs_candidates[0]
+            validated[first_candidate] = (
+                "keep",
+                "[AUTO-KORREKTUR: Mindestens ein Kandidat muss erhalten bleiben]"
+            )
+            kept = [first_candidate]
+        
+        # Rule: If too many kept, force-remove the ones with weakest reasoning
+        if len(kept) > max_keep:
+            # Sort by reasoning quality (length is a simple heuristic)
+            kept_with_reasoning = [(gid, validated[gid][1]) for gid in kept]
+            # Keep the ones with more detailed reasoning (likely more important)
+            kept_with_reasoning.sort(key=lambda x: len(x[1]), reverse=True)
+            
+            to_keep = kept_with_reasoning[:max_keep]
+            to_remove = kept_with_reasoning[max_keep:]
+            
+            for gid, _ in to_remove:
+                validated[gid] = (
+                    "remove",
+                    validated[gid][1] + " [AUTO: Entfernt wegen Überschuss - max {max_keep} Kandidaten]"
+                )
+        
+        return validated
+
 
 class AnthropicDiscriminator(Discriminator):
     """Discriminator using Anthropic's Claude model."""
@@ -176,7 +268,7 @@ class AnthropicDiscriminator(Discriminator):
                         gs_id = item.get("gs_id", "")
                         if gs_id:
                             results[gs_id] = (item.get("decision", "remove"), item.get("reasoning", ""))
-                    return results
+                    return self._validate_decisions(results, match)
             time.sleep(1 + attempt)
 
         raise RuntimeError(f"AnthropicDiscriminator: no tool_use block for {match.gspp_id}")
@@ -191,7 +283,19 @@ class OpenAIDiscriminator(Discriminator):
         self.model = model
         self.client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
+    def _is_reasoning_model(self) -> bool:
+        """Check if model supports reasoning/thinking."""
+        model_lower = self.model.lower()
+        return (
+            "thinking" in model_lower
+            or model_lower.startswith("gpt-5")
+            or model_lower.startswith("o1")
+            or model_lower.startswith("o3")
+            or model_lower.startswith("o4")
+        )
+    
     def _supports_reasoning_effort(self) -> bool:
+        """Check if model supports reasoning_effort parameter."""
         model_lower = self.model.lower()
         return "thinking" in model_lower or model_lower.startswith("gpt-5")
 
@@ -287,7 +391,7 @@ class OpenAIDiscriminator(Discriminator):
                     gs_id = item.get("gs_id", "")
                     if gs_id:
                         results[gs_id] = (item.get("decision", "remove"), item.get("reasoning", ""))
-                return results
+                return self._validate_decisions(results, match)
             except Exception as e:
                 if attempt == 2:
                     raise
@@ -296,9 +400,53 @@ class OpenAIDiscriminator(Discriminator):
         raise RuntimeError("unreachable")
 
 
-def make_discriminator(model: str) -> Discriminator:
-    """Factory function to create a discriminator instance."""
-    if model.startswith("claude"):
+class ReasoningDiscriminator(OpenAIDiscriminator):
+    """Discriminator that uses reasoning/thinking models with extended thinking time."""
+    
+    def decide(
+        self,
+        match: Match,
+        gspp_req: Requirement,
+        gs_reqs: dict[str, Requirement],
+    ) -> dict[str, tuple[str, str]]:
+        """Use reasoning model with high effort for better discrimination."""
+        # Force use of reasoning capabilities
+        original_model = self.model
+        
+        # If not already a reasoning model, try to use one
+        if not self._is_reasoning_model():
+            # Try reasoning variants
+            reasoning_models = [
+                "o3-mini",
+                "o1-mini", 
+                "gpt-5.4-thinking",
+                "gpt-5-thinking",
+            ]
+            for rm in reasoning_models:
+                try:
+                    self.model = rm
+                    result = super().decide(match, gspp_req, gs_reqs)
+                    self.model = original_model
+                    return result
+                except Exception:
+                    continue
+            # Fall back to original
+            self.model = original_model
+        
+        return super().decide(match, gspp_req, gs_reqs)
+
+
+def make_discriminator(model: str, strict: bool = False) -> Discriminator:
+    """Factory function to create a discriminator instance.
+    
+    Args:
+        model: Model name (claude-*, gpt-*, o1-*, o3-*)
+        strict: If True, use aggressive filtering (max 3 candidates)
+    """
+    # Use reasoning discriminator for thinking/reasoning models
+    if model.startswith(("o1", "o3")) or "thinking" in model.lower():
+        return ReasoningDiscriminator(model)
+    elif model.startswith("claude"):
         return AnthropicDiscriminator(model)
     elif model.startswith("gpt"):
         return OpenAIDiscriminator(model)

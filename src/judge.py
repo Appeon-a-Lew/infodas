@@ -16,6 +16,40 @@ SYSTEM_PROMPT = (
     "Wenn keine Kandidatin wirklich passt, ist das Ergebnis 'keine'."
 )
 
+COVERAGE_CRITERIA = """
+Bewerte coverage basierend auf:
+1. [ASPEKT-ÜBERDECKUNG] Werden alle Schutzaspekte der GS++-Anforderung adressiert?
+2. [DETAILTIEFE] Entspricht die Detaillierung dem GS++-Standard?
+3. [DOMAIN-MATCH] Stimmen die technischen Domains überein? (z.B. Netzwerk ≠ Anwendung)
+4. [REGLUNGSART] Ist die Art der Regelung vergleichbar? (organisatorisch/technisch)
+
+Coverage-Definitionen:
+- "voll": ALLE wesentlichen Aspekte der GS++-Anforderung werden durch die GS-Anforderung(en) abgedeckt. Die GS++-Anforderung könnte allein mit den gemappten GS-Anforderungen umgesetzt werden.
+- "teilweise": Einige wesentliche Aspekte werden abgedeckt, aber andere fehlen oder sind unvollständig.
+- "keine": Keine inhaltliche Überschneidung oder die Domains sind grundlegend verschieden.
+"""
+
+FEW_SHOT_EXAMPLES = """
+Beispiel 1 - Korrektes Mapping (Vollständige Abdeckung):
+GS++: "GC.6.1.3 Erstellung einer Sicherheitsleitlinie" - Die Institution MUSS eine Leitlinie zur Informationssicherheit erstellen, die Sicherheitsziele und grundlegende Regeln festlegt.
+GS-Kandidat: "ISMS.1.A3 Erstellung einer Leitlinie zur Informationssicherheit" [Basis]
+→ Ergebnis: coverage="voll", confidence=0.95, gs_ids=["ISMS.1.A3"]
+→ Begründung: Beide Anforderungen beschreiben die Pflicht zur Erstellung einer Sicherheitsleitlinie mit identischem Inhalt.
+
+Beispiel 2 - Falsches Mapping (Keine Abdeckung):
+GS++: "GC.5.1.2 Festlegung des Schutzbedarfs" - Systematische Einstufung des Schutzbedarfs als 'normal' oder 'hoch'.
+GS-Kandidat: "APP.3.3.A1 Sichere Authentisierung" [Standard] - Anforderungen an die Authentisierung in Webanwendungen.
+→ Ergebnis: coverage="keine", confidence=0.05, gs_ids=[]
+→ Begründung: Schutzbedarfseinstufung (Risikomanagement) und Authentisierung (technische Maßnahme) sind grundlegend verschiedene Domains.
+
+Beispiel 3 - Teilweise Abdeckung:
+GS++: "GC.2.1 Festlegung des externen Kontextes" - Analyse gesellschaftlicher, technologischer, ökonomischer Faktoren.
+GS-Kandidat: "ORP.5.A1 Identifikation der Rahmenbedingungen" [Basis] - Identifikation gesetzlicher und vertraglicher Rahmenbedingungen.
+→ Ergebnis: coverage="teilweise", confidence=0.60, gs_ids=["ORP.5.A1"]
+→ Begründung: Rechtliche Rahmenbedingungen werden abgedeckt, aber gesellschaftliche/technologische Faktoren fehlen.
+→ Gap Notes: Nicht abgedeckt: gesellschaftliche, ökonomische und technologische Trends außerhalb rechtlicher Vorgaben.
+"""
+
 USER_TEMPLATE = """\
 # Grundschutz++-Anforderung
 
@@ -28,12 +62,26 @@ USER_TEMPLATE = """\
 
 {candidates}
 
+# Bewertungskriterien
+
+{coverage_criteria}
+
+# Beispiele
+
+{few_shot_examples}
+
 # Aufgabe
 
 Wähle aus den Kandidaten diejenigen GS-Anforderungen, die die GS++-Anforderung inhaltlich abdecken.
-- coverage="voll": alle Aspekte der GS++-Anforderung sind abgedeckt.
-- coverage="teilweise": Teile der Anforderung sind abgedeckt, andere fehlen. Beschreibe in gap_notes was fehlt.
-- coverage="keine": kein Kandidat passt inhaltlich. gs_ids = [].
+
+**WICHTIGE REGELN:**
+1. Verwende NUR GS-IDs aus der obigen Kandidatenliste. IDs wie "1", "13", "14" ohne Baustein-Präfix sind UNGÜLTIG.
+2. Ein gültiger GS-ID hat immer das Format: BAUSTEIN.Anummer (z.B. ISMS.1.A2, ORP.5.A1, APP.3.3.A1)
+3. coverage="voll": ALLE wesentlichen Aspekte der GS++-Anforderung werden durch die GS-Anforderung(en) abgedeckt.
+4. coverage="teilweise": Einige Aspekte fehlen - beschreibe diese in gap_notes.
+5. coverage="keine": Keine inhaltliche Überschneidung - gs_ids muss leer sein.
+6. confidence: 0.0-1.0 basierend auf der Sicherheit deiner Entscheidung (nicht immer 0.9!)
+7. rationale: Begründung MUSS alle gewählten GS-IDs namentlich erwähnen und die inhaltliche Verbindung erklären.
 
 Antworte ausschließlich als JSON mit dem vorgegebenen Schema.
 """
@@ -73,16 +121,56 @@ class Judge(ABC):
             gspp_title=gspp.title,
             gspp_text=gspp.text,
             candidates=_format_candidates(candidates),
+            coverage_criteria=COVERAGE_CRITERIA,
+            few_shot_examples=FEW_SHOT_EXAMPLES,
         )
 
     @staticmethod
-    def _to_match(gspp_id: str, payload: dict) -> Match:
+    def _to_match(gspp_id: str, payload: dict, valid_gs_ids: set[str] | None = None) -> Match:
+        """Convert payload to Match with optional validation."""
+        raw_ids = list(payload.get("gs_ids") or [])
+        
+        # Filter out invalid/hallucinated IDs
+        if valid_gs_ids:
+            valid_candidates = [gid for gid in raw_ids if gid in valid_gs_ids]
+            invalid_ids = [gid for gid in raw_ids if gid not in valid_gs_ids]
+        else:
+            # Basic format validation: must match pattern like ISMS.1.A2 or SYS.3.2.1.A28
+            import re
+            valid_pattern = re.compile(r'^[A-Z]+(?:\.\d+)+\.A\d+$')
+            valid_candidates = [gid for gid in raw_ids if valid_pattern.match(gid)]
+            invalid_ids = [gid for gid in raw_ids if not valid_pattern.match(gid)]
+        
+        coverage = payload.get("coverage") or "keine"
+        rationale = payload.get("rationale") or ""
+        
+        # Auto-correct coverage if no valid candidates
+        if not valid_candidates and coverage != "keine":
+            coverage = "keine"
+            if rationale:
+                rationale += " [AUTO-KORREKTUR: Keine gültigen GS-IDs gefunden]"
+        
+        # Add validation notes to rationale
+        if invalid_ids:
+            validation_note = f" [Hinweis: Ignorierte ungültige IDs: {', '.join(invalid_ids)}]"
+            rationale = (rationale + validation_note).strip()
+        
+        # Validate confidence range
+        confidence = float(payload.get("confidence") or 0.0)
+        confidence = max(0.0, min(1.0, confidence))
+        
+        # Check if rationale mentions all candidate IDs
+        if valid_candidates and rationale:
+            missing_mentions = [gid for gid in valid_candidates if gid not in rationale]
+            if missing_mentions:
+                rationale += f" [Hinweis: GS-IDs {missing_mentions} nicht in Begründung explizit genannt]"
+        
         return Match(
             gspp_id=gspp_id,
-            gs_candidates=list(payload.get("gs_ids") or []),
-            confidence=float(payload.get("confidence") or 0.0),
-            coverage=payload.get("coverage") or "keine",
-            rationale=payload.get("rationale") or "",
+            gs_candidates=valid_candidates,
+            confidence=confidence,
+            coverage=coverage,
+            rationale=rationale,
             gap_notes=payload.get("gap_notes") or None,
         )
 
@@ -100,6 +188,7 @@ class AnthropicJudge(Judge):
             "description": "Meldet das Mapping-Ergebnis.",
             "input_schema": OUTPUT_SCHEMA,
         }
+        valid_gs_ids = {c.id for c in candidates}
         for attempt in range(3):
             resp = self.client.messages.create(
                 model=self.model,
@@ -111,7 +200,7 @@ class AnthropicJudge(Judge):
             )
             for block in resp.content:
                 if getattr(block, "type", None) == "tool_use" and block.name == "report_mapping":
-                    return self._to_match(gspp.id, block.input)
+                    return self._to_match(gspp.id, block.input, valid_gs_ids)
             time.sleep(1 + attempt)
         raise RuntimeError(f"AnthropicJudge: no tool_use block for {gspp.id}")
 
@@ -129,6 +218,7 @@ class OpenAIJudge(Judge):
             "strict": True,
             "schema": OUTPUT_SCHEMA,
         }
+        valid_gs_ids = {c.id for c in candidates}
         for attempt in range(3):
             try:
                 resp = self.client.chat.completions.create(
@@ -140,7 +230,7 @@ class OpenAIJudge(Judge):
                     response_format={"type": "json_schema", "json_schema": schema},
                 )
                 content = resp.choices[0].message.content or "{}"
-                return self._to_match(gspp.id, json.loads(content))
+                return self._to_match(gspp.id, json.loads(content), valid_gs_ids)
             except Exception as e:
                 if attempt == 2:
                     raise

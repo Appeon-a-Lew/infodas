@@ -14,6 +14,8 @@ from .judge import combine_matches, make_judge
 from .models import Match
 from .shortlist import Shortlister
 from . import visualize_graph
+from .validation import validate_matches, print_validation_report
+from .golden_dataset import evaluate_matches, print_evaluation_report
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANUAL_CSV = ROOT / "out" / "gspp_compliance_v3approach.csv"
@@ -144,8 +146,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--seed", type=int, default=42,
                    help="random seed for per-category sampling")
     p.add_argument("--top-k", type=int, default=15)
-    p.add_argument("--gs-levels", default="Basis,Standard",
-                   help="comma-separated levels from GS to consider")
+    p.add_argument("--gs-levels", default="Basis,Standard,Hoch",
+                   help="comma-separated levels from GS to consider (default: Basis,Standard,Hoch)")
     p.add_argument("--limit", type=int, default=0, help="limit number of GS++ controls (0=all)")
     p.add_argument(
         "--manual-csv",
@@ -161,6 +163,10 @@ def main(argv: list[str] | None = None) -> int:
                    help="enable LLM-based discriminator to filter/validate mappings")
     p.add_argument("--discriminator-model", default="claude-sonnet-4-5",
                    help="model to use for discriminator (default: claude-sonnet-4-5)")
+    p.add_argument("--discriminator-strict", action="store_true",
+                   help="use aggressive discrimination (keep only essential candidates, max 3)")
+    p.add_argument("--evaluate", action="store_true",
+                   help="evaluate matches against golden dataset")
     p.add_argument("--out-dir", default=str(ROOT / "out"))
     args = p.parse_args(argv)
 
@@ -215,11 +221,26 @@ def main(argv: list[str] | None = None) -> int:
         print(f"    → coverage={m.coverage} conf={m.confidence:.2f} gs={m.gs_candidates}", file=sys.stderr)
     model_label = "+".join(model_sources)
 
+    # Validate matches
+    print("[i] validating matches ...", file=sys.stderr)
+    validation_issues = validate_matches(matches, gspp_idx, gs_idx)
+    error_count = sum(1 for issues in validation_issues.values() for i in issues if i.severity == "error")
+    warning_count = sum(1 for issues in validation_issues.values() for i in issues if i.severity == "warning")
+    print(f"[i] validation complete: {error_count} errors, {warning_count} warnings", file=sys.stderr)
+    if error_count > 0:
+        print_validation_report(validation_issues)
+
+    # Optional: evaluate against golden dataset
+    if args.evaluate:
+        print("[i] evaluating against golden dataset ...", file=sys.stderr)
+        eval_metrics = evaluate_matches(matches)
+        print_evaluation_report(eval_metrics)
+
     # Optional: run discriminator to filter/validate matches
     discriminated_matches: list[tuple[Match, dict[str, tuple[str, str]]]] | None = None
     if args.discriminator:
         print(f"[i] running discriminator ({args.discriminator_model}) ...", file=sys.stderr)
-        discriminator = make_discriminator(args.discriminator_model)
+        discriminator = make_discriminator(args.discriminator_model, strict=args.discriminator_strict)
         discriminated_matches = []
         for i, m in enumerate(matches, 1):
             gspp_req = gspp_idx.get(m.gspp_id)
@@ -228,6 +249,17 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[{i}/{len(matches)}] discriminating {m.gspp_id} ...", file=sys.stderr)
             try:
                 per_candidate = discriminator.decide(m, gspp_req, gs_idx)
+                # Apply strict mode post-filtering if enabled
+                if args.discriminator_strict:
+                    max_keep = 3
+                    kept = [(gid, reason) for gid, (dec, reason) in per_candidate.items() if dec == "keep"]
+                    if len(kept) > max_keep:
+                        # Sort by reasoning length (proxy for importance)
+                        kept.sort(key=lambda x: len(x[1]), reverse=True)
+                        # Force-remove excess
+                        to_remove = [gid for gid, _ in kept[max_keep:]]
+                        for gid in to_remove:
+                            per_candidate[gid] = ("remove", per_candidate[gid][1] + " [STRICT: removed due to limit]")
                 discriminated_matches.append((m, per_candidate))
                 accepted_ids = [gid for gid, (dec, _) in per_candidate.items() if dec == "keep"]
                 denied_ids = [gid for gid, (dec, _) in per_candidate.items() if dec == "remove"]

@@ -1,0 +1,6 @@
+python-dotenv
+lxml
+scikit-learn
+openai
+anthropic
+requests
