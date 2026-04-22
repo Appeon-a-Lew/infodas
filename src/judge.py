@@ -9,11 +9,11 @@ from collections import defaultdict
 from .models import Match, Requirement
 
 SYSTEM_PROMPT = (
-    "Du bist Experte für BSI IT-Grundschutz und Grundschutz++. "
-    "Deine Aufgabe: bewerte, ob eine Grundschutz++-Anforderung durch eine oder mehrere "
-    "klassische IT-Grundschutz-Anforderungen (Basis/Standard) inhaltlich abgedeckt wird. "
-    "Sei präzise: nur echte inhaltliche Übereinstimmungen zählen als Match. "
-    "Wenn keine Kandidatin wirklich passt, ist das Ergebnis 'keine'."
+    "Du bist ein Experte für Textanalyse. "
+    "Deine Aufgabe: Prüfe, ob eine Menge von Kandidat-Texten gemeinsam den Zieltext vollständig abdecken. "
+    "Sei präzise: Nur echte inhaltliche Übereinstimmungen zählen als Match. "
+    "Wenn kein Kandidat wirklich passt, ist das Ergebnis 'keine'. "
+    "Erstelle ein minimales, nicht-redundantes Set von Kandidaten, das alle wesentlichen Aspekte des Zieltexts abdeckt."
 )
 
 COVERAGE_CRITERIA = """
