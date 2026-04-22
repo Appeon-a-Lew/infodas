@@ -1,12 +1,48 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import pathlib
 import time
 from abc import ABC, abstractmethod
 from collections import defaultdict
 
 from .models import Match, Requirement
+
+CACHE_DIR = pathlib.Path(os.environ.get("JUDGE_CACHE_DIR", ".cache/judge"))
+CACHE_ENABLED = os.environ.get("JUDGE_CACHE", "1") != "0"
+
+
+def _cache_key(*parts: str) -> str:
+    h = hashlib.sha256()
+    for p in parts:
+        h.update(p.encode("utf-8"))
+        h.update(b"\x00")
+    return h.hexdigest()
+
+
+def _cache_get(key: str) -> dict | None:
+    if not CACHE_ENABLED:
+        return None
+    p = CACHE_DIR / f"{key}.json"
+    if not p.exists():
+        return None
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _cache_put(key: str, payload: dict) -> None:
+    if not CACHE_ENABLED or not isinstance(payload, dict):
+        return
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    p = CACHE_DIR / f"{key}.json"
+    tmp = p.with_suffix(".tmp")
+    tmp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+    tmp.replace(p)
 
 SYSTEM_PROMPT = (
     "Du bist ein Experte für Textanalyse. "
@@ -125,9 +161,16 @@ class Judge(ABC):
             few_shot_examples=FEW_SHOT_EXAMPLES,
         )
 
+    def _cache_id(self, gspp: Requirement, candidates: list[Requirement], extra: str = "") -> str:
+        user = self._build_user(gspp, candidates)
+        tag = f"{type(self).__name__}::{self.model}"
+        return _cache_key(tag, SYSTEM_PROMPT, user, extra)
+
     @staticmethod
     def _to_match(gspp_id: str, payload: dict, valid_gs_ids: set[str] | None = None) -> Match:
         """Convert payload to Match with optional validation."""
+        if not isinstance(payload, dict):
+            payload = {}
         raw_ids = list(payload.get("gs_ids") or [])
         
         # Filter out invalid/hallucinated IDs
@@ -189,6 +232,10 @@ class AnthropicJudge(Judge):
             "input_schema": OUTPUT_SCHEMA,
         }
         valid_gs_ids = {c.id for c in candidates}
+        ckey = self._cache_id(gspp, candidates)
+        cached = _cache_get(ckey)
+        if cached is not None:
+            return self._to_match(gspp.id, cached, valid_gs_ids)
         for attempt in range(3):
             resp = self.client.messages.create(
                 model=self.model,
@@ -200,7 +247,9 @@ class AnthropicJudge(Judge):
             )
             for block in resp.content:
                 if getattr(block, "type", None) == "tool_use" and block.name == "report_mapping":
-                    return self._to_match(gspp.id, block.input, valid_gs_ids)
+                    payload = block.input if isinstance(block.input, dict) else {}
+                    _cache_put(ckey, payload)
+                    return self._to_match(gspp.id, payload, valid_gs_ids)
             time.sleep(1 + attempt)
         raise RuntimeError(f"AnthropicJudge: no tool_use block for {gspp.id}")
 
@@ -219,6 +268,10 @@ class OpenAIJudge(Judge):
             "schema": OUTPUT_SCHEMA,
         }
         valid_gs_ids = {c.id for c in candidates}
+        ckey = self._cache_id(gspp, candidates)
+        cached = _cache_get(ckey)
+        if cached is not None:
+            return self._to_match(gspp.id, cached, valid_gs_ids)
         for attempt in range(3):
             try:
                 resp = self.client.chat.completions.create(
@@ -230,7 +283,10 @@ class OpenAIJudge(Judge):
                     response_format={"type": "json_schema", "json_schema": schema},
                 )
                 content = resp.choices[0].message.content or "{}"
-                return self._to_match(gspp.id, json.loads(content), valid_gs_ids)
+                payload = json.loads(content)
+                if isinstance(payload, dict):
+                    _cache_put(ckey, payload)
+                return self._to_match(gspp.id, payload, valid_gs_ids)
             except Exception as e:
                 if attempt == 2:
                     raise
@@ -240,6 +296,9 @@ class OpenAIJudge(Judge):
 
 class OpenRouterJudge(Judge):
     """Judge via OpenRouter (OpenAI-compatible API). Model names like 'google/gemma-4-26b-a4b-it'."""
+
+    MAX_ATTEMPTS = int(os.environ.get("OPENROUTER_MAX_ATTEMPTS", "6"))
+    REQUEST_TIMEOUT = float(os.environ.get("OPENROUTER_TIMEOUT", "180"))
 
     def __init__(self, model: str, enable_reasoning: bool | None = None) -> None:
         if enable_reasoning is None:
@@ -252,56 +311,142 @@ class OpenRouterJudge(Judge):
             base_url="https://openrouter.ai/api/v1",
             api_key=os.environ["OPENROUTER_API_KEY"],
         )
+        # Memoized: set to False once we detect the model does not support json_schema.
+        self._use_json_schema = True
+
+    @staticmethod
+    def _is_retryable(exc: Exception) -> bool:
+        """Retry on timeouts, rate limits, and transient 5xx. Don't retry auth/validation errors."""
+        import openai
+        if isinstance(exc, (openai.APITimeoutError, openai.APIConnectionError, openai.RateLimitError)):
+            return True
+        if isinstance(exc, openai.APIStatusError):
+            return exc.status_code in (408, 409, 429, 500, 502, 503, 504, 524)
+        # httpx-level timeouts (shouldn't leak past OpenAI SDK, but be defensive)
+        name = type(exc).__name__.lower()
+        return "timeout" in name or "connection" in name
+
+    @staticmethod
+    def _is_schema_unsupported(exc: Exception) -> bool:
+        """Detect 'model doesn't support json_schema' style 400s so we can fall back permanently."""
+        import openai
+        if isinstance(exc, openai.BadRequestError):
+            msg = str(exc).lower()
+            return "json_schema" in msg or "response_format" in msg or "structured" in msg
+        return False
+
+    def _make_call(self, gspp: Requirement, candidates: list[Requirement], extra_body: dict):
+        schema = {"name": "mapping_result", "strict": True, "schema": OUTPUT_SCHEMA}
+        if self._use_json_schema:
+            return self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": self._build_user(gspp, candidates)},
+                ],
+                response_format={"type": "json_schema", "json_schema": schema},
+                extra_body=extra_body or None,
+                timeout=self.REQUEST_TIMEOUT,
+            )
+        return self.client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT + " Antworte ausschließlich als gültiges JSON."},
+                {"role": "user", "content": self._build_user(gspp, candidates)},
+            ],
+            response_format={"type": "json_object"},
+            extra_body=extra_body or None,
+            timeout=self.REQUEST_TIMEOUT,
+        )
 
     def classify(self, gspp: Requirement, candidates: list[Requirement]) -> Match:
-        schema = {
-            "name": "mapping_result",
-            "strict": True,
-            "schema": OUTPUT_SCHEMA,
-        }
+        import sys as _sys
         valid_gs_ids = {c.id for c in candidates}
         extra_body: dict = {}
         if self.enable_reasoning:
             extra_body["reasoning"] = {"enabled": True}
 
-        import sys as _sys
-        for attempt in range(3):
+        ckey = self._cache_id(gspp, candidates, extra=f"reasoning={self.enable_reasoning}")
+        cached = _cache_get(ckey)
+        if cached is not None:
+            print(f"  [openrouter] cache hit {self.model} {gspp.id}", file=_sys.stderr, flush=True)
+            return self._to_match(gspp.id, cached, valid_gs_ids)
+
+        last_exc: Exception | None = None
+        for attempt in range(1, self.MAX_ATTEMPTS + 1):
+            t0 = time.time()
+            mode = "json_schema" if self._use_json_schema else "json_object"
+            print(
+                f"  [openrouter] {self.model} mode={mode} reasoning={self.enable_reasoning} "
+                f"cand={len(candidates)} attempt={attempt}/{self.MAX_ATTEMPTS} ...",
+                file=_sys.stderr, flush=True,
+            )
             try:
-                t0 = time.time()
-                print(f"  [openrouter] {self.model} reasoning={self.enable_reasoning} cand={len(candidates)} ...", file=_sys.stderr, flush=True)
-                try:
-                    resp = self.client.chat.completions.create(
-                        model=self.model,
-                        messages=[
-                            {"role": "system", "content": SYSTEM_PROMPT},
-                            {"role": "user", "content": self._build_user(gspp, candidates)},
-                        ],
-                        response_format={"type": "json_schema", "json_schema": schema},
-                        extra_body=extra_body or None,
-                        timeout=120,
-                    )
-                except Exception as _e:
-                    print(f"  [openrouter] json_schema failed: {_e}; retry json_object", file=_sys.stderr, flush=True)
-                    # Fallback: model may not support json_schema; use json_object
-                    resp = self.client.chat.completions.create(
-                        model=self.model,
-                        messages=[
-                            {"role": "system", "content": SYSTEM_PROMPT + " Antworte als JSON."},
-                            {"role": "user", "content": self._build_user(gspp, candidates)},
-                        ],
-                        response_format={"type": "json_object"},
-                        extra_body=extra_body or None,
-                        timeout=120,
-                    )
-                dt = time.time() - t0
+                resp = self._make_call(gspp, candidates, extra_body)
                 content = resp.choices[0].message.content or "{}"
+                dt = time.time() - t0
                 print(f"  [openrouter] done in {dt:.1f}s", file=_sys.stderr, flush=True)
-                return self._to_match(gspp.id, json.loads(content), valid_gs_ids)
-            except Exception:
-                if attempt == 2:
+                try:
+                    payload = json.loads(content)
+                except json.JSONDecodeError as je:
+                    last_exc = je
+                    print(f"  [openrouter] invalid JSON: {je}; retrying", file=_sys.stderr, flush=True)
+                    backoff = min(30, 2 ** (attempt - 1))
+                    time.sleep(backoff)
+                    continue
+                if not isinstance(payload, dict):
+                    last_exc = TypeError(f"expected JSON object, got {type(payload).__name__}")
+                    print(
+                        f"  [openrouter] payload not object ({type(payload).__name__}); retrying",
+                        file=_sys.stderr, flush=True,
+                    )
+                    backoff = min(30, 2 ** (attempt - 1))
+                    time.sleep(backoff)
+                    continue
+                _cache_put(ckey, payload)
+                return self._to_match(gspp.id, payload, valid_gs_ids)
+
+            except Exception as e:
+                dt = time.time() - t0
+                last_exc = e
+
+                # One-time permanent fallback when model can't do json_schema.
+                if self._use_json_schema and self._is_schema_unsupported(e):
+                    self._use_json_schema = False
+                    print(
+                        f"  [openrouter] json_schema unsupported ({e}); switching to json_object permanently",
+                        file=_sys.stderr, flush=True,
+                    )
+                    continue  # don't consume a retry slot
+
+                if not self._is_retryable(e) or attempt == self.MAX_ATTEMPTS:
+                    print(
+                        f"  [openrouter] giving up after {attempt} attempt(s) ({dt:.1f}s): "
+                        f"{type(e).__name__}: {e}",
+                        file=_sys.stderr, flush=True,
+                    )
                     raise
-                time.sleep(1 + attempt)
-        raise RuntimeError("unreachable")
+
+                # Exponential backoff with jitter, capped at 30s. Honor Retry-After on 429.
+                backoff = min(30.0, 2 ** (attempt - 1))
+                retry_after = getattr(getattr(e, "response", None), "headers", {}) or {}
+                if isinstance(retry_after, dict):
+                    ra = retry_after.get("retry-after") or retry_after.get("Retry-After")
+                    if ra:
+                        try:
+                            backoff = max(backoff, float(ra))
+                        except ValueError:
+                            pass
+                import random
+                backoff = backoff * (0.75 + 0.5 * random.random())
+                print(
+                    f"  [openrouter] retryable error after {dt:.1f}s ({type(e).__name__}: {e}); "
+                    f"sleeping {backoff:.1f}s",
+                    file=_sys.stderr, flush=True,
+                )
+                time.sleep(backoff)
+
+        raise RuntimeError(f"OpenRouterJudge: exhausted retries: {last_exc}")
 
 
 class CombinedJudge(Judge):

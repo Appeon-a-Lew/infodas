@@ -206,3 +206,5 @@ GS++ Requirement → Shortlist (TF-IDF/Embeddings) → Judge (LLM) → Discrimin
 3. **Reasoning discriminator**: Worth the wait for final quality
 4. **Multi-model**: Ensemble of 2-3 models improves accuracy
 5. **Golden eval**: Use `--evaluate --scope GC` to check quality
+
+ python3.11 -m src.run --model qwen/qwen3.5-flash-02-23,google/gemma-4-26b-a4b-it,gpt-5.4-nano,gpt-5.4-mini --sample-ratio 1.0 --discriminator    --discriminator-model gpt-5.4-thinking --shortlist-method cached_embedding  --concurrency 15

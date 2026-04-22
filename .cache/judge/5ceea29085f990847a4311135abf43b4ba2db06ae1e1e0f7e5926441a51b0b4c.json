@@ -1,0 +1,1 @@
+{"coverage": "teilweise", "confidence": 0.6, "gs_ids": ["APP.3.3.A8"], "rationale": "Die Anforderung APP.3.3.A8 legt fest, dass schriftlich geregelt werden muss, welche Daten lokal und welche auf dem Fileserver gespeichert werden dürfen (Datenlokation). Dies deckt den Kernaspekt „Autorisierung von Datenloka"}

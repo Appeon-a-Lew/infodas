@@ -5,7 +5,53 @@ import os
 import time
 from abc import ABC, abstractmethod
 
+from .judge import _cache_get, _cache_key, _cache_put
 from .models import Match, Requirement
+
+
+def _is_retryable(exc: Exception) -> bool:
+    try:
+        import openai
+    except Exception:
+        openai = None
+    if openai is not None:
+        if isinstance(exc, (openai.APITimeoutError, openai.APIConnectionError, openai.RateLimitError)):
+            return True
+        if isinstance(exc, openai.APIStatusError):
+            return exc.status_code in (408, 409, 429, 500, 502, 503, 504, 524)
+    try:
+        import anthropic
+    except Exception:
+        anthropic = None
+    if anthropic is not None:
+        if isinstance(exc, (anthropic.APITimeoutError, anthropic.APIConnectionError, anthropic.RateLimitError)):
+            return True
+        if isinstance(exc, anthropic.APIStatusError):
+            return getattr(exc, "status_code", 0) in (408, 409, 429, 500, 502, 503, 504, 524)
+    name = type(exc).__name__.lower()
+    return "timeout" in name or "connection" in name or "rate" in name
+
+
+def _retry_after_seconds(exc: Exception) -> float | None:
+    resp = getattr(exc, "response", None)
+    headers = getattr(resp, "headers", None) if resp is not None else None
+    if not headers:
+        return None
+    val = headers.get("retry-after") or headers.get("Retry-After")
+    if not val:
+        return None
+    try:
+        return float(val)
+    except (TypeError, ValueError):
+        return None
+
+
+def _backoff(attempt: int, exc: Exception | None = None) -> float:
+    if exc is not None:
+        ra = _retry_after_seconds(exc)
+        if ra is not None:
+            return min(60.0, max(1.0, ra))
+    return min(30.0, 2 ** (attempt - 1))
 
 DISCRIMINATOR_SYSTEM = (
     "Du bist ein Experte für Textanalyse. "
@@ -142,6 +188,23 @@ class Discriminator(ABC):
         """
         ...
 
+    def _cache_id(self, match: Match, user_prompt: str, extra: str = "") -> str:
+        tag = f"{type(self).__name__}::{self.model}"
+        ids = ",".join(sorted(match.gs_candidates))
+        return _cache_key(tag, DISCRIMINATOR_SYSTEM, user_prompt, match.gspp_id, ids, extra)
+
+    def _payload_to_results(self, payload: dict) -> dict[str, tuple[str, str]]:
+        results: dict[str, tuple[str, str]] = {}
+        if not isinstance(payload, dict):
+            return results
+        for item in payload.get("candidate_decisions") or []:
+            if not isinstance(item, dict):
+                continue
+            gs_id = item.get("gs_id", "")
+            if gs_id:
+                results[gs_id] = (item.get("decision", "remove"), item.get("reasoning", ""))
+        return results
+
     def _build_user_prompt(
         self,
         match: Match,
@@ -251,25 +314,34 @@ class AnthropicDiscriminator(Discriminator):
             "input_schema": DISCRIMINATOR_SCHEMA,
         }
 
-        for attempt in range(3):
-            resp = self.client.messages.create(
-                model=self.model,
-                max_tokens=1024,
-                system=DISCRIMINATOR_SYSTEM,
-                tools=[tool],
-                tool_choice={"type": "tool", "name": "discriminate_mapping"},
-                messages=[{"role": "user", "content": user_prompt}],
-            )
+        ckey = self._cache_id(match, user_prompt)
+        cached = _cache_get(ckey)
+        if cached is not None:
+            return self._validate_decisions(self._payload_to_results(cached), match)
+
+        max_attempts = 5
+        for attempt in range(1, max_attempts + 1):
+            try:
+                resp = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=1024,
+                    system=DISCRIMINATOR_SYSTEM,
+                    tools=[tool],
+                    tool_choice={"type": "tool", "name": "discriminate_mapping"},
+                    messages=[{"role": "user", "content": user_prompt}],
+                )
+            except Exception as e:
+                if not _is_retryable(e) or attempt == max_attempts:
+                    raise
+                time.sleep(_backoff(attempt, e))
+                continue
+
             for block in resp.content:
                 if getattr(block, "type", None) == "tool_use" and block.name == "discriminate_mapping":
-                    payload = block.input
-                    results: dict[str, tuple[str, str]] = {}
-                    for item in payload.get("candidate_decisions", []):
-                        gs_id = item.get("gs_id", "")
-                        if gs_id:
-                            results[gs_id] = (item.get("decision", "remove"), item.get("reasoning", ""))
-                    return self._validate_decisions(results, match)
-            time.sleep(1 + attempt)
+                    payload = block.input if isinstance(block.input, dict) else {}
+                    _cache_put(ckey, payload)
+                    return self._validate_decisions(self._payload_to_results(payload), match)
+            time.sleep(_backoff(attempt))
 
         raise RuntimeError(f"AnthropicDiscriminator: no tool_use block for {match.gspp_id}")
 
@@ -339,7 +411,13 @@ class OpenAIDiscriminator(Discriminator):
         model_candidates = self._candidate_models()
         use_reasoning_effort = self._supports_reasoning_effort()
 
-        for attempt in range(3):
+        ckey = self._cache_id(match, user_prompt, extra=f"reff={use_reasoning_effort}")
+        cached = _cache_get(ckey)
+        if cached is not None:
+            return self._validate_decisions(self._payload_to_results(cached), match)
+
+        max_attempts = 5
+        for attempt in range(1, max_attempts + 1):
             try:
                 resp = None
                 last_error: Exception | None = None
@@ -354,7 +432,6 @@ class OpenAIDiscriminator(Discriminator):
                         "response_format": {"type": "json_schema", "json_schema": schema},
                     }
                     if use_reasoning_effort:
-                        # Use explicit thinking budget when a reasoning-capable model is selected.
                         request_kwargs["reasoning_effort"] = "high"
 
                     try:
@@ -372,7 +449,6 @@ class OpenAIDiscriminator(Discriminator):
                                 e = inner_e
                                 err = str(e).lower()
 
-                        # Try next fallback model if current one is unavailable.
                         if "model_not_found" in err or "does not exist" in err:
                             last_error = e
                             continue
@@ -385,17 +461,24 @@ class OpenAIDiscriminator(Discriminator):
                     raise RuntimeError("OpenAIDiscriminator: no response from model candidates")
 
                 content = resp.choices[0].message.content or "{}"
-                payload = json.loads(content)
-                results: dict[str, tuple[str, str]] = {}
-                for item in payload.get("candidate_decisions", []):
-                    gs_id = item.get("gs_id", "")
-                    if gs_id:
-                        results[gs_id] = (item.get("decision", "remove"), item.get("reasoning", ""))
-                return self._validate_decisions(results, match)
+                try:
+                    payload = json.loads(content)
+                except json.JSONDecodeError as je:
+                    if attempt == max_attempts:
+                        raise
+                    time.sleep(_backoff(attempt))
+                    continue
+                if not isinstance(payload, dict):
+                    if attempt == max_attempts:
+                        raise TypeError(f"expected JSON object, got {type(payload).__name__}")
+                    time.sleep(_backoff(attempt))
+                    continue
+                _cache_put(ckey, payload)
+                return self._validate_decisions(self._payload_to_results(payload), match)
             except Exception as e:
-                if attempt == 2:
+                if not _is_retryable(e) or attempt == max_attempts:
                     raise
-                time.sleep(1 + attempt)
+                time.sleep(_backoff(attempt, e))
 
         raise RuntimeError("unreachable")
 
