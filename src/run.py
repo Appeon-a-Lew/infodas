@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import argparse
 import csv
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
+from lxml import etree
 
 from . import parse_gs, parse_gspp, report
 from .discriminator import make_discriminator
@@ -20,6 +22,9 @@ from .golden_dataset import evaluate_matches, print_evaluation_report
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANUAL_CSV = ROOT / "out" / "gspp_compliance_v3approach.csv"
 _COVERAGE_SCORE = {"keine": 0, "teilweise": 1, "voll": 2}
+_TESTING_ORIGIN_RE = re.compile(r"\[GS\+\+:\s*([^\]]+)\]")
+_REQ_ID_RE = re.compile(r"^([A-Z]+(?:\.\d+)+\.A\d+)\s+")
+_DOCBOOK_NS = {"d": "http://docbook.org/ns/docbook"}
 
 
 def _normalize_coverage(raw: str | None) -> str:
@@ -134,6 +139,125 @@ def _load_manual_matches(csv_path: Path, allowed_ids: set[str]) -> dict[str, Mat
     return matches
 
 
+def _load_testing_origin_map(xml_path: Path) -> dict[str, str]:
+    """Load mapping fake requirement ID -> GS++ control ID from testing XML titles."""
+    mapping: dict[str, str] = {}
+    tree = etree.parse(str(xml_path))
+    for title_node in tree.getroot().findall(".//d:section/d:title", _DOCBOOK_NS):
+        title_text = "".join(title_node.itertext()).strip()
+        req_match = _REQ_ID_RE.match(title_text)
+        origin_match = _TESTING_ORIGIN_RE.search(title_text)
+        if not req_match or not origin_match:
+            continue
+        fake_req_id = req_match.group(1).strip()
+        origin_id = origin_match.group(1).strip()
+        if fake_req_id and origin_id:
+            mapping[fake_req_id] = origin_id
+    return mapping
+
+
+def _build_testing_truth_map(origin_map: dict[str, str]) -> dict[str, set[str]]:
+    """Build gspp_id -> set(fake_gs_id) from fake_id -> gspp_id origin map."""
+    truth: dict[str, set[str]] = {}
+    for fake_id, origin in origin_map.items():
+        truth.setdefault(origin, set()).add(fake_id)
+    return truth
+
+
+def _display_candidate_ids(ids: list[str], origin_map: dict[str, str] | None) -> list[str]:
+    """Display GS candidate IDs, replacing FAKE IDs with originating GS++ IDs when available."""
+    if not origin_map:
+        return ids
+    return [origin_map.get(gid, gid) for gid in ids]
+
+
+def _is_same_or_hierarchical_id(left: str, right: str) -> bool:
+    """Return True for exact match or parent/child relation on dot-separated IDs."""
+    l = (left or "").strip()
+    r = (right or "").strip()
+    if not l or not r:
+        return False
+    return l == r or l.startswith(r + ".") or r.startswith(l + ".")
+
+
+def _expand_with_hierarchical_candidates(
+    selected_ids: list[str],
+    shortlist_ids: list[str],
+    origin_map: dict[str, str] | None,
+) -> list[str]:
+    """Expand selected candidates with hierarchical alternatives from shortlist.
+
+    - In testing mode (origin_map provided): compare by mapped GS++ origin IDs.
+    - In real mode (no origin_map): compare by candidate IDs directly.
+    """
+    if origin_map:
+        selected_compare_ids = [origin_map[sid] for sid in selected_ids if sid in origin_map]
+        if not selected_compare_ids:
+            return selected_ids
+    else:
+        selected_compare_ids = list(selected_ids)
+        if not selected_compare_ids:
+            return selected_ids
+
+    expanded = list(selected_ids)
+    seen = set(expanded)
+    for candidate_id in shortlist_ids:
+        candidate_compare_id = origin_map.get(candidate_id) if origin_map else candidate_id
+        if not candidate_compare_id:
+            continue
+        if any(
+            _is_same_or_hierarchical_id(candidate_compare_id, selected_compare_id)
+            for selected_compare_id in selected_compare_ids
+        ):
+            if candidate_id not in seen:
+                expanded.append(candidate_id)
+                seen.add(candidate_id)
+
+    return expanded
+
+
+def _calculate_confusion_counts(
+    matches: list[Match],
+    gspp_ids: list[str],
+    gs_total: int,
+    truth_map: dict[str, set[str]],
+    discriminated_matches: list[tuple[Match, dict[str, tuple[str, str]]]] | None,
+    origin_map: dict[str, str] | None = None,
+    hierarchical_match: bool = False,
+) -> tuple[int, int, int, int]:
+    """Calculate aggregate TP/FP/FN/TN over all evaluated GS++ IDs."""
+    predicted_by_gspp: dict[str, set[str]] = {}
+    if discriminated_matches:
+        for match, per_candidate in discriminated_matches:
+            predicted_by_gspp[match.gspp_id] = {
+                gid for gid, (decision, _) in per_candidate.items() if decision == "keep"
+            }
+    else:
+        for match in matches:
+            predicted_by_gspp[match.gspp_id] = set(match.gs_candidates)
+
+    tp = fp = fn = tn = 0
+    for gspp_id in gspp_ids:
+        pred = predicted_by_gspp.get(gspp_id, set())
+        truth = truth_map.get(gspp_id, set())
+        if hierarchical_match and origin_map is not None:
+            truth = {
+                fake_id
+                for fake_id, origin_id in origin_map.items()
+                if _is_same_or_hierarchical_id(gspp_id, origin_id)
+            }
+        local_tp = len(pred & truth)
+        local_fp = len(pred - truth)
+        local_fn = len(truth - pred)
+        local_tn = max(0, gs_total - local_tp - local_fp - local_fn)
+        tp += local_tp
+        fp += local_fp
+        fn += local_fn
+        tn += local_tn
+
+    return tp, fp, fn, tn
+
+
 def main(argv: list[str] | None = None) -> int:
     load_dotenv(ROOT / ".env")
     p = argparse.ArgumentParser(description="Map Grundschutz++ to IT-Grundschutz")
@@ -146,14 +270,35 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--seed", type=int, default=42,
                    help="random seed for per-category sampling")
     p.add_argument("--top-k", type=int, default=15)
+    p.add_argument(
+        "--expand-hierarchical",
+        action="store_true",
+        help="expand selected candidates with hierarchical parent/child alternatives from shortlist",
+    )
     p.add_argument("--gs-levels", default="Basis,Standard,Hoch",
-                   help="comma-separated levels from GS to consider (default: Basis,Standard,Hoch)")
+                   help="comma-separated levels from GS to consider (default: all)")
     p.add_argument("--limit", type=int, default=0, help="limit number of GS++ controls (0=all)")
+    p.add_argument(
+        "--testing-mode",
+        action="store_true",
+        help="run against a testing GS XML dataset and compute TP/FP/FN/TN metrics",
+    )
+    p.add_argument(
+        "--testing-gs-xml",
+        default=str(ROOT / "data" / "fake.xml"),
+        help="GS XML path used in testing mode (default: data/fake.xml)",
+    )
+    p.add_argument(
+        "--testing-limit",
+        type=int,
+        default=0,
+        help="limit number of GS++ controls only for testing mode (0=all)",
+    )
     p.add_argument(
         "--manual-csv",
         nargs="?",
         const=str(DEFAULT_MANUAL_CSV),
-        default=str(DEFAULT_MANUAL_CSV),
+        default="",
         help=(
             "optional CSV with additional manual mappings to add after the model run; "
             "when passed without a path, defaults to out/gspp_compliance_v2.csv"
@@ -175,25 +320,57 @@ def main(argv: list[str] | None = None) -> int:
 
     models = _parse_models(args.model)
     model_sources = list(models)
-    levels = tuple(s.strip() for s in args.gs_levels.split(",") if s.strip())
+    if args.testing_mode and args.gs_levels.strip() == "Basis,Standard":
+        levels = ("Basis", "Standard", "Hoch")
+    else:
+        levels = tuple(s.strip() for s in args.gs_levels.split(",") if s.strip())
+    gs_xml_path = Path(args.testing_gs_xml) if args.testing_mode else (ROOT / "data" / "gs.xml")
+    effective_limit = args.testing_limit if args.testing_mode and args.testing_limit else args.limit
     scope_display = args.scope or "<all>"
+    hierarchical_expansion_enabled = args.testing_mode or args.expand_hierarchical
     print(
         f"[i] scope={scope_display!r} sample_ratio={args.sample_ratio:.2f} "
         f"seed={args.seed} models={'+'.join(model_sources)} top_k={args.top_k} levels={levels} "
         f"shortlist={args.shortlist_method}",
         file=sys.stderr,
     )
+    if args.testing_mode:
+        print(f"[i] testing mode enabled: gs_dataset={gs_xml_path}", file=sys.stderr)
+    if hierarchical_expansion_enabled and not args.testing_mode:
+        print("[i] hierarchical expansion enabled", file=sys.stderr)
 
-    gspp_reqs = parse_gspp.parse(
-        ROOT / "data" / "gspp.json",
-        scope_prefix=args.scope,
-        sample_ratio_per_category=args.sample_ratio,
-        random_seed=args.seed,
-    )
-    gs_reqs = parse_gs.parse(ROOT / "data" / "gs.xml", levels=levels)
-    if args.limit:
-        gspp_reqs = gspp_reqs[: args.limit]
+    if args.testing_mode:
+        # Im Testmodus: Beide Seiten aus gspp.json laden (perfektes 1:1)
+        gspp_reqs = parse_gspp.parse(
+            ROOT / "data" / "gspp.json",
+            scope_prefix=args.scope,
+            sample_ratio_per_category=args.sample_ratio,
+            random_seed=args.seed,
+        )
+        gs_reqs = parse_gspp.parse(
+            ROOT / "data" / "gspp.json",
+            scope_prefix=args.scope,
+            sample_ratio_per_category=args.sample_ratio,
+            random_seed=args.seed,
+        )
+    else:
+        gspp_reqs = parse_gspp.parse(
+            ROOT / "data" / "gspp.json",
+            scope_prefix=args.scope,
+            sample_ratio_per_category=args.sample_ratio,
+            random_seed=args.seed,
+        )
+        gs_reqs = parse_gs.parse(gs_xml_path, levels=levels)
+    if effective_limit:
+        gspp_reqs = gspp_reqs[: effective_limit]
     print(f"[i] {len(gspp_reqs)} GS++ controls | {len(gs_reqs)} GS requirements", file=sys.stderr)
+    print(f"[DEBUG] Loaded GS++ nodes: {len(gspp_reqs)}", file=sys.stderr)
+    print(f"[DEBUG] Loaded GS nodes: {len(gs_reqs)}", file=sys.stderr)
+
+    testing_origin_map: dict[str, str] | None = None
+    if args.testing_mode:
+        testing_origin_map = _load_testing_origin_map(gs_xml_path)
+        print(f"[i] loaded {len(testing_origin_map)} testing origin markers", file=sys.stderr)
 
     gspp_idx = {r.id: r for r in gspp_reqs}
     gs_idx = {r.id: r for r in gs_reqs}
@@ -208,12 +385,17 @@ def main(argv: list[str] | None = None) -> int:
             model_sources.append(manual_source)
             print(f"[i] loaded manual mappings from {manual_csv_path} for {len(manual_matches)} GS++ controls", file=sys.stderr)
 
-    sl = make_shortlister(gs_reqs, method=args.shortlist_method)
+    # Im Testmodus: EmbeddingShortlister für beide Seiten mit GS++-Knoten initialisieren
+    if args.testing_mode and args.shortlist_method in ("embedding", "cached_embedding"):
+        sl = make_shortlister(gspp_reqs, method=args.shortlist_method)
+    else:
+        sl = make_shortlister(gs_reqs, method=args.shortlist_method)
     judges = [make_judge(model) for model in models]
 
     matches = []
     for i, q in enumerate(gspp_reqs, 1):
         cands = [r for r, _ in sl.top_k(q, k=args.top_k)]
+        cand_ids = [c.id for c in cands]
         print(f"[{i}/{len(gspp_reqs)}] {q.id} ...", file=sys.stderr)
         parts = [judge.classify(q, cands) for judge in judges]
         part_names = [judge.model for judge in judges]
@@ -221,13 +403,22 @@ def main(argv: list[str] | None = None) -> int:
             parts.append(manual_matches[q.id])
             part_names.append(manual_source)
         m = combine_matches(parts, part_names) if len(parts) > 1 else parts[0]
+        if hierarchical_expansion_enabled:
+            m.gs_candidates = _expand_with_hierarchical_candidates(
+                m.gs_candidates,
+                cand_ids,
+                testing_origin_map,
+            )
         matches.append(m)
-        print(f"    → coverage={m.coverage} conf={m.confidence:.2f} gs={m.gs_candidates}", file=sys.stderr)
+        display_candidates = _display_candidate_ids(m.gs_candidates, testing_origin_map)
+        print(f"    → coverage={m.coverage} conf={m.confidence:.2f} gs={display_candidates}", file=sys.stderr)
     model_label = "+".join(model_sources)
 
     # Validate matches
     print("[i] validating matches ...", file=sys.stderr)
-    validation_issues = validate_matches(matches, gspp_idx, gs_idx)
+    validation_issues = validate_matches(
+        matches, gspp_idx, gs_idx, relax_id_check=args.testing_mode
+    )
     error_count = sum(1 for issues in validation_issues.values() for i in issues if i.severity == "error")
     warning_count = sum(1 for issues in validation_issues.values() for i in issues if i.severity == "warning")
     print(f"[i] validation complete: {error_count} errors, {warning_count} warnings", file=sys.stderr)
@@ -265,8 +456,14 @@ def main(argv: list[str] | None = None) -> int:
                         for gid in to_remove:
                             per_candidate[gid] = ("remove", per_candidate[gid][1] + " [STRICT: removed due to limit]")
                 discriminated_matches.append((m, per_candidate))
-                accepted_ids = [gid for gid, (dec, _) in per_candidate.items() if dec == "keep"]
-                denied_ids = [gid for gid, (dec, _) in per_candidate.items() if dec == "remove"]
+                accepted_ids = _display_candidate_ids(
+                    [gid for gid, (dec, _) in per_candidate.items() if dec == "keep"],
+                    testing_origin_map,
+                )
+                denied_ids = _display_candidate_ids(
+                    [gid for gid, (dec, _) in per_candidate.items() if dec == "remove"],
+                    testing_origin_map,
+                )
                 print(f"    → accepted={accepted_ids} denied={denied_ids}", file=sys.stderr)
             except Exception as e:
                 print(f"    → error: {e}", file=sys.stderr)
@@ -320,6 +517,74 @@ def main(argv: list[str] | None = None) -> int:
             title=f"GS++ → GS Mapping (Discriminated by {args.discriminator_model})",
         )
         print(f"[i] wrote {disc_viz_path}", file=sys.stderr)
+
+    if args.testing_mode:
+        # Im Testmodus: GS++ gegen GS++ vergleichen, IDs direkt vergleichen
+        eval_ids = [r.id for r in gspp_reqs]
+        # Wahrheit: Jede GS++-ID muss sich selbst finden
+        truth_map = {gspp_id: {gspp_id} for gspp_id in eval_ids}
+        tp, fp, fn, tn = _calculate_confusion_counts(
+            matches,
+            eval_ids,
+            len(gs_reqs),
+            truth_map,
+            discriminated_matches,
+            origin_map=None,
+            hierarchical_match=False,
+        )
+        total = tp + fp + fn + tn
+        precision = (tp / (tp + fp)) if (tp + fp) else 0.0
+        recall = (tp / (tp + fn)) if (tp + fn) else 0.0
+        accuracy = ((tp + tn) / total) if total else 0.0
+        f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) else 0.0
+
+        print(
+            "[i] testing confusion matrix: "
+            f"TP={tp} FP={fp} FN={fn} TN={tn} "
+            f"| precision={precision:.4f} recall={recall:.4f} f1={f1:.4f} accuracy={accuracy:.4f}",
+            file=sys.stderr,
+        )
+
+        metrics_path = out_dir / f"testing_metrics_{safe_model}_{ts}.csv"
+        with metrics_path.open("w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow([
+                "timestamp",
+                "testing_dataset",
+                "gspp_evaluated",
+                "gs_total",
+                "truth_covered_gspp",
+                "tp",
+                "fp",
+                "fn",
+                "tn",
+                "precision",
+                "recall",
+                "f1",
+                "accuracy",
+                "discriminator_enabled",
+                "discriminator_model",
+                "models",
+            ])
+            w.writerow([
+                ts,
+                str(gs_xml_path),
+                len(eval_ids),
+                len(gs_reqs),
+                len(truth_map),
+                tp,
+                fp,
+                fn,
+                tn,
+                f"{precision:.6f}",
+                f"{recall:.6f}",
+                f"{f1:.6f}",
+                f"{accuracy:.6f}",
+                bool(args.discriminator),
+                args.discriminator_model if args.discriminator else "",
+                model_label,
+            ])
+        print(f"[i] wrote {metrics_path}", file=sys.stderr)
     
     return 0
 

@@ -82,7 +82,7 @@ def parse(
         if not cid.startswith(scope_prefix):
             continue
         prose = _prose(ctrl)
-        if not prose:
+        if not prose.strip():
             continue
         context = " / ".join(p for p in parents if p)
         all_reqs.append(

@@ -18,35 +18,37 @@ class ValidationIssue:
 
 class MatchValidator:
     """Validates matches for consistency and quality."""
-    
+
     # Valid GS ID pattern: BAUSTEIN.NUMBER[.NUMBER...].ANUMBER
     # Examples: ISMS.1.A2, ORP.5.A10, SYS.3.2.1.A28, OPS.1.1.2.A16
     GS_ID_PATTERN = re.compile(r'^[A-Z]+(?:\.\d+)+\.A\d+$')
-    
+
     # Coverage score mapping
     COVERAGE_SCORE = {"keine": 0, "teilweise": 1, "voll": 2}
-    
-    def __init__(self, gs_index: dict[str, Requirement] | None = None):
+
+    def __init__(self, gs_index: dict[str, Requirement] | None = None, relax_id_check: bool = False):
         self.gs_index = gs_index or {}
-    
+        self.relax_id_check = relax_id_check
+
     def validate(self, match: Match, gspp_req: Requirement | None = None) -> list[ValidationIssue]:
         """Validate a match and return list of issues."""
         issues = []
-        
+
         # 1. Validate GS IDs exist and have correct format
         for gid in match.gs_candidates:
-            if not self.GS_ID_PATTERN.match(gid):
-                issues.append(ValidationIssue(
-                    severity="error",
-                    code="INVALID_ID_FORMAT",
-                    message=f"GS ID '{gid}' does not match expected format BAUSTEIN.NUMBER.ANUMBER"
-                ))
-            elif self.gs_index and gid not in self.gs_index:
-                issues.append(ValidationIssue(
-                    severity="error",
-                    code="UNKNOWN_GS_ID",
-                    message=f"GS ID '{gid}' not found in corpus"
-                ))
+            if not self.relax_id_check:
+                if not self.GS_ID_PATTERN.match(gid):
+                    issues.append(ValidationIssue(
+                        severity="error",
+                        code="INVALID_ID_FORMAT",
+                        message=f"GS ID '{gid}' does not match expected format BAUSTEIN.NUMBER.ANUMBER"
+                    ))
+                elif self.gs_index and gid not in self.gs_index:
+                    issues.append(ValidationIssue(
+                        severity="error",
+                        code="UNKNOWN_GS_ID",
+                        message=f"GS ID '{gid}' not found in corpus"
+                    ))
         
         # 2. Validate coverage consistency
         if match.coverage not in self.COVERAGE_SCORE:
@@ -150,9 +152,10 @@ def validate_matches(
     matches: list[Match],
     gspp_index: dict[str, Requirement],
     gs_index: dict[str, Requirement],
+    relax_id_check: bool = False,
 ) -> dict[str, list[ValidationIssue]]:
     """Validate all matches and return issues by gspp_id."""
-    validator = MatchValidator(gs_index)
+    validator = MatchValidator(gs_index, relax_id_check=relax_id_check)
     return {
         match.gspp_id: validator.validate(match, gspp_index.get(match.gspp_id))
         for match in matches
