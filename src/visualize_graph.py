@@ -120,7 +120,7 @@ def _build_node_payloads(
     gspp_texts: dict[str, str],
     gs_titles: dict[str, str],
     gs_texts: dict[str, str],
-  ) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, str]], dict[str, list[dict[str, str]]]]:
+    ) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, str]], dict[str, list[dict[str, str]]]]:
     left_payload: dict[str, dict[str, str]] = {}
     right_payload: dict[str, dict[str, str]] = {}
     edges_by_left: dict[str, list[dict[str, str]]] = {}
@@ -144,22 +144,22 @@ def _build_node_payloads(
             if rid in mapped_from and gspp_id and gspp_id not in mapped_from[rid]:
                 mapped_from[rid].append(gspp_id)
             if not gspp_id:
-              continue
+                continue
             edge_key = f"{gspp_id}|||{rid}"
             if edge_key in seen_edges:
-              continue
+                continue
             seen_edges.add(edge_key)
             edges_by_left.setdefault(gspp_id, []).append(
-              {
-                "edge_key": edge_key,
-                "gspp_id": gspp_id,
-                "gspp_title": (row.get("gspp_title") or "").strip(),
-                "gs_id": rid,
-                "gs_title": gs_titles.get(rid) or parsed_titles.get(rid) or right_titles_from_csv.get(rid, ""),
-                "coverage": (row.get("coverage") or "").strip(),
-                "confidence": (row.get("confidence") or "").strip(),
-                "source_text": gs_texts.get(rid, ""),
-              }
+                {
+                    "edge_key": edge_key,
+                    "gspp_id": gspp_id,
+                    "gspp_title": (row.get("gspp_title") or "").strip(),
+                    "gs_id": rid,
+                    "gs_title": gs_titles.get(rid) or parsed_titles.get(rid) or right_titles_from_csv.get(rid, ""),
+                    "coverage": (row.get("coverage") or "").strip(),
+                    "confidence": (row.get("confidence") or "").strip(),
+                    "source_text": gs_texts.get(rid, ""),
+                }
             )
 
     for node in left_nodes:
@@ -183,7 +183,7 @@ def _build_node_payloads(
             "source_text": gs_texts.get(node, ""),
         }
 
-        return left_payload, right_payload, edges_by_left
+    return left_payload, right_payload, edges_by_left
 
 
 def _json_for_script(data: dict[str, dict[str, str]]) -> str:
@@ -307,7 +307,11 @@ def _build_html(
     .status {{ font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }}
     .link-card {{ border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin: 8px 0; background: #fafafa; }}
     .link-head {{ display: flex; justify-content: space-between; gap: 10px; align-items: center; }}
+    .chips {{ display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }}
+    .chip {{ border: 1px solid #d1d5db; border-radius: 999px; padding: 2px 8px; font-size: 0.78rem; background: #fff; color: #334155; }}
     .decision-select {{ border: 1px solid #d1d5db; border-radius: 6px; padding: 4px 6px; background: #fff; }}
+    .model-box {{ border: 1px solid #dbeafe; border-radius: 8px; background: #f8fbff; padding: 10px; margin: 8px 0; }}
+    .model-head {{ font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }}
     .details h2 {{ margin: 0 0 8px; font-size: 1rem; }}
     .details .meta-row {{ margin: 6px 0; color: var(--muted); font-size: 0.9rem; }}
     .details pre {{
@@ -405,10 +409,98 @@ def _build_html(
       return `<div class=\"meta-row\"><strong>${{escapeHtml(label)}}:</strong></div><pre>${{escapeHtml(value)}}</pre>`;
     }}
 
+    function parseSourceDetails(payload) {{
+      const out = {{}};
+      const summaryRx = /^\\[(.+?)\\]\\s+coverage=([^\\s]+)\\s+confidence=([0-9.]+)\\s+gs_ids=(.*)$/;
+
+      function ensure(name) {{
+        if (!out[name]) {{
+          out[name] = {{
+            model: name,
+            coverage: '',
+            confidence: '',
+            gsIds: [],
+            rationale: '',
+            gapNotes: '',
+          }};
+        }}
+        return out[name];
+      }}
+
+      const rationaleLines = String(payload.rationale || '').split(/\\r?\\n/);
+      rationaleLines.forEach((line) => {{
+        const trimmed = line.trim();
+        if (!trimmed) return;
+
+        const m = trimmed.match(summaryRx);
+        if (m) {{
+          const rec = ensure(m[1]);
+          rec.coverage = m[2];
+          rec.confidence = m[3];
+          rec.gsIds = m[4]
+            ? m[4].split(';').map((x) => x.trim()).filter(Boolean)
+            : [];
+          return;
+        }}
+
+        const prefixed = trimmed.match(/^\\[(.+?)\\]\\s+(.*)$/);
+        if (prefixed) {{
+          const rec = ensure(prefixed[1]);
+          rec.rationale = prefixed[2];
+        }}
+      }});
+
+      const gapLines = String(payload.gap_notes || '').split(/\\r?\\n/);
+      gapLines.forEach((line) => {{
+        const prefixed = line.trim().match(/^\\[(.+?)\\]\\s+(.*)$/);
+        if (!prefixed) return;
+        const rec = ensure(prefixed[1]);
+        rec.gapNotes = prefixed[2];
+      }});
+
+      return out;
+    }}
+
+    function sourceBoxesHtml(sourceMap) {{
+      const names = Object.keys(sourceMap);
+      if (!names.length) return '<div class="meta-row">No per-model details found in this row.</div>';
+
+      return names.sort().map((name) => {{
+        const s = sourceMap[name];
+        const ids = (s.gsIds || []).join(', ');
+        return ''
+          + '<div class="model-box">'
+          +   '<div class="model-head">' + escapeHtml(name) + '</div>'
+          +   detailBlock('Coverage', s.coverage)
+          +   detailBlock('Confidence', s.confidence)
+          +   detailBlock('Selected GS IDs', ids)
+          +   detailText('Rationale', s.rationale)
+          +   detailText('Gap Notes', s.gapNotes)
+          + '</div>';
+      }}).join('');
+    }}
+
+    function modelChipsForEdge(edge, sourceMap) {{
+      const chips = [];
+      Object.keys(sourceMap).forEach((name) => {{
+        const s = sourceMap[name];
+        if ((s.gsIds || []).includes(edge.gs_id)) {{
+          const conf = s.confidence ? ` (conf=${{s.confidence}})` : '';
+          chips.push(`<span class="chip">${{escapeHtml(name + conf)}}</span>`);
+        }}
+      }});
+      if (!chips.length) return '';
+      return '<div class="chips">' + chips.join('') + '</div>';
+    }}
+
     function activateNode(side, id) {{
       document.querySelectorAll('.node.active').forEach((el) => el.classList.remove('active'));
-      const selector = `.node[data-side=\"${{side}}\"][data-id=\"${{CSS.escape(id)}}\"]`;
-      document.querySelectorAll(selector).forEach((el) => el.classList.add('active'));
+      // Avoid CSS.escape dependency so clicks work across browsers and file:// contexts.
+      document.querySelectorAll('.node').forEach((el) => {{
+        if (el.dataset.side === side && el.dataset.id === id) {{
+          el.classList.add('active');
+        }}
+      }});
     }}
 
     function flattenEdges() {{
@@ -462,7 +554,7 @@ def _build_html(
       updateEdgeStyles();
     }}
 
-    function connectionCardHtml(edge) {{
+    function connectionCardHtml(edge, sourceMap) {{
       const decision = decisions[edge.edge_key] || '';
       const options = [
         '<option value="">Choose decision</option>',
@@ -477,6 +569,7 @@ def _build_html(
         +     '<select class="decision-select" data-edge-key="' + escapeHtml(edge.edge_key) + '">' + options + '</select>'
         +   '</div>'
         +   '<div class="meta-row">Coverage: ' + escapeHtml(edge.coverage) + ' | Confidence: ' + escapeHtml(edge.confidence) + '</div>'
+        +   modelChipsForEdge(edge, sourceMap)
         +   '<div class="meta-row"><strong>Original GS text:</strong></div>'
         +   '<pre>' + escapeHtml(edge.source_text || '') + '</pre>'
         + '</div>';
@@ -508,9 +601,10 @@ def _build_html(
 
       if (side === 'left') {{
         selectedLeftId = id;
+        const sourceMap = parseSourceDetails(payload);
         const conns = edgesByLeft[id] || [];
         const connHtml = conns.length
-          ? conns.map(connectionCardHtml).join('')
+          ? conns.map((edge) => connectionCardHtml(edge, sourceMap)).join('')
           : '<div class="meta-row">No mapped GS connections for this node.</div>';
 
         details.innerHTML = ''
@@ -522,6 +616,8 @@ def _build_html(
           + detailText('Rationale', payload.rationale)
           + detailText('Gap Notes', payload.gap_notes)
           + detailText('Source Text (JSON)', payload.source_text)
+          + '<h2 style="margin-top:12px;">Model Details</h2>'
+          + sourceBoxesHtml(sourceMap)
           + '<h2 style="margin-top:12px;">Connected GS Nodes</h2>'
           + connHtml;
         bindDecisionHandlers();
@@ -675,6 +771,333 @@ def main(argv: list[str] | None = None) -> int:
     print(f"[i] output: {out_path}")
     print(f"[i] left_nodes={len(left_nodes)} right_nodes={len(right_nodes)} edges={len(edges)}")
     return 0
+
+
+def visualize_discriminated(
+    out_path: Path,
+    matches: list[tuple],
+    gspp_idx: dict,
+    gs_idx: dict,
+    title: str = "GS++ -> IT-Grundschutz Mapping (Discriminated)",
+) -> None:
+    """
+    Create HTML visualization for discriminated mappings.
+
+    Args:
+        out_path: Output HTML file path
+        matches: List of (Match, per_candidate) where per_candidate maps gs_id -> (decision, reasoning)
+        gspp_idx: GS++ requirements by ID
+        gs_idx: GS requirements by ID
+        title: Title for the visualization
+    """
+    from .models import Match
+
+    # Extract data from matches
+    left_nodes = []
+    left_seen = set()
+    right_nodes = []
+    right_seen = set()
+    decision_by_edge: dict[str, str] = {}
+    reasoning_by_edge: dict[str, str] = {}
+
+    for (match, per_candidate) in matches:
+        gspp_id = match.gspp_id
+        if gspp_id not in left_seen:
+            left_nodes.append(gspp_id)
+            left_seen.add(gspp_id)
+
+        for gs_id in match.gs_candidates:
+            if gs_id not in right_seen:
+                right_nodes.append(gs_id)
+                right_seen.add(gs_id)
+            edge_key = f"{gspp_id}|||{gs_id}"
+            decision, reasoning = per_candidate.get(gs_id, ("error", ""))
+            decision_by_edge[edge_key] = decision
+            reasoning_by_edge[edge_key] = reasoning
+    
+    # Build edge color based on decision
+    left_x = 220
+    right_x = 980
+    top_margin = 80
+    lane_gap = 28
+    node_radius = 7
+    
+    height = max(320, top_margin * 2 + lane_gap * max(len(left_nodes), len(right_nodes), 1))
+    width = 1280
+    
+    left_y = {node: top_margin + i * lane_gap for i, node in enumerate(left_nodes)}
+    right_y = {node: top_margin + i * lane_gap for i, node in enumerate(right_nodes)}
+    
+    # Build edges with per-candidate discriminator decisions
+    edge_lines = []
+    for (match, per_candidate) in matches:
+        gspp_id = match.gspp_id
+        if gspp_id not in left_y:
+            continue
+
+        for gs_id in match.gs_candidates:
+            if gs_id not in right_y:
+                continue
+
+            y1 = left_y[gspp_id]
+            y2 = right_y[gs_id]
+            edge_key = f"{gspp_id}|||{gs_id}"
+            decision = decision_by_edge.get(edge_key, "error")
+            reasoning = reasoning_by_edge.get(edge_key, "")
+
+            # Color based on per-candidate decision
+            if decision == "keep":
+                color = "#2e7d32"  # Green
+                stroke_width = "2.6"
+                opacity = "0.95"
+            elif decision == "remove":
+                color = "#c62828"  # Red
+                stroke_width = "2.4"
+                opacity = "0.9"
+            else:
+                color = "#9e9e9e"  # Gray
+                stroke_width = "1.6"
+                opacity = "0.6"
+            
+            c1x = left_x + 250
+            c2x = right_x - 250
+            d = f"M {left_x} {y1} C {c1x} {y1}, {c2x} {y2}, {right_x} {y2}"
+            edge_key = f"{gspp_id}|||{gs_id}"
+            
+            edge_lines.append(
+                f'<path class="edge" data-edge-key="{html.escape(edge_key)}" '
+                f'data-decision="{decision}" data-reasoning="{html.escape(reasoning)}" '
+                f'd="{d}" stroke="{color}" stroke-width="{stroke_width}" fill="none" opacity="{opacity}" '
+                f'class="decision-{decision}" />'
+            )
+    
+    # Build SVG nodes
+    left_nodes_svg = []
+    for node in left_nodes:
+        y = left_y[node]
+        node_id = html.escape(node)
+        req = gspp_idx.get(node)
+        title_text = req.title if req else ""
+        left_nodes_svg.append(
+            f'<g class="node clickable" data-side="left" data-id="{node_id}" data-title="{html.escape(title_text)}" role="button" tabindex="0">'
+            f'<circle cx="{left_x}" cy="{y}" r="{node_radius}" fill="#0d47a1" />'
+            f'<text x="{left_x - 14}" y="{y + 4}" text-anchor="end" class="label-left">{node_id}</text>'
+            "</g>"
+        )
+    
+    right_nodes_svg = []
+    for node in right_nodes:
+        y = right_y[node]
+        node_id = html.escape(node)
+        req = gs_idx.get(node)
+        title_text = req.title if req else ""
+        right_nodes_svg.append(
+            f'<g class="node clickable" data-side="right" data-id="{node_id}" data-title="{html.escape(title_text)}" role="button" tabindex="0">'
+            f'<circle cx="{right_x}" cy="{y}" r="{node_radius}" fill="#004d40" />'
+            f'<text x="{right_x + 14}" y="{y + 4}" text-anchor="start" class="label-right">{node_id}</text>'
+            "</g>"
+        )
+    
+    # Count decisions per candidate edge
+    keep_count = sum(1 for d in decision_by_edge.values() if d == "keep")
+    remove_count = sum(1 for d in decision_by_edge.values() if d == "remove")
+    total = len(decision_by_edge)
+    
+    html_content = f"""<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{html.escape(title)}</title>
+  <style>
+    :root {{
+      --bg: #f8f7f4;
+      --panel: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+    }}
+    * {{ box-sizing: border-box; }}
+    body {{
+      margin: 0;
+      background:
+        radial-gradient(circle at 0% 0%, #f5efe3 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, #e7f3f0 0%, transparent 40%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+      padding: 20px;
+    }}
+    .card {{
+      max-width: 100%;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }}
+    h1 {{ margin: 0 0 8px; font-size: 1.15rem; letter-spacing: 0.01em; }}
+    p.meta {{ margin: 0 0 12px; color: var(--muted); font-size: 0.92rem; }}
+    .legend {{ display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0 14px; color: var(--muted); font-size: 0.88rem; }}
+    .dot {{ width: 10px; height: 10px; border-radius: 99px; display: inline-block; margin-right: 6px; }}
+    .viewport {{ overflow: auto; border: 1px solid #e5e7eb; border-radius: 10px; background: #fcfcfc; }}
+    svg {{ width: 100%; min-width: 1100px; height: auto; display: block; }}
+    .clickable {{ cursor: pointer; }}
+    .clickable:hover circle {{ stroke: #111827; stroke-width: 2; }}
+    .edge {{ cursor: help; }}
+    .edge:hover {{ stroke-width: 3 !important; opacity: 1 !important; }}
+    .decision-keep {{ stroke: #2e7d32 !important; }}
+    .decision-remove {{ stroke: #c62828 !important; stroke-dasharray: 6 3; }}
+    .decision-error {{ stroke: #ffb300 !important; }}
+    .label-left, .label-right {{ fill: var(--ink); font-size: 12px; font-weight: 500; }}
+    .column-title {{ fill: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }}
+    .details {{ margin-top: 14px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; padding: 12px; }}
+    .status {{ font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }}
+    .stats-box {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0 14px; }}
+    .stat-item {{ 
+      border: 1px solid #e5e7eb; 
+      border-radius: 8px; 
+      padding: 10px; 
+      text-align: center; 
+      background: #f9fafb;
+    }}
+    .stat-number {{ font-size: 1.5rem; font-weight: 600; }}
+    .stat-label {{ font-size: 0.9rem; color: var(--muted); margin-top: 4px; }}
+    .node-details {{ border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin: 8px 0; background: #fafafa; }}
+    .node-title {{ font-weight: 600; margin-bottom: 6px; }}
+    .junction-list {{ max-height: 300px; overflow-y: auto; }}
+    .junction-item {{ padding: 6px; margin: 4px 0; border-left: 3px solid #ddd; padding-left: 10px; font-size: 0.9rem; }}
+    .junction-item.keep {{ border-left-color: #2e7d32; background: #f0f9f0; }}
+    .junction-item.remove {{ border-left-color: #c62828; background: #fef0f0; }}
+    .junction-item.error {{ border-left-color: #ffb300; background: #fff8f0; }}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>{html.escape(title)}</h1>
+    <p class="meta">GS++ nodes: {len(left_nodes)} | GS nodes: {len(right_nodes)} | Connections: {total} ({keep_count} kept, {remove_count} removed)</p>
+    <div class="legend">
+      <span><span class="dot" style="background:#2e7d32"></span>Kept ({keep_count})</span>
+      <span><span class="dot" style="background:#c62828"></span>Removed ({remove_count})</span>
+      <span><span class="dot" style="background:#ffb300"></span>Error ({total - keep_count - remove_count})</span>
+    </div>
+    <div class="stats-box">
+      <div class="stat-item">
+        <div class="stat-number" style="color: #2e7d32;">{keep_count}</div>
+        <div class="stat-label">Kept</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" style="color: #c62828;">{remove_count}</div>
+        <div class="stat-label">Removed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"style="color: #ffb300;">{total - keep_count - remove_count}</div>
+        <div class="stat-label">Errors</div>
+      </div>
+    </div>
+    <div class="viewport">
+      <svg viewBox="0 0 {width} {height}" role="img" aria-label="GS++ zu GS Mapping (Discriminated)">
+        <text x="70" y="36" class="column-title">GS++ (neu)</text>
+        <text x="910" y="36" class="column-title">GS (klassisch)</text>
+        {''.join(edge_lines)}
+        {''.join(left_nodes_svg)}
+        {''.join(right_nodes_svg)}
+      </svg>
+    </div>
+    <div class="details">
+      <h2>Connection Details</h2>
+      <p class="meta">Hover over edges or click nodes to see mapping details or click an edge to see discriminator reasoning.</p>
+      <div id="connection-info">
+        <p class="meta">Hover over a connection or click a node to display details.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function escapeHtml(value) {{
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }}
+    
+    document.querySelectorAll('.edge').forEach((edge) => {{
+      edge.addEventListener('click', (ev) => {{
+        ev.stopPropagation();
+        const decision = edge.dataset.decision;
+        const reasoning = edge.dataset.reasoning;
+        const info = document.getElementById('connection-info');
+        
+        const decisionLabel = decision === 'keep' ? '✓ Kept' : decision === 'remove' ? '✗ Removed' : '⚠ Error';
+        const decisionColor = decision === 'keep' ? '#2e7d32' : decision === 'remove' ? '#c62828' : '#ffb300';
+        
+        info.innerHTML = `
+          <div style="border-left: 4px solid ${{decisionColor}}; padding: 10px; background: rgba(${{+(decision === 'accept')}} ? 0, 125, 50 : ${{+(decision === 'deny')}} ? 198, 40, 40 : 255, 179, 0, 0.1);">
+            <div style="font-weight: 600; color: ${{decisionColor}};">${{decisionLabel}}</div>
+            <div style="margin-top: 8px; color: #6b7280; font-size: 0.9rem;">
+              <strong>Reasoning:</strong>
+              <pre style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; margin-top: 6px; white-space: pre-wrap; word-wrap: break-word; font-size: 0.85rem; max-height: 300px; overflow-y: auto;">${{escapeHtml(reasoning)}}</pre>
+            </div>
+          </div>
+        `;
+      }});
+    }});
+    
+    document.querySelectorAll('.node.clickable').forEach((node) => {{
+      node.addEventListener('click', (ev) => {{
+        ev.stopPropagation();
+        const side = node.dataset.side;
+        const id = node.dataset.id;
+        const title = node.dataset.title;
+        const info = document.getElementById('connection-info');
+        
+        let html = `<div class="node-details">
+          <div class="node-title">${{side === 'left' ? 'GS++' : 'GS'}}: ${{escapeHtml(id)}} — ${{escapeHtml(title)}}</div>`;
+        
+        if (side === 'left') {{
+          html += '<div class="junction-list"><strong>Connected GS nodes:</strong><br/>';
+          // Find all edges from this left node
+          document.querySelectorAll('.edge[data-edge-key*="' + id + '|||"]').forEach((edge) => {{
+            const edgeKey = edge.dataset.edgeKey;
+            const parts = edgeKey.split('|||');
+            if (parts.length === 2 && parts[0] === id) {{
+              const rightId = parts[1];
+              const decision = edge.dataset.decision;
+              const decisionClass = 'junction-item ' + decision;
+              const label = decision === 'keep' ? '✓' : decision === 'remove' ? '✗' : '⚠';
+              html += `<div class="${{decisionClass}}">${{label}} ${{escapeHtml(rightId)}}</div>`;
+            }}
+          }});
+          html += '</div>';
+        }} else {{
+          html += '<div class="junction-list"><strong>Connected GS++ nodes:</strong><br/>';
+          // Find all edges to this right node
+          document.querySelectorAll('.edge[data-edge-key*="|||' + id + '"]').forEach((edge) => {{
+            const edgeKey = edge.dataset.edgeKey;
+            const parts = edgeKey.split('|||');
+            if (parts.length === 2 && parts[1] === id) {{
+              const leftId = parts[0];
+              const decision = edge.dataset.decision;
+              const decisionClass = 'junction-item ' + decision;
+              const label = decision === 'keep' ? '✓' : decision === 'remove' ? '✗' : '⚠';
+              html += `<div class="${{decisionClass}}">${{label}} ${{escapeHtml(leftId)}}</div>`;
+            }}
+          }});
+          html += '</div>';
+        }}
+        
+        html += '</div>';
+        info.innerHTML = html;
+      }});
+    }});
+  </script>
+</body>
+</html>
+"""
+    
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(html_content, encoding="utf-8")
 
 
 if __name__ == "__main__":

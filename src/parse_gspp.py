@@ -82,7 +82,7 @@ def parse(
         if not cid.startswith(scope_prefix):
             continue
         prose = _prose(ctrl)
-        if not prose:
+        if not prose.strip():
             continue
         context = " / ".join(p for p in parents if p)
         all_reqs.append(
@@ -99,7 +99,7 @@ def parse(
     if 0 < sample_ratio_per_category < 1:
         rng = random.Random(random_seed)
         by_category: dict[str, list[Requirement]] = {}
-        for req in out:
+        for req in all_reqs:
             category = req.id.split(".", 1)[0]
             by_category.setdefault(category, []).append(req)
 
@@ -108,9 +108,9 @@ def parse(
             bucket = by_category[category]
             k = _tiered_sample_size(len(bucket))
             sampled.extend(rng.sample(bucket, k=k))
-        out = sampled
+        all_reqs = sampled
 
-    return out
+    return all_reqs
 
 
 if __name__ == "__main__":

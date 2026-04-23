@@ -1,0 +1,111 @@
+# GS++ → IT-Grundschutz Mapping (Model: `gpt-5.4-mini+manual:gspp_compliance_v3approach`)
+
+Erzeugt: 2026-04-22T10:56:13
+
+**Gesamt:** 8 GS++-Anforderungen
+
+| Coverage | Anzahl |
+|---|---|
+| Voll abgedeckt | 0 |
+| Teilweise abgedeckt | 6 |
+| Keine Abdeckung | 2 |
+
+## Teilweise abgedeckt (6)
+
+### GC.2.1 — Festlegung des externen Kontextes der Institution
+- **Confidence:** 0.47
+- **Gemappte GS-Anforderungen:**
+  - `ISMS.1.A2` [Basis] Festlegung der Sicherheitsziele und -strategie — _ISMS.1 Sicherheitsmanagement_
+  - `ORP.5.A1` [Basis] Identifikation der Rahmenbedingungen — _ORP.5 Compliance Management (Anforderungsmanagement)_
+  - `ORP.5.A4` [Standard] Konzeption und Organisation des Compliance Managements — _ORP.5 Compliance Management (Anforderungsmanagement)_
+  - `ORP.5.A8` [Standard] Regelmäßige Überprüfungen des Compliance Managements — _ORP.5 Compliance Management (Anforderungsmanagement)_
+- **Begründung:** Gemittelte Kandidatenscores: ISMS.1.A2=0.47, ORP.5.A1=0.47, ORP.5.A4=0.47, ORP.5.A8=0.47
+Model-Entscheidungen:
+[gpt-5.4-mini] coverage=teilweise confidence=0.9300 gs_ids=ORP.5.A1;ORP.5.A4;ORP.5.A8;ISMS.1.A2
+[manual:gspp_compliance_v3approach] coverage=keine confidence=0.0000 gs_ids=
+Model-Begründungen:
+[gpt-5.4-mini] ORP.5.A1 und ORP.5.A4 decken den Teil der Anforderung ab, der die Identifikation und Dokumentation relevanter gesetzlicher, vertraglicher und sonstiger Vorgaben verlangt. ORP.5.A4 ergänzt dies um die organisatorische Verankerung eines Compliance-Prozesses zur Ermittlung und Behandlung solcher Vorgaben. ORP.5.A8 passt insofern, als es die regelmäßige Überprüfung des Compliance-Managements und seiner Prozesse fordert. ISMS.1.A2 deckt den übergeordneten Bezug zur Festlegung und regelmäßigen Überprüfung der Sicherheitsziele und -strategie ab, also den Teil, dass externe Rahmenbedingungen in die Sicherheitsstrategie einfließen müssen. Die GS++-Anforderung geht jedoch deutlich weiter, weil sie explizit eine systematische Sammlung, Integration und Priorisierung aller relevanten externen Kontextfaktoren fordert, einschließlich gesellschaftlicher, kultureller, technologischer, wirtschaftlicher sowie ökologischer und physischer Umweltbedingungen; diese Aspekte werden von den Kandidaten nicht vollständig abgedeckt.
+- **Lücken:** [gpt-5.4-mini] Nicht abgedeckt bzw. nur unzureichend abgedeckt sind insbesondere die Analyse und Priorisierung nicht-rechtlicher externer Kontextfaktoren wie gesellschaftliche/kulturelle Erwartungen, technologische Entwicklungen, wirtschaftliche Marktbedingungen sowie ökologische und physische Standortbedingungen. Auch die explizite Priorisierung aller externen Rahmenbedingungen ist in den Kandidaten nicht in dieser Breite enthalten.
+
+### GC.3.1 — Analyse der externen interessierten Parteien
+- **Confidence:** 0.45
+- **Gemappte GS-Anforderungen:**
+  - `ORP.5.A2` [Basis] Beachtung der Rahmenbedingungen — _ORP.5 Compliance Management (Anforderungsmanagement)_
+  - `ORP.5.A4` [Standard] Konzeption und Organisation des Compliance Managements — _ORP.5 Compliance Management (Anforderungsmanagement)_
+- **Begründung:** Gemittelte Kandidatenscores: ORP.5.A2=0.45, ORP.5.A4=0.45
+Model-Entscheidungen:
+[gpt-5.4-mini] coverage=teilweise confidence=0.8900 gs_ids=ORP.5.A4;ORP.5.A2
+[manual:gspp_compliance_v3approach] coverage=keine confidence=0.0000 gs_ids=
+Model-Begründungen:
+[gpt-5.4-mini] ORP.5.A4 und ORP.5.A2 greifen den Kern der Anforderung auf, dass für das Informationssicherheitsmanagement relevante Anforderungen zu identifizieren, zu berücksichtigen und in Prozesse zu überführen sind. ORP.5.A4 fordert einen Prozess zur Identifikation aller relevanten gesetzlichen, vertraglichen und sonstigen Vorgaben mit Auswirkungen auf das Informationssicherheitsmanagement sowie deren Einordnung und Überführung in Maßnahmen. ORP.5.A2 verlangt, sicherheitsrelevante Anforderungen bei Planung, Konzeption und Beschaffung zu berücksichtigen und Maßnahmen zur Vermeidung von Verstößen umzusetzen. Damit ist die organisatorische Verarbeitung externer Anforderungen weitgehend abgedeckt.
+- **Lücken:** [gpt-5.4-mini] Nicht vollständig abgedeckt ist die spezifische Pflicht, alle externen interessierten Parteien systematisch zu ermitteln, ihre Bedürfnisse und Erwartungen als solche zu erfassen und die Relevanz bzw. Priorität dieser Anforderungen explizit zu bewerten. ORP.5.A4 adressiert primär Vorgaben/Compliance-Anforderungen, nicht ausdrücklich den Stakeholder-Begriff samt Priorisierung und Festlegung verbindlicher Verpflichtungen aus Stakeholder-Erwartungen.
+
+### GC.6.1.4 — Freigabe der Sicherheitsleitlinie
+- **Confidence:** 0.48
+- **Gemappte GS-Anforderungen:**
+  - `ISMS.1.A3` [Basis] Erstellung einer Leitlinie zur Informationssicherheit — _ISMS.1 Sicherheitsmanagement_
+- **Begründung:** Gemittelte Kandidatenscores: ISMS.1.A3=0.48
+Model-Entscheidungen:
+[gpt-5.4-mini] coverage=voll confidence=0.9600 gs_ids=ISMS.1.A3
+[manual:gspp_compliance_v3approach] coverage=keine confidence=0.0000 gs_ids=
+Model-Begründungen:
+[gpt-5.4-mini] ISMS.1.A3 passt inhaltlich direkt: Es fordert, dass die Institutionsleitung eine übergeordnete Leitlinie zur Informationssicherheit verabschiedet. Die GS++-Anforderung GC.6.1.4 verlangt ebenfalls die Autorisierung/Freigabe der festgelegten Sicherheitsleitlinie durch die Institutionsleitung. Damit ist der zentrale Regelungsgegenstand identisch, nämlich die formale Billigung der Sicherheitsleitlinie durch die Leitung.
+
+### GC.7.1 — Verfahren und Regelungen
+- **Confidence:** 0.47
+- **Gemappte GS-Anforderungen:**
+  - `ORP.5.A1` [Basis] Identifikation der Rahmenbedingungen — _ORP.5 Compliance Management (Anforderungsmanagement)_
+  - `ORP.5.A2` [Basis] Beachtung der Rahmenbedingungen — _ORP.5 Compliance Management (Anforderungsmanagement)_
+  - `ORP.5.A4` [Standard] Konzeption und Organisation des Compliance Managements — _ORP.5 Compliance Management (Anforderungsmanagement)_
+- **Begründung:** Gemittelte Kandidatenscores: ORP.5.A1=0.47, ORP.5.A2=0.47, ORP.5.A4=0.47
+Model-Entscheidungen:
+[gpt-5.4-mini] coverage=voll confidence=0.9400 gs_ids=ORP.5.A1;ORP.5.A4;ORP.5.A2
+[manual:gspp_compliance_v3approach] coverage=keine confidence=0.0000 gs_ids=
+Model-Begründungen:
+[gpt-5.4-mini] ORP.5.A1 deckt die Identifikation und Dokumentation aller gesetzlichen, vertraglichen und sonstigen Vorgaben mit Auswirkungen auf das Informationssicherheitsmanagement ab. ORP.5.A4 ergänzt dies um den Aufbau eines Prozesses zur Identifikation relevanter Vorgaben sowie geeigneter Prozesse und Organisationsstrukturen, um die rechtlichen Rahmenbedingungen überblickbar zu machen und Sicherheitsanforderungen in das Compliance Management zu integrieren. ORP.5.A2 ergänzt die Beachtung der als sicherheitsrelevant identifizierten Anforderungen, die Festlegung von Verantwortlichkeiten sowie das Ableiten und Umsetzen geeigneter Maßnahmen zur Vermeidung von Verstößen. Zusammen bilden diese Anforderungen das geforderte Verfahren zur Sammlung, Integration und Priorisierung aller relevanten Rahmenbedingungen inhaltlich vollständig ab.
+- **Lücken:** [gpt-5.4-mini] Die GS++-Anforderung nennt zusätzlich explizit die Priorisierung aller relevanten Rahmenbedingungen; diese Priorisierungslogik ist in den Kandidaten nur implizit enthalten, aber durch die Kombination aus Identifikation, Integration in Prozesse und Maßnahmensteuerung ausreichend abgedeckt.
+
+### GC.7.1.2 — Anhörung zuständiger Stellen
+- **Confidence:** 0.39
+- **Gemappte GS-Anforderungen:**
+  - `DER.2.1.A4` [Basis] Benachrichtigung betroffener Stellen bei Sicherheitsvorfällen — _DER.2.1 Behandlung von Sicherheitsvorfällen_
+  - `DER.2.2.A1` [Basis] Prüfung rechtlicher und regulatorischer Rahmenbedingungen zur Erfassung und Auswertbarkeit — _DER.2.2 Vorsorge für die IT-Forensik_
+  - `ORP.5.A4` [Standard] Konzeption und Organisation des Compliance Managements — _ORP.5 Compliance Management (Anforderungsmanagement)_
+- **Begründung:** Gemittelte Kandidatenscores: DER.2.1.A4=0.39, DER.2.2.A1=0.39, ORP.5.A4=0.39
+Model-Entscheidungen:
+[gpt-5.4-mini] coverage=teilweise confidence=0.7800 gs_ids=ORP.5.A4;DER.2.1.A4;DER.2.2.A1
+[manual:gspp_compliance_v3approach] coverage=keine confidence=0.0000 gs_ids=
+Model-Begründungen:
+[gpt-5.4-mini] ORP.5.A4 passt am ehesten, weil dort ein Prozess zur Identifikation relevanter gesetzlicher und sonstiger Vorgaben aufgebaut werden soll und Zuständige für das Compliance Management festgelegt werden. Das deckt den allgemeinen Compliance-Management-Rahmen ab, aber nicht ausdrücklich das Anhören zuständiger Stellen. DER.2.1.A4 und DER.2.2.A1 nennen jeweils die Einbeziehung bestimmter zuständiger Stellen wie Datenschutzbeauftragte, Rechtsabteilung sowie Betriebs- oder Personalrat bei konkreten Vorgängen. Diese Anforderungen zeigen zwar die grundsätzliche Beteiligung zuständiger Stellen, beziehen sich aber nur auf Sicherheitsvorfälle bzw. forensische Untersuchungen und nicht auf die allgemeine Dokumentation von Compliance-Verpflichtungen. Insgesamt ist damit die Anhörung zuständiger Stellen nur teilweise abgedeckt.
+- **Lücken:** [gpt-5.4-mini] Nicht abgedeckt ist die allgemeine, vorgelagerte Anhörung zuständiger Stellen bei der Dokumentation von Compliance-Verpflichtungen als eigenständiges Governance-Verfahren. Die Kandidaten adressieren nur einzelne Anlässe bzw. Teilprozesse (Identifikation von Vorgaben, Vorfallbehandlung, Forensik), aber keine generelle Pflicht zur systematischen Einbindung aller fachlich zuständigen Stellen (z. B. Rechtsabteilung, Datenschutz, Brandschutz, Fachverantwortliche) für alle Compliance-Verpflichtungen.
+
+### GC.8.1.1.1.1 — Vorspracherecht des Informationssicherheitsbeauftragten
+- **Confidence:** 0.92
+- **Gemappte GS-Anforderungen:**
+  - `ISMS.1.A4` [Basis] Benennung eines oder einer Informationssicherheitsbeauftragten — _ISMS.1 Sicherheitsmanagement_
+  - `ISMS.1.A1` [Basis] Übernahme der Gesamtverantwortung für Informationssicherheit durch die Leitung — _ISMS.1 Sicherheitsmanagement_
+  - `ISMS.1.A12` [Standard] Management-Berichte zur Informationssicherheit — _ISMS.1 Sicherheitsmanagement_
+- **Begründung:** ISMS.1.A4 passt am nächsten, weil dort die Institutionsleitung dem oder der ISB ausdrücklich die Möglichkeit einräumen MUSS, bei Bedarf direkt an sie selbst zu berichten. Das deckt das Grundanliegen eines direkten Zugangs zur Leitung inhaltlich teilweise ab. ISMS.1.A1 ergänzt dies, da die Institutionsleitung sich regelmäßig über den Status der Informationssicherheit informieren lassen MUSS und damit die Berichtslinie zur Leitung grundsätzlich verankert ist. ISMS.1.A12 konkretisiert dies zusätzlich durch regelmäßige Management-Berichte an die Institutionsleitung. Keiner der drei Kandidaten fordert jedoch ausdrücklich ein direktes Vorspracherecht des ISB, also ein originäres, institutionell verankertes Recht auf unmittelbare persönliche Vorprache bei der Leitung ohne Umweg über andere Stellen.
+- **Lücken:** Nicht abgedeckt ist die explizite Verankerung eines direkten Vorspracherechts des ISB als formales Recht gegenüber der Institutionsleitung. Die Kandidaten regeln nur Berichtsmöglichkeit bzw. regelmäßige Information der Leitung, aber nicht die verbindliche, direkte Vortrags- oder Vorsprachebefugnis des ISB als solche.
+
+## Keine Abdeckung (2)
+
+### GC.3.2 — Analyse der internen interessierten Parteien
+- **Confidence:** 0.48
+- **Begründung:** Kein GS-Kandidat wurde von den kombinierten Modellen ausgewählt.
+Model-Entscheidungen:
+[gpt-5.4-mini] coverage=keine confidence=0.9700 gs_ids=
+[manual:gspp_compliance_v3approach] coverage=keine confidence=0.0000 gs_ids=
+Model-Begründungen:
+[gpt-5.4-mini] Keine der Kandidatenanforderungen deckt das geforderte Verfahren zum Ermitteln aller internen interessierten Parteien und ihrer Bedürfnisse/Erwartungen an das Informationssicherheitsmanagement ab. ORP.5.A4 und ORP.5.A8 behandeln Compliance-Management bzw. dessen Überprüfung, aber nicht die systematische Stakeholder-Analyse. DER.2.2.A1, DER.2.1.A4 und DER.2.1.A5 betreffen Vorfälle und Einbeziehung einzelner Stellen im Kontext von Vorfällen, nicht die allgemeine Ermittlung interner interessierter Parteien. Die übrigen Kandidaten sind fachlich themenfremd.
+- **Lücken:** [gpt-5.4-mini] Es fehlt eine Anforderung zur formalen Identifikation interner Stakeholder (z. B. Geschäftsführung, Mitarbeitende, Führungskräfte, Betriebs-/Personalrat) sowie zur Erhebung ihrer Bedürfnisse und Erwartungen bezogen auf das ISMS.
+
+### GC.5.1.1 — Festlegung der Geschäftsprozesse
+- **Confidence:** 0.48
+- **Begründung:** Kein GS-Kandidat wurde von den kombinierten Modellen ausgewählt.
+Model-Entscheidungen:
+[gpt-5.4-mini] coverage=keine confidence=0.9700 gs_ids=
+[manual:gspp_compliance_v3approach] coverage=keine confidence=0.0000 gs_ids=
+Model-Begründungen:
+[gpt-5.4-mini] Keine der Kandidaten beschreibt die Festlegung der für den Geltungsbereich relevanten Geschäftsprozesse als Governance-Aufgabe. Die meisten Kandidaten behandeln andere Themen wie Compliance-Management, Betriebsprozesse, Notfallmanagement, Cloud-Nutzung oder technische Schutzmaßnahmen. Am ehesten berühren ORP.5.A4 und OPS.1.1.1.A12 zwar organisatorische Prozesse, aber sie verlangen weder die Ermittlung noch die verbindliche Festlegung der relevanten Geschäftsprozesse im Sinne der Grundschutz++-Anforderung.
+- **Lücken:** [gpt-5.4-mini] Nicht abgedeckt ist die eigentliche, vorgelagerte Governance-Leistung, die relevanten Geschäftsprozesse für den Scope festzulegen. Die Kandidaten adressieren höchstens verwandte Prozess- oder Compliance-Themen, aber keine vollständige Prozesslandkarte bzw. Prozessfestlegung für den Geltungsbereich.

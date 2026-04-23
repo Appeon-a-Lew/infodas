@@ -105,3 +105,59 @@ def write_markdown(
                 lines.append(f"- **Lücken:** {m.gap_notes}")
             lines.append("")
     path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def write_discriminated_csv(
+    path: Path,
+    matches: list[tuple[Match, dict[str, tuple[str, str]]]],
+    gspp_index: dict[str, Requirement],
+    gs_index: dict[str, Requirement],
+    discriminator_model: str,
+    original_model: str,
+) -> None:
+    """
+    Write discriminated matches to CSV, one row per GS candidate.
+
+    Args:
+        path: Output CSV file path
+        matches: List of (match, per_candidate) where per_candidate maps gs_id -> (decision, reasoning)
+        gspp_index: GS++ requirements by ID
+        gs_index: GS requirements by ID
+        discriminator_model: Name of the discriminator model used
+        original_model: Name of the original mapping model
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now().isoformat(timespec="seconds")
+    with path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow([
+            "gspp_id", "gspp_title", "gspp_level",
+            "coverage", "confidence",
+            "gs_id", "gs_title", "gs_baustein", "gs_level",
+            "rationale", "gap_notes",
+            "decision", "discriminator_reasoning",
+            "original_model", "discriminator_model", "timestamp",
+        ])
+        for m, per_candidate in matches:
+            g = gspp_index.get(m.gspp_id)
+            for gid in m.gs_candidates:
+                gs = gs_index.get(gid)
+                decision, reasoning = per_candidate.get(gid, ("unknown", ""))
+                w.writerow([
+                    m.gspp_id,
+                    g.title if g else "",
+                    g.level if g else "",
+                    m.coverage,
+                    f"{m.confidence:.2f}",
+                    gid,
+                    gs.title if gs else "",
+                    gs.baustein if gs else "",
+                    gs.level if gs else "",
+                    m.rationale,
+                    m.gap_notes or "",
+                    decision,
+                    reasoning,
+                    original_model,
+                    discriminator_model,
+                    ts,
+                ])

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GS++ → GS Mapping (Discriminated by gpt-5.4)</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --panel: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 0% 0%, #f5efe3 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, #e7f3f0 0%, transparent 40%),
+        var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+      padding: 20px;
+    }
+    .card {
+      max-width: 100%;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.15rem; letter-spacing: 0.01em; }
+    p.meta { margin: 0 0 12px; color: var(--muted); font-size: 0.92rem; }
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0 14px; color: var(--muted); font-size: 0.88rem; }
+    .dot { width: 10px; height: 10px; border-radius: 99px; display: inline-block; margin-right: 6px; }
+    .viewport { overflow: auto; border: 1px solid #e5e7eb; border-radius: 10px; background: #fcfcfc; }
+    svg { width: 100%; min-width: 1100px; height: auto; display: block; }
+    .clickable { cursor: pointer; }
+    .clickable:hover circle { stroke: #111827; stroke-width: 2; }
+    .edge { cursor: help; }
+    .edge:hover { stroke-width: 3 !important; opacity: 1 !important; }
+    .decision-keep { stroke: #2e7d32 !important; }
+    .decision-remove { stroke: #c62828 !important; stroke-dasharray: 6 3; }
+    .decision-error { stroke: #ffb300 !important; }
+    .label-left, .label-right { fill: var(--ink); font-size: 12px; font-weight: 500; }
+    .column-title { fill: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+    .details { margin-top: 14px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; padding: 12px; }
+    .status { font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
+    .stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0 14px; }
+    .stat-item { 
+      border: 1px solid #e5e7eb; 
+      border-radius: 8px; 
+      padding: 10px; 
+      text-align: center; 
+      background: #f9fafb;
+    }
+    .stat-number { font-size: 1.5rem; font-weight: 600; }
+    .stat-label { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+    .node-details { border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin: 8px 0; background: #fafafa; }
+    .node-title { font-weight: 600; margin-bottom: 6px; }
+    .junction-list { max-height: 300px; overflow-y: auto; }
+    .junction-item { padding: 6px; margin: 4px 0; border-left: 3px solid #ddd; padding-left: 10px; font-size: 0.9rem; }
+    .junction-item.keep { border-left-color: #2e7d32; background: #f0f9f0; }
+    .junction-item.remove { border-left-color: #c62828; background: #fef0f0; }
+    .junction-item.error { border-left-color: #ffb300; background: #fff8f0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>GS++ → GS Mapping (Discriminated by gpt-5.4)</h1>
+    <p class="meta">GS++ nodes: 8 | GS nodes: 9 | Connections: 14 (14 kept, 0 removed)</p>
+    <div class="legend">
+      <span><span class="dot" style="background:#2e7d32"></span>Kept (14)</span>
+      <span><span class="dot" style="background:#c62828"></span>Removed (0)</span>
+      <span><span class="dot" style="background:#ffb300"></span>Error (0)</span>
+    </div>
+    <div class="stats-box">
+      <div class="stat-item">
+        <div class="stat-number" style="color: #2e7d32;">14</div>
+        <div class="stat-label">Kept</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" style="color: #c62828;">0</div>
+        <div class="stat-label">Removed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"style="color: #ffb300;">0</div>
+        <div class="stat-label">Errors</div>
+      </div>
+    </div>
+    <div class="viewport">
+      <svg viewBox="0 0 1280 412" role="img" aria-label="GS++ zu GS Mapping (Discriminated)">
+        <text x="70" y="36" class="column-title">GS++ (neu)</text>
+        <text x="910" y="36" class="column-title">GS (klassisch)</text>
+        <path class="edge" data-edge-key="GC.2.1|||ORP.5.A1" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 108 C 470 108, 730 80, 980 80" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.2.1|||ORP.5.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 108 C 470 108, 730 108, 980 108" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1.2|||DER.2.1.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 136 C 470 136, 730 136, 980 136" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1.2|||DER.2.2.A1" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 136 C 470 136, 730 164, 980 164" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1.2|||ORP.5.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 136 C 470 136, 730 108, 980 108" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1|||ORP.5.A1" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 164 C 470 164, 730 80, 980 80" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1|||ORP.5.A2" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 164 C 470 164, 730 192, 980 192" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.7.1|||ORP.5.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 164 C 470 164, 730 108, 980 108" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.6.1.4|||ISMS.1.A3" data-decision="keep" data-reasoning="Deckt die Kernaspekte &#x27;Sicherheitsleitlinie ist vorhanden/festgelegt&#x27; und &#x27;Institutionsleitung entscheidet über die Leitlinie&#x27; ab, da die Institutionsleitung die Leitlinie zur Informationssicherheit verabschieden muss. Die in GC.6.1.4 geforderte explizite formale Autorisierung/Freigabe ist damit zwar nur teilweise und nicht in gleicher Spezifität abgebildet, aber im aktuellen Set gibt es keine andere GS-Anforderung, die diesen Aspekt übernimmt. Ohne ISMS.1.A3 bliebe somit kein Kernaspekt der Leitlinien-Freigabe durch die Institutionsleitung mehr abgedeckt; daher ist sie nicht redundant." d="M 220 192 C 470 192, 730 220, 980 220" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.8.1.1.1.1|||ISMS.1.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 248 C 470 248, 730 248, 980 248" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.8.1.1.1.1|||ISMS.1.A1" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 248 C 470 248, 730 276, 980 276" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.8.1.1.1.1|||ISMS.1.A12" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 248 C 470 248, 730 304, 980 304" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.3.1|||ORP.5.A2" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 276 C 470 276, 730 192, 980 192" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" /><path class="edge" data-edge-key="GC.3.1|||ORP.5.A4" data-decision="keep" data-reasoning="Keine Entscheidung erhalten - als notwendig betrachtet" d="M 220 276 C 470 276, 730 108, 980 108" stroke="#2e7d32" stroke-width="2.6" fill="none" opacity="0.95" class="decision-keep" />
+        <g class="node clickable" data-side="left" data-id="GC.5.1.1" data-title="Festlegung der Geschäftsprozesse" role="button" tabindex="0"><circle cx="220" cy="80" r="7" fill="#0d47a1" /><text x="206" y="84" text-anchor="end" class="label-left">GC.5.1.1</text></g><g class="node clickable" data-side="left" data-id="GC.2.1" data-title="Festlegung des externen Kontextes der Institution" role="button" tabindex="0"><circle cx="220" cy="108" r="7" fill="#0d47a1" /><text x="206" y="112" text-anchor="end" class="label-left">GC.2.1</text></g><g class="node clickable" data-side="left" data-id="GC.7.1.2" data-title="Anhörung zuständiger Stellen" role="button" tabindex="0"><circle cx="220" cy="136" r="7" fill="#0d47a1" /><text x="206" y="140" text-anchor="end" class="label-left">GC.7.1.2</text></g><g class="node clickable" data-side="left" data-id="GC.7.1" data-title="Verfahren und Regelungen" role="button" tabindex="0"><circle cx="220" cy="164" r="7" fill="#0d47a1" /><text x="206" y="168" text-anchor="end" class="label-left">GC.7.1</text></g><g class="node clickable" data-side="left" data-id="GC.6.1.4" data-title="Freigabe der Sicherheitsleitlinie" role="button" tabindex="0"><circle cx="220" cy="192" r="7" fill="#0d47a1" /><text x="206" y="196" text-anchor="end" class="label-left">GC.6.1.4</text></g><g class="node clickable" data-side="left" data-id="GC.3.2" data-title="Analyse der internen interessierten Parteien" role="button" tabindex="0"><circle cx="220" cy="220" r="7" fill="#0d47a1" /><text x="206" y="224" text-anchor="end" class="label-left">GC.3.2</text></g><g class="node clickable" data-side="left" data-id="GC.8.1.1.1.1" data-title="Vorspracherecht des Informationssicherheitsbeauftragten" role="button" tabindex="0"><circle cx="220" cy="248" r="7" fill="#0d47a1" /><text x="206" y="252" text-anchor="end" class="label-left">GC.8.1.1.1.1</text></g><g class="node clickable" data-side="left" data-id="GC.3.1" data-title="Analyse der externen interessierten Parteien" role="button" tabindex="0"><circle cx="220" cy="276" r="7" fill="#0d47a1" /><text x="206" y="280" text-anchor="end" class="label-left">GC.3.1</text></g>
+        <g class="node clickable" data-side="right" data-id="ORP.5.A1" data-title="Identifikation der Rahmenbedingungen" role="button" tabindex="0"><circle cx="980" cy="80" r="7" fill="#004d40" /><text x="994" y="84" text-anchor="start" class="label-right">ORP.5.A1</text></g><g class="node clickable" data-side="right" data-id="ORP.5.A4" data-title="Konzeption und Organisation des Compliance Managements" role="button" tabindex="0"><circle cx="980" cy="108" r="7" fill="#004d40" /><text x="994" y="112" text-anchor="start" class="label-right">ORP.5.A4</text></g><g class="node clickable" data-side="right" data-id="DER.2.1.A4" data-title="Benachrichtigung betroffener Stellen bei Sicherheitsvorfällen" role="button" tabindex="0"><circle cx="980" cy="136" r="7" fill="#004d40" /><text x="994" y="140" text-anchor="start" class="label-right">DER.2.1.A4</text></g><g class="node clickable" data-side="right" data-id="DER.2.2.A1" data-title="Prüfung rechtlicher und regulatorischer Rahmenbedingungen zur Erfassung und Auswertbarkeit" role="button" tabindex="0"><circle cx="980" cy="164" r="7" fill="#004d40" /><text x="994" y="168" text-anchor="start" class="label-right">DER.2.2.A1</text></g><g class="node clickable" data-side="right" data-id="ORP.5.A2" data-title="Beachtung der Rahmenbedingungen" role="button" tabindex="0"><circle cx="980" cy="192" r="7" fill="#004d40" /><text x="994" y="196" text-anchor="start" class="label-right">ORP.5.A2</text></g><g class="node clickable" data-side="right" data-id="ISMS.1.A3" data-title="Erstellung einer Leitlinie zur Informationssicherheit" role="button" tabindex="0"><circle cx="980" cy="220" r="7" fill="#004d40" /><text x="994" y="224" text-anchor="start" class="label-right">ISMS.1.A3</text></g><g class="node clickable" data-side="right" data-id="ISMS.1.A4" data-title="Benennung eines oder einer Informationssicherheitsbeauftragten" role="button" tabindex="0"><circle cx="980" cy="248" r="7" fill="#004d40" /><text x="994" y="252" text-anchor="start" class="label-right">ISMS.1.A4</text></g><g class="node clickable" data-side="right" data-id="ISMS.1.A1" data-title="Übernahme der Gesamtverantwortung für Informationssicherheit durch die Leitung" role="button" tabindex="0"><circle cx="980" cy="276" r="7" fill="#004d40" /><text x="994" y="280" text-anchor="start" class="label-right">ISMS.1.A1</text></g><g class="node clickable" data-side="right" data-id="ISMS.1.A12" data-title="Management-Berichte zur Informationssicherheit" role="button" tabindex="0"><circle cx="980" cy="304" r="7" fill="#004d40" /><text x="994" y="308" text-anchor="start" class="label-right">ISMS.1.A12</text></g>
+      </svg>
+    </div>
+    <div class="details">
+      <h2>Connection Details</h2>
+      <p class="meta">Hover over edges or click nodes to see mapping details or click an edge to see discriminator reasoning.</p>
+      <div id="connection-info">
+        <p class="meta">Hover over a connection or click a node to display details.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+    
+    document.querySelectorAll('.edge').forEach((edge) => {
+      edge.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const decision = edge.dataset.decision;
+        const reasoning = edge.dataset.reasoning;
+        const info = document.getElementById('connection-info');
+        
+        const decisionLabel = decision === 'keep' ? '✓ Kept' : decision === 'remove' ? '✗ Removed' : '⚠ Error';
+        const decisionColor = decision === 'keep' ? '#2e7d32' : decision === 'remove' ? '#c62828' : '#ffb300';
+        
+        info.innerHTML = `
+          <div style="border-left: 4px solid ${decisionColor}; padding: 10px; background: rgba(${+(decision === 'accept')} ? 0, 125, 50 : ${+(decision === 'deny')} ? 198, 40, 40 : 255, 179, 0, 0.1);">
+            <div style="font-weight: 600; color: ${decisionColor};">${decisionLabel}</div>
+            <div style="margin-top: 8px; color: #6b7280; font-size: 0.9rem;">
+              <strong>Reasoning:</strong>
+              <pre style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; margin-top: 6px; white-space: pre-wrap; word-wrap: break-word; font-size: 0.85rem; max-height: 300px; overflow-y: auto;">${escapeHtml(reasoning)}</pre>
+            </div>
+          </div>
+        `;
+      });
+    });
+    
+    document.querySelectorAll('.node.clickable').forEach((node) => {
+      node.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const side = node.dataset.side;
+        const id = node.dataset.id;
+        const title = node.dataset.title;
+        const info = document.getElementById('connection-info');
+        
+        let html = `<div class="node-details">
+          <div class="node-title">${side === 'left' ? 'GS++' : 'GS'}: ${escapeHtml(id)} — ${escapeHtml(title)}</div>`;
+        
+        if (side === 'left') {
+          html += '<div class="junction-list"><strong>Connected GS nodes:</strong><br/>';
+          // Find all edges from this left node
+          document.querySelectorAll('.edge[data-edge-key*="' + id + '|||"]').forEach((edge) => {
+            const edgeKey = edge.dataset.edgeKey;
+            const parts = edgeKey.split('|||');
+            if (parts.length === 2 && parts[0] === id) {
+              const rightId = parts[1];
+              const decision = edge.dataset.decision;
+              const decisionClass = 'junction-item ' + decision;
+              const label = decision === 'keep' ? '✓' : decision === 'remove' ? '✗' : '⚠';
+              html += `<div class="${decisionClass}">${label} ${escapeHtml(rightId)}</div>`;
+            }
+          });
+          html += '</div>';
+        } else {
+          html += '<div class="junction-list"><strong>Connected GS++ nodes:</strong><br/>';
+          // Find all edges to this right node
+          document.querySelectorAll('.edge[data-edge-key*="|||' + id + '"]').forEach((edge) => {
+            const edgeKey = edge.dataset.edgeKey;
+            const parts = edgeKey.split('|||');
+            if (parts.length === 2 && parts[1] === id) {
+              const leftId = parts[0];
+              const decision = edge.dataset.decision;
+              const decisionClass = 'junction-item ' + decision;
+              const label = decision === 'keep' ? '✓' : decision === 'remove' ? '✗' : '⚠';
+              html += `<div class="${decisionClass}">${label} ${escapeHtml(leftId)}</div>`;
+            }
+          });
+          html += '</div>';
+        }
+        
+        html += '</div>';
+        info.innerHTML = html;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Literal
+from typing import Literal, Optional
 
 
 @dataclass
@@ -8,8 +8,8 @@ class Requirement:
     title: str
     text: str
     source: Literal["gspp", "gs"]
-    baustein: str | None = None
-    level: str | None = None
+    baustein: Optional[str] = None
+    level: Optional[str] = None
 
 
 @dataclass
@@ -19,4 +19,4 @@ class Match:
     confidence: float = 0.0
     coverage: Literal["voll", "teilweise", "keine"] = "keine"
     rationale: str = ""
-    gap_notes: str | None = None
+    gap_notes: Optional[str] = None
