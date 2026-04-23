@@ -13,7 +13,7 @@ from lxml import etree
 
 from . import parse_gs, parse_gspp, report
 from .discriminator import make_discriminator
-from .judge import combine_matches, make_judge
+from .judge import combine_matches, make_judge, preload_cache
 from .models import Match
 from .shortlist import make_shortlister
 from . import visualize_graph
@@ -393,7 +393,17 @@ def main(argv: list[str] | None = None) -> int:
         sl = make_shortlister(gspp_reqs, method=args.shortlist_method)
     else:
         sl = make_shortlister(gs_reqs, method=args.shortlist_method)
+
+    # Batch-encode all query embeddings now → top_k inside threaded loop = pure numpy.
+    if hasattr(sl, "precompute_queries"):
+        print(f"[i] precomputing query embeddings for {len(gspp_reqs)} GS++ items ...", file=sys.stderr)
+        sl.precompute_queries(gspp_reqs)
+
     judges = [make_judge(model) for model in models]
+
+    n_cached = preload_cache()
+    if n_cached:
+        print(f"[i] preloaded {n_cached} cached judge results into memory", file=sys.stderr)
 
     def _classify_one(i: int, q):
         cands = [r for r, _ in sl.top_k(q, k=args.top_k)]

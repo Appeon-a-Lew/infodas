@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 
 from .judge import _cache_get, _cache_key, _cache_put
 from .models import Match, Requirement
+from .rate_limit import estimate_tokens, get_limiter
 
 
 def _is_retryable(exc: Exception) -> bool:
@@ -317,11 +318,16 @@ class AnthropicDiscriminator(Discriminator):
         ckey = self._cache_id(match, user_prompt)
         cached = _cache_get(ckey)
         if cached is not None:
+            import sys as _sys
+            print(f"    [cache] disc hit {self.model} {match.gspp_id}", file=_sys.stderr, flush=True)
             return self._validate_decisions(self._payload_to_results(cached), match)
 
-        max_attempts = 5
+        limiter = get_limiter("ANTHROPIC")
+        est_tokens = estimate_tokens(DISCRIMINATOR_SYSTEM, user_prompt)
+        max_attempts = 8
         for attempt in range(1, max_attempts + 1):
             try:
+                limiter.acquire(est_tokens)
                 resp = self.client.messages.create(
                     model=self.model,
                     max_tokens=1024,
@@ -330,6 +336,12 @@ class AnthropicDiscriminator(Discriminator):
                     tool_choice={"type": "tool", "name": "discriminate_mapping"},
                     messages=[{"role": "user", "content": user_prompt}],
                 )
+                actual = 0
+                u = getattr(resp, "usage", None)
+                if u is not None:
+                    actual = (getattr(u, "input_tokens", 0) or 0) + (getattr(u, "output_tokens", 0) or 0)
+                if actual:
+                    limiter.reconcile(actual)
             except Exception as e:
                 if not _is_retryable(e) or attempt == max_attempts:
                     raise
@@ -414,9 +426,13 @@ class OpenAIDiscriminator(Discriminator):
         ckey = self._cache_id(match, user_prompt, extra=f"reff={use_reasoning_effort}")
         cached = _cache_get(ckey)
         if cached is not None:
+            import sys as _sys
+            print(f"    [cache] disc hit {self.model} {match.gspp_id}", file=_sys.stderr, flush=True)
             return self._validate_decisions(self._payload_to_results(cached), match)
 
-        max_attempts = 5
+        limiter = get_limiter("OPENAI")
+        est_tokens = estimate_tokens(DISCRIMINATOR_SYSTEM, user_prompt)
+        max_attempts = 8
         for attempt in range(1, max_attempts + 1):
             try:
                 resp = None
@@ -435,7 +451,11 @@ class OpenAIDiscriminator(Discriminator):
                         request_kwargs["reasoning_effort"] = "high"
 
                     try:
+                        limiter.acquire(est_tokens)
                         resp = self.client.chat.completions.create(**request_kwargs)
+                        actual = getattr(getattr(resp, "usage", None), "total_tokens", 0) or 0
+                        if actual:
+                            limiter.reconcile(actual)
                         break
                     except Exception as e:
                         err = str(e).lower()

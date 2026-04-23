@@ -9,9 +9,16 @@ from abc import ABC, abstractmethod
 from collections import defaultdict
 
 from .models import Match, Requirement
+from .rate_limit import estimate_tokens, get_limiter
 
 CACHE_DIR = pathlib.Path(os.environ.get("JUDGE_CACHE_DIR", ".cache/judge"))
 CACHE_ENABLED = os.environ.get("JUDGE_CACHE", "1") != "0"
+
+import threading as _threading
+_MEM_CACHE: dict[str, dict] = {}
+_MEM_LOCK = _threading.Lock()
+_MEM_NEG: set[str] = set()  # known-missing keys, avoid stat() repeat
+_PRELOADED = False
 
 
 def _cache_key(*parts: str) -> str:
@@ -22,22 +29,57 @@ def _cache_key(*parts: str) -> str:
     return h.hexdigest()
 
 
+def preload_cache() -> int:
+    """Load every cache file into RAM once. Avoids per-lookup disk I/O."""
+    global _PRELOADED
+    if not CACHE_ENABLED or _PRELOADED:
+        return len(_MEM_CACHE)
+    if not CACHE_DIR.exists():
+        _PRELOADED = True
+        return 0
+    count = 0
+    for f in CACHE_DIR.iterdir():
+        if f.suffix != ".json":
+            continue
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if isinstance(data, dict):
+            _MEM_CACHE[f.stem] = data
+            count += 1
+    _PRELOADED = True
+    return count
+
+
 def _cache_get(key: str) -> dict | None:
     if not CACHE_ENABLED:
         return None
+    hit = _MEM_CACHE.get(key)
+    if hit is not None:
+        return hit
+    if key in _MEM_NEG:
+        return None
     p = CACHE_DIR / f"{key}.json"
     if not p.exists():
+        _MEM_NEG.add(key)
         return None
     try:
         data = json.loads(p.read_text(encoding="utf-8"))
     except Exception:
         return None
-    return data if isinstance(data, dict) else None
+    if isinstance(data, dict):
+        _MEM_CACHE[key] = data
+        return data
+    return None
 
 
 def _cache_put(key: str, payload: dict) -> None:
     if not CACHE_ENABLED or not isinstance(payload, dict):
         return
+    with _MEM_LOCK:
+        _MEM_CACHE[key] = payload
+        _MEM_NEG.discard(key)
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     p = CACHE_DIR / f"{key}.json"
     tmp = p.with_suffix(".tmp")
@@ -236,15 +278,24 @@ class AnthropicJudge(Judge):
         cached = _cache_get(ckey)
         if cached is not None:
             return self._to_match(gspp.id, cached, valid_gs_ids)
+        user_msg = self._build_user(gspp, candidates)
+        limiter = get_limiter("ANTHROPIC")
+        est_tokens = estimate_tokens(SYSTEM_PROMPT, user_msg)
         for attempt in range(3):
+            limiter.acquire(est_tokens)
             resp = self.client.messages.create(
                 model=self.model,
                 max_tokens=1024,
                 system=SYSTEM_PROMPT,
                 tools=[tool],
                 tool_choice={"type": "tool", "name": "report_mapping"},
-                messages=[{"role": "user", "content": self._build_user(gspp, candidates)}],
+                messages=[{"role": "user", "content": user_msg}],
             )
+            u = getattr(resp, "usage", None)
+            if u is not None:
+                actual = (getattr(u, "input_tokens", 0) or 0) + (getattr(u, "output_tokens", 0) or 0)
+                if actual:
+                    limiter.reconcile(actual)
             for block in resp.content:
                 if getattr(block, "type", None) == "tool_use" and block.name == "report_mapping":
                     payload = block.input if isinstance(block.input, dict) else {}
@@ -272,16 +323,23 @@ class OpenAIJudge(Judge):
         cached = _cache_get(ckey)
         if cached is not None:
             return self._to_match(gspp.id, cached, valid_gs_ids)
+        user_msg = self._build_user(gspp, candidates)
+        limiter = get_limiter("OPENAI")
+        est_tokens = estimate_tokens(SYSTEM_PROMPT, user_msg)
         for attempt in range(3):
             try:
+                limiter.acquire(est_tokens)
                 resp = self.client.chat.completions.create(
                     model=self.model,
                     messages=[
                         {"role": "system", "content": SYSTEM_PROMPT},
-                        {"role": "user", "content": self._build_user(gspp, candidates)},
+                        {"role": "user", "content": user_msg},
                     ],
                     response_format={"type": "json_schema", "json_schema": schema},
                 )
+                actual = getattr(getattr(resp, "usage", None), "total_tokens", 0) or 0
+                if actual:
+                    limiter.reconcile(actual)
                 content = resp.choices[0].message.content or "{}"
                 payload = json.loads(content)
                 if isinstance(payload, dict):
@@ -382,7 +440,13 @@ class OpenRouterJudge(Judge):
                 file=_sys.stderr, flush=True,
             )
             try:
+                limiter = get_limiter("OPENROUTER")
+                est = estimate_tokens(SYSTEM_PROMPT, self._build_user(gspp, candidates))
+                limiter.acquire(est)
                 resp = self._make_call(gspp, candidates, extra_body)
+                actual = getattr(getattr(resp, "usage", None), "total_tokens", 0) or 0
+                if actual:
+                    limiter.reconcile(actual)
                 content = resp.choices[0].message.content or "{}"
                 dt = time.time() - t0
                 print(f"  [openrouter] done in {dt:.1f}s", file=_sys.stderr, flush=True)

@@ -1,12 +1,71 @@
 from __future__ import annotations
 
+import hashlib
 import os
+import pickle
+import sys
+from pathlib import Path
 from typing import Literal
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 from .models import Requirement
+
+QUERY_EMB_CACHE_DIR = Path(os.environ.get("QUERY_EMB_CACHE_DIR", ".cache/query_emb"))
+
+
+def _query_text(q: Requirement) -> str:
+    return f"query: {q.title}. {q.text[:500]}"
+
+
+def _text_hash(model_name: str, text: str) -> str:
+    h = hashlib.sha256()
+    h.update(model_name.encode("utf-8"))
+    h.update(b"\x00")
+    h.update(text.encode("utf-8"))
+    return h.hexdigest()
+
+
+def _precompute_with_cache(model, queries: list[Requirement], model_name: str) -> dict:
+    """Encode query embeddings, reusing disk cache for unchanged texts."""
+    safe = model_name.replace("/", "_")
+    cache_file = QUERY_EMB_CACHE_DIR / f"{safe}.pkl"
+    cache: dict[str, "np.ndarray"] = {}
+    if cache_file.exists():
+        try:
+            with open(cache_file, "rb") as f:
+                cache = pickle.load(f)
+        except Exception:
+            cache = {}
+
+    texts = [_text_hash(model_name, _query_text(q)) for q in queries]
+    missing_idx = [i for i, h in enumerate(texts) if h not in cache]
+
+    if missing_idx:
+        print(
+            f"[i] query-emb cache: {len(queries) - len(missing_idx)} hit, {len(missing_idx)} miss; encoding ...",
+            file=sys.stderr,
+        )
+        to_encode = [_query_text(queries[i]) for i in missing_idx]
+        new_embs = model.encode(
+            to_encode,
+            show_progress_bar=True,
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+            batch_size=32,
+        )
+        for j, i in enumerate(missing_idx):
+            cache[texts[i]] = new_embs[j]
+        QUERY_EMB_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        tmp = cache_file.with_suffix(".tmp")
+        with open(tmp, "wb") as f:
+            pickle.dump(cache, f, protocol=pickle.HIGHEST_PROTOCOL)
+        tmp.replace(cache_file)
+    else:
+        print(f"[i] query-emb cache: all {len(queries)} hit, no encode needed", file=sys.stderr)
+
+    return {q.id: cache[texts[i]] for i, q in enumerate(queries)}
 
 GERMAN_STOPWORDS = {
     "aber","alle","allem","allen","aller","alles","als","also","am","an","ander","andere","anderem",
@@ -75,8 +134,9 @@ class EmbeddingShortlister:
         from sentence_transformers import SentenceTransformer
         
         self.corpus = corpus
+        self.model_name = model_name
         self.model = SentenceTransformer(model_name, device=device)
-        
+
         # Pre-compute embeddings for corpus (this takes time but makes queries fast)
         print(f"[i] Computing embeddings for {len(corpus)} requirements using {model_name}...")
         self.embeddings = self.model.encode(
@@ -94,19 +154,22 @@ class EmbeddingShortlister:
 
     def top_k(self, query: Requirement, k: int = 15) -> list[tuple[Requirement, float]]:
         from sentence_transformers.util import cos_sim
-        
-        # Encode query
-        query_embedding = self.model.encode(
-            f"query: {query.title}. {query.text[:500]}",
-            normalize_embeddings=True,
-        )
-        
-        # Compute similarities
+
+        cached = getattr(self, "_query_emb", {}).get(query.id)
+        if cached is not None:
+            query_embedding = cached
+        else:
+            query_embedding = self.model.encode(
+                f"query: {query.title}. {query.text[:500]}",
+                normalize_embeddings=True,
+            )
+
         similarities = cos_sim(query_embedding, self.embeddings)[0]
-        
-        # Get top k
         top_indices = similarities.argsort(descending=True)[:k]
         return [(self.corpus[i], float(similarities[i])) for i in top_indices]
+
+    def precompute_queries(self, queries: list[Requirement]) -> None:
+        self._query_emb = _precompute_with_cache(self.model, queries, model_name=getattr(self, "model_name", type(self.model).__name__))
 
 
 class CachedEmbeddingShortlister:
@@ -156,15 +219,22 @@ class CachedEmbeddingShortlister:
 
     def top_k(self, query: Requirement, k: int = 15) -> list[tuple[Requirement, float]]:
         from sentence_transformers.util import cos_sim
-        
-        query_embedding = self.model.encode(
-            f"query: {query.title}. {query.text[:500]}",
-            normalize_embeddings=True,
-        )
-        
+
+        cached = getattr(self, "_query_emb", {}).get(query.id)
+        if cached is not None:
+            query_embedding = cached
+        else:
+            query_embedding = self.model.encode(
+                f"query: {query.title}. {query.text[:500]}",
+                normalize_embeddings=True,
+            )
+
         similarities = cos_sim(query_embedding, self.embeddings)[0]
         top_indices = similarities.argsort(descending=True)[:k]
         return [(self.corpus[i], float(similarities[i])) for i in top_indices]
+
+    def precompute_queries(self, queries: list[Requirement]) -> None:
+        self._query_emb = _precompute_with_cache(self.model, queries, model_name=self.model_name)
 
 
 def make_shortlister(

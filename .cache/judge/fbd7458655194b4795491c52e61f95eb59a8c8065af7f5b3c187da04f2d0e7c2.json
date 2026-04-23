@@ -1,0 +1,1 @@
+{"candidate_decisions": [{"gs_id": "APP.5.3.A8", "decision": "keep", "reasoning": "Notwendig, weil der Kandidat den Kernaspekt der GS++-Anforderung direkt abdeckt: Benutzende sollen Spam ignorieren und insbesondere nicht darauf antworten. Damit geht ohne ihn der einzige relevante Inhalt des Zieltexts verloren; es gibt keinen anderen Kandidaten, der diesen Aspekt abdeckt."}]}
